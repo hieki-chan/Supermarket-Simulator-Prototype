@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Default Local Group
+  m_EditorClassIdentifier: 
+  m_GroupName: Default Local Group
+  m_Data:
+    m_SerializedData: []
+  m_GUID: a7fd40cf12cbcfd4990b1bf4052c6377
+  m_SerializeEntries:
+  - m_GUID: 8c8d88ff7a64f0d40a49c8b53cf36422
+    m_Address: Assets/GameAssets/Products/Lemon Tree.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - products
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c8150ee50176ce34f98c67be9a7cb545
+    m_Address: Assets/GameAssets/Products/Bad Apple.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - products
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9ee9e806364ad484d98878f0d351346a
+    m_Address: Assets/GameAssets/Products/Vegetable rack.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - products
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 44106c2ab5f30144d85927a9cd72abad
+    m_Address: Assets/GameAssets/Products/Shelf.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - products
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9a57b13e79ad95546bbac8e7a10d9303
+    m_Address: Assets/GameAssets/Products/DinosaurMeat.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - products
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4ee34842c80998f4cac852be2723ed4d
+    m_Address: Assets/GameAssets/Licenses/Default.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - license
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 5e39c648b0407bc448a068ab14104db8, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 5997cff056a16bc4c947b658f3343c9a, type: 2}
+    - {fileID: 11400000, guid: 89afc5d5bcc96894dab098a634de1e87, type: 2}

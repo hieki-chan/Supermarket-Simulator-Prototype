@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8584411a03c50c245a198edb1eab0523, type: 3}
+  m_Name: DinosaurMeat
+  m_EditorClassIdentifier: 
+  m_Icon: {fileID: 21300000, guid: 109d460ffe4a10e4fb24a80c34a477c7, type: 3}
+  m_ProductType: 0
+  m_UnitCost:
+    value: 0.66
+  m_MarketPrice:
+    value: 1.25
+  m_UnitPerPack: 9
+  m_Company: {fileID: 11400000, guid: b043482dff08e7249ac459cffe7309b7, type: 2}
+  m_ProductOnSale: {fileID: 2573561983923335117, guid: cd73e2ce58f278e42b0792af7b89bdf2, type: 3}

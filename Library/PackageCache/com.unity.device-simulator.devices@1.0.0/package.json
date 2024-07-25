@@ -1,0 +1,15 @@
+{
+  "name": "com.unity.device-simulator.devices",
+  "displayName": "Device Simulator Devices",
+  "version": "1.0.0",
+  "unity": "2022.1",
+  "description": "This package contains additional devices for the Device Simulator. Each device has a complete device definition and includes a device overlay. After you install this package, the additional devices are immediately available in the Device Simulator.",
+  "upmCi": {
+    "footprint": "81ad45f7351700316a6d2e4484a01a0ab71af9ee"
+  },
+  "repository": {
+    "url": "https://github.cds.internal.unity3d.com/unity/com.unity.device-simulator.devices.git",
+    "type": "git",
+    "revision": "2e1ffaaea0624daf91ee6c76906fd119dbd584c6"
+  }
+}

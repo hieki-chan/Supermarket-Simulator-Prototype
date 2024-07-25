@@ -1,0 +1,54 @@
+{
+  "name": "com.unity.cinemachine",
+  "displayName": "Cinemachine",
+  "version": "2.10.1",
+  "unity": "2019.4",
+  "description": "Smart camera tools for passionate creators. \n\nNew starting from 2.7.1: Are you looking for the Cinemachine menu? It has moved to the GameObject menu.\n\nIMPORTANT NOTE: If you are upgrading from the legacy Asset Store version of Cinemachine, delete the Cinemachine asset from your project BEFORE installing this version from the Package Manager.",
+  "keywords": [
+    "camera",
+    "follow",
+    "rig",
+    "fps",
+    "cinematography",
+    "aim",
+    "orbit",
+    "cutscene",
+    "cinematic",
+    "collision",
+    "freelook",
+    "cinemachine",
+    "compose",
+    "composition",
+    "dolly",
+    "track",
+    "clearshot",
+    "noise",
+    "framing",
+    "handheld",
+    "lens",
+    "impulse"
+  ],
+  "category": "cinematography",
+  "dependencies": {
+    "com.unity.test-framework": "1.1.31"
+  },
+  "samples": [
+    {
+      "displayName": "Cinemachine Example Scenes",
+      "description": "Sample scenes illustrating various ways to use Cinemachine",
+      "path": "Samples~/Cinemachine Example Scenes"
+    }
+  ],
+  "_upm": {
+    "changelog": "- Bugfix: Solo was not updating when brain was in FixedUpdate.\n- Bugfix: Target Groups with zero active members now report their last valid position and dimensions.\n- Bugfix: Cinemachine cameras would sometimes unnecessarily dirty the scene due to floating-point imprecision when setting transform rotations.\n- Bugfix: The GroupAverage Rotation Mode in CinemachineTargetGroup was not calculated properly.\n- Bugfix: PostProcessing and VolumeSettings were not blending correctly to and from empty profiles.\n- Bugfix: added missing null check in CinemachineTargetGroup.WeightedMemberBoundsForValidMember.\n- Bugfix: RuntimeUtility.SphereCastIgnoreTag was sometimes retruning NaN result."
+  },
+  "upmCi": {
+    "footprint": "2e6c8bfd8272e81a0b5ac67d15fc7d1fefdc18cf"
+  },
+  "documentationUrl": "https://docs.unity3d.com/Packages/com.unity.cinemachine@2.10/manual/index.html",
+  "repository": {
+    "url": "https://github.com/Unity-Technologies/com.unity.cinemachine.git",
+    "type": "git",
+    "revision": "99f33a2a49de6506040887bf2cadade68d040e47"
+  }
+}
