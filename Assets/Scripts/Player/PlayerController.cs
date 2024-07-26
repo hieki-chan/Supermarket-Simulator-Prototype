@@ -3,8 +3,6 @@ using UnityEngine.InputSystem;
 using Hieki.Utils;
 using UnityEngine.Events;
 using System;
-using UnityEngine.EventSystems;
-using System.Collections.Generic;
 
 namespace Supermarket.Player
 {
@@ -50,8 +48,10 @@ namespace Supermarket.Player
         [SerializeField]
         private float maxInteractDistance;
 
+        public Interactable currentInteraction { get => m_currentInteraction; set { if (value == null && m_currentInteraction != null) OnInteractExit(); else m_currentInteraction = value; } }
+
         Interactable targetHovered;
-        Interactable currentInteraction;
+        Interactable m_currentInteraction;
 
         [Header("Throw")]
 
@@ -119,13 +119,13 @@ namespace Supermarket.Player
         private void MoveRelative(Vector2 direction)
         {
             Vector3 relativeDir = (transform.right * direction.x + transform.forward * direction.y) * (moveSpeed * Time.deltaTime);
-            if(m_Controller.enabled)
+            if (m_Controller.enabled)
                 m_Controller.Move(relativeDir);
         }
 
         private void Gravity()
         {
-            if(m_Controller.enabled)
+            if (m_Controller.enabled)
                 m_Controller.Move(Vector3.down * (Time.deltaTime * 2.5f));
         }
 
@@ -169,20 +169,21 @@ namespace Supermarket.Player
             {
                 if (hit.collider.transform.root.TryGetComponent<Interactable>(out var interaction))
                 {
-                    if(targetHovered == null)
+                    if (targetHovered == null)
                     {
-                        interaction.OnHoverEnter();
+                        HoverEnter(interaction);
                     }
                     else if (targetHovered != null && targetHovered != interaction)
                     {
-                        targetHovered.OnHoverExit();
-                        interaction.OnHoverEnter();
+                        HoverExit(targetHovered);
+
+                        HoverEnter(interaction);
                     }
                     //interact with target
                     targetHovered = interaction;
                     targetHovered.OnHover();
 
-                    if(currentInteraction != null)
+                    if (currentInteraction != null)
                     {
                         if (currentInteraction != targetHovered)
                         {
@@ -195,7 +196,7 @@ namespace Supermarket.Player
                 }
                 else
                 {
-                    if(currentInteraction != null)
+                    if (currentInteraction != null)
                     {
                         currentInteraction.OnHoverOther(hit.collider);
                     }
@@ -203,11 +204,11 @@ namespace Supermarket.Player
             }
             if (targetHovered != null)
             {
-                targetHovered.OnHoverExit();
+                HoverExit(targetHovered);
                 targetHovered = null;
             }
 
-            if(currentInteraction != null)
+            if (currentInteraction != null)
             {
                 currentInteraction.OnHoverOtherExit();
                 OnInteractWithUpdated?.Invoke(currentInteraction);
@@ -223,12 +224,12 @@ namespace Supermarket.Player
 
         private void OnTap(Vector2 screenPos)
         {
-/*            if (targetHovered == null)
-                return;*/
+            /*            if (targetHovered == null)
+                            return;*/
 
             if (RayCastTarget(screenPos, out RaycastHit hit))
             {
-                if(!hit.collider.transform.root.TryGetComponent<Interactable>(out var hitInteraction))
+                if (!hit.collider.transform.root.TryGetComponent<Interactable>(out var hitInteraction))
                 {
                     return;
                 }
@@ -243,23 +244,33 @@ namespace Supermarket.Player
                     return;
                 }
 
-                currentInteraction = targetHovered;
-                currentInteraction.OnInteract(this);
-                currentInteraction.OnNoInteraction += OnInteractExit;
+                //currentInteraction = targetHovered;
+                //currentInteraction.OnInteract(this);
+                targetHovered.OnInteract(this);
+                //currentInteraction.OnNoInteraction += OnInteractExit;
 
-                OnInteractWithUpdated?.Invoke(currentInteraction);
+                OnInteractWithUpdated?.Invoke(targetHovered);
             }
         }
 
-        public void OnInteractExit(Interactable targetInteraction)
+        public void OnInteractExit()
         {
-            if (currentInteraction != null && currentInteraction == targetInteraction )
-            {
-                currentInteraction.OnInteractExit();
-                OnInteractWithUpdated?.Invoke(null);
-                currentInteraction.OnNoInteraction -= OnInteractExit;
-                currentInteraction = null;
-            }
+            m_currentInteraction?.OnInteractExit();
+            OnInteractWithUpdated?.Invoke(null);
+            //currentInteraction.OnNoInteraction -= OnInteractExit;
+            m_currentInteraction = null;
+        }
+
+        private void HoverEnter(Interactable interaction)
+        {
+            interaction.OnHoverEnter(this);
+            OnHoverEntered?.Invoke(interaction);
+        }
+
+        private void HoverExit(Interactable interaction)
+        {
+            interaction.OnHoverExit();
+            OnHoverExited?.Invoke(interaction);
         }
 
         private bool RayCastTarget(Vector2 screenPos, out RaycastHit hit)
@@ -269,7 +280,9 @@ namespace Supermarket.Player
         }
 
         #region Player Model Events
-        public UnityAction<Interactable> OnInteractWithUpdated;
+        public UnityAction<Interactable> OnInteractWithUpdated { get; set; }
+        public UnityAction<Interactable> OnHoverEntered { get; set; }
+        public UnityAction<Interactable> OnHoverExited { get; set; }
         #endregion
 
 #if UNITY_EDITOR

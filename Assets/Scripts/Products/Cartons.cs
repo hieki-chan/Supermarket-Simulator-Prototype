@@ -33,6 +33,7 @@ public class Cartons : Interactable, IInteractButton01, IInteractButton02
 
     Storage storage;
     Transform tier;
+    PlayerController player;
 
     protected override void Awake()
     {
@@ -43,6 +44,8 @@ public class Cartons : Interactable, IInteractButton01, IInteractButton02
 
     public override void OnInteract(PlayerController targetPlayer)
     {
+        player = targetPlayer;
+        player.currentInteraction = this;
         PickUp(targetPlayer.cameraTrans);
     }
 
@@ -91,7 +94,7 @@ public class Cartons : Interactable, IInteractButton01, IInteractButton02
         rb.AddRelativeForce(Vector3.forward * (THROW_FORCE * Time.deltaTime), ForceMode.Impulse);
         rb.AddRelativeForce(Vector3.up * (THROW_FORCE_UP * Time.deltaTime), ForceMode.Impulse);
 
-        OnNoInteraction?.Invoke(this);
+        player.currentInteraction = null;
     }
 
     public void PlaceItem()

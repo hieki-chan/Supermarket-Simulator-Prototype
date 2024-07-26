@@ -27,6 +27,24 @@ namespace Supermarket.Pricing
             return value = Mathf.Round(value * 100f) / 100f;
         }
 
+        #region OVERRIDES
+        public override bool Equals(object obj)
+        {
+            return base.Equals(obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                return value.GetHashCode();
+            }
+        }
+
+        #endregion
+
+        #region OPERATORS
+
         public static StandardCurrency operator +(StandardCurrency value1, StandardCurrency value2)
         {
             return new StandardCurrency() { Value = value1.Value + value2.Value };
@@ -42,6 +60,16 @@ namespace Supermarket.Pricing
             return new StandardCurrency() { Value = value1.Value * f };
         }
 
+        public static bool operator ==(StandardCurrency val1, StandardCurrency val2)
+        {
+            return val1.Value == val2.Value;
+        }
+
+        public static bool operator !=(StandardCurrency val1, StandardCurrency val2)
+        {
+            return val1.Value != val2.Value;
+        }
+
         public static bool operator >(StandardCurrency value1, StandardCurrency value2)
         {
             return value1.Value > value2.Value;
@@ -52,6 +80,9 @@ namespace Supermarket.Pricing
             return value1.Value < value2.Value;
         }
 
+        #endregion
+
+        #region IMPLICITS
 
         public static implicit operator float(StandardCurrency value)
         {
@@ -65,5 +96,12 @@ namespace Supermarket.Pricing
                 Value = v,
             };
         }
+
+        public static implicit operator string(StandardCurrency c)
+        {
+            return c.ToString();
+        }
+
+        #endregion
     }
 }

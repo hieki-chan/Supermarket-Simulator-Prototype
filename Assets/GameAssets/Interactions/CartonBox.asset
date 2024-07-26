@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80807b0bb0bb4674680586dbc5fcb72d, type: 3}
   m_Name: CartonBox
   m_EditorClassIdentifier: 
-  tooltips: 
+  tooltips: Tap to hold

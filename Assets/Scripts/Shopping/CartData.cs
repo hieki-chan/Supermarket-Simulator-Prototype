@@ -1,5 +1,6 @@
 ﻿using Supermarket;
 using Supermarket.Pricing;
+using Supermarket.Products;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,9 +18,11 @@ public class CartData
 
     public void Add(CartItem item)
     {
-        if (m_CartItems.TryGetValue(item.product.Company, out List<CartItem> cartItems))
+        ProductInfo info = item.product;
+
+        if (m_CartItems.TryGetValue(info.Company, out List<CartItem> cartItems))
         {
-            int i = cartItems.FindIndex(i => i.product == item.product);
+            int i = cartItems.FindIndex(i => i.product == info);
             if (i != -1)
             {
                 CartItem it = cartItems[i];
@@ -40,17 +43,17 @@ public class CartData
             {
                 item
             };
-            m_CartItems.Add(item.product.Company, cartItems);
+            m_CartItems.Add(info.Company, cartItems);
         }
-
-        totalCost += item.product.UnitCost * item.amount;
+        totalCost += (info.UnitCost * info.UnitPerPack * item.amount);
     }
 
     public void Remove(Company company, int index)
     {
         if (m_CartItems.TryGetValue(company, out List<CartItem> cartItems))
         {
-            totalCost -= (cartItems[index].product.UnitCost * cartItems[index].amount);
+            ProductInfo info = cartItems[index].product;
+            totalCost -= (info.UnitCost * info.UnitPerPack * cartItems[index].amount);
             cartItems.RemoveAt(index);
         }
     }

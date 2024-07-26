@@ -154,7 +154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bea092322750cde4b9a076104b66b683, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interaction: {fileID: 0}
+  m_interactionInfo: {fileID: 0}
   textMesh: {fileID: 134483864}
 --- !u!114 &1560511
 MonoBehaviour:
@@ -2689,7 +2689,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1286941b85ab5564ba57002da23c6852, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cartData: {}
+  cartData:
+    totalCost:
+      value: 0
   shopView: {fileID: 573202046}
   deliveryManager: {fileID: 1649999488}
 --- !u!4 &255447686
@@ -10654,6 +10656,8 @@ MonoBehaviour:
   Storages: []
   CheckoutDesk: {fileID: 0}
   Laptop: {fileID: 0}
+  money:
+    value: 0
   priceSettings: {fileID: 30099087}
 --- !u!4 &1374580048
 Transform:
@@ -11255,6 +11259,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 044efcb986a0a4f488e8f0110156a241, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  chance: 1
 --- !u!65 &1394087720
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -12979,7 +12984,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bea092322750cde4b9a076104b66b683, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interaction: {fileID: 0}
+  m_interactionInfo: {fileID: 0}
   textMesh: {fileID: 0}
 --- !u!114 &1607380494
 MonoBehaviour:
@@ -13684,6 +13689,7 @@ MonoBehaviour:
   InteractionPresenter:
     model: {fileID: 872086144}
     view: {fileID: 934955772}
+    tooltips: {fileID: 739860767}
 --- !u!114 &1649999488
 MonoBehaviour:
   m_ObjectHideFlags: 0

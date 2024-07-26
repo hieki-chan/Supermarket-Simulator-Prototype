@@ -1,5 +1,4 @@
 ﻿using Supermarket.Pricing;
-using Supermarket.Products;
 using System;
 using TMPro;
 using UnityEngine;
@@ -26,9 +25,9 @@ public class PriceSettingView : MonoBehaviour
     [Space]
     public Button OkButton;
 
+    ItemPricing itemPricing;
 
-    ItemPricing item;
-    Action<float> OnOk;
+    Action<StandardCurrency> OnOk;
 
     private void Awake()
     {
@@ -40,23 +39,21 @@ public class PriceSettingView : MonoBehaviour
         OkButton.onClick.AddListener(OnOK);
     }
 
-    public void Set(ProductInfo productInfo, Action<float> OnOk)
+    public void Set(ItemPricing itemPricing, Action<StandardCurrency> OnOk)
     {
-        SupermarketManager supermarket = SupermarketManager.Mine;
+        this.itemPricing = itemPricing;
+        currentPrice = itemPricing.price;
 
-        item =  supermarket.GetItemPricing(productInfo);
-        currentPrice = item.price;
-
-        icon.sprite = productInfo.Icon;
-        productName.text = productInfo.name;
-        productCost.text = productInfo.UnitCost.ToString();
-        productPrice.text = item.price.ToString();
+        icon.sprite = itemPricing.product.Icon;
+        productName.text = itemPricing.product.name;
+        productCost.text = itemPricing.product.UnitCost.ToString();
+        productPrice.text = itemPricing.price.ToString();
         
-        marketPrice.text = $"MARKET PRICE: {productInfo.MarketPrice}";
-        profit.text = (currentPrice - productInfo.UnitCost).ToString();
+        marketPrice.text = $"MARKET PRICE: {itemPricing.product.MarketPrice}";
+        profit.text = (currentPrice - itemPricing.product.UnitCost).ToString();
 
         slider.minValue = 0;
-        slider.maxValue = productInfo.UnitCost + 5;
+        slider.maxValue = (itemPricing.product.UnitCost * 2.55f).Rounded();
         slider.value = currentPrice;
 
         this.OnOk = OnOk;
@@ -69,6 +66,7 @@ public class PriceSettingView : MonoBehaviour
         currentPrice = Mathf.Clamp(val, slider.minValue, slider.maxValue);
         currentPrice = Mathf.Round(currentPrice * 100f) / 100f;
         productPrice.text = currentPrice.ToString();
+        profit.text = (currentPrice - itemPricing.product.UnitCost).ToString();
     }
 
     void Plus()

@@ -114,7 +114,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83160dab9e17d894b92548c99a2d1a87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interaction: {fileID: 11400000, guid: b94ce449b80c05349ab13ee00e0a0dba, type: 2}
+  m_interactionInfo: {fileID: 11400000, guid: b94ce449b80c05349ab13ee00e0a0dba, type: 2}
   ProductInBox: []
   grid:
     transform: {fileID: 8769132595697039349}

@@ -1,15 +1,15 @@
 ﻿using Supermarket.Player;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace Supermarket
 {
     [RequireComponent(typeof(Outline))]
     public abstract class Interactable : MonoBehaviour
     {
-        [SerializeField] private InteractionInfo interaction;
+        public InteractionInfo interactionInfo => m_interactionInfo;
+        [SerializeField] private InteractionInfo m_interactionInfo;
 
-        public UnityAction<Interactable> OnNoInteraction;
+        //public UnityAction<Interactable> OnNoInteraction;
 
         protected Outline outline;
 
@@ -21,7 +21,7 @@ namespace Supermarket
 
         #region Hovering
 
-        public virtual void OnHoverEnter()
+        public virtual void OnHoverEnter(PlayerController player)
         {
             outline.enabled = true;
         }
@@ -87,11 +87,6 @@ namespace Supermarket
         public virtual void OnInteractOtherExit()
         {
 
-        }
-
-        protected virtual void InteractExit()
-        {
-            OnNoInteraction?.Invoke(this);
         }
         #endregion
     }

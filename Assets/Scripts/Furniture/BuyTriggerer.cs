@@ -4,9 +4,10 @@ using UnityEngine;
 
 public sealed class BuyTriggerer : MonoBehaviour
 {
+    [SerializeField, Range(0, 1)] private float chance;
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.TryGetComponent<Customer>(out var customer) && RandomUtils.Chance(.4f))
+        if (other.gameObject.TryGetComponent<Customer>(out var customer) && RandomUtils.Chance(chance))
         {
             customer.StateHandler.SwitchState<HeadingToStorageState>();
         }

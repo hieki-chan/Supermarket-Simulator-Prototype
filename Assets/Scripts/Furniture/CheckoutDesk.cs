@@ -2,6 +2,7 @@
 using Supermarket;
 using Supermarket.Customers;
 using Supermarket.Player;
+using Supermarket.Pricing;
 using Supermarket.Products;
 using System;
 using System.Collections.Generic;
@@ -100,6 +101,8 @@ public sealed class CheckoutDesk : Interactable, IInteractButton01
 
         player.transform.LeanMove(Offset(seatOffset), .35f);
         player.cameraTrans.LeanRotate(lookEuler, .35f);
+
+        player.currentInteraction = this;
     }
 
     public override void OnInteractOther(Interactable other)
@@ -112,7 +115,8 @@ public sealed class CheckoutDesk : Interactable, IInteractButton01
             });
 
             packedCout--;
-            totalCost += product.ProductInfo.UnitCost;
+            ItemPricing price = SupermarketManager.Mine.GetItemPricing(product.ProductInfo);
+            totalCost += price.price;
             screenText.text = $"Total: {totalCost}";
 
             if (packedCout == 0)
@@ -127,6 +131,7 @@ public sealed class CheckoutDesk : Interactable, IInteractButton01
         if (other is PaymentObject obj)
         {
             currentPayment = obj;
+            currentPayment.SetValue(totalCost);
             Customer.PaymentObjectPool.Return(obj.PaymentType, obj);
 
             screenText.text = obj.PaymentType switch
@@ -140,8 +145,7 @@ public sealed class CheckoutDesk : Interactable, IInteractButton01
             switch (obj.PaymentType)
             {
                 case PaymentType.CreditCard:
-                    currentPayment.value = totalCost;
-                    paymentTerminal.Check(obj.value, OnPayCorrect, OnPayIncorrect);
+                    paymentTerminal.Check(currentPayment.value, OnPayCorrect, OnPayIncorrect);
                     break;
                 case PaymentType.Cash:
                     moneyChangePannel.Check(GetMoney, OnResetMoney, OnOK);
@@ -158,9 +162,8 @@ public sealed class CheckoutDesk : Interactable, IInteractButton01
         player.disableMove = false;
         player.disableLook = false;
 
+        player.currentInteraction = null;
         player = null;
-
-        InteractExit();
     }
 
     public (CheckoutPoint point, int index) GetEmptyPoint()

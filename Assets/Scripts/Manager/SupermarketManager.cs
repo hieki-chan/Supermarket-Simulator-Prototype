@@ -1,4 +1,3 @@
-using Supermarket;
 using Supermarket.Customers;
 using Supermarket.Pricing;
 using Supermarket.Products;
@@ -41,7 +40,7 @@ public class SupermarketManager : MonoBehaviour
     {
         ItemPricing item = itemPricings.FirstOrDefault(a => a.product == product);
 
-        if(item == null)
+        if (item == null)
         {
             item = new ItemPricing()
             {
@@ -76,9 +75,20 @@ public class SupermarketManager : MonoBehaviour
         return null;
     }
 
-    public void Pay(PaymentType type, StandardCurrency totalValue)
+    public bool TryConsume(StandardCurrency amout)
     {
+        if(money >= amout)
+        {
+            money -= amout;
+            return true;
+        }
 
+        return false;
+    }
+
+    public void Store(StandardCurrency amout)
+    {
+        money += amout;
     }
 
 

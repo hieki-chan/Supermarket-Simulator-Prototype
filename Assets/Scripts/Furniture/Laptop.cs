@@ -13,6 +13,7 @@ public sealed class Laptop : Interactable
         player = targetPlayer;
         player.disableLook = true;
         player.disableMove = true;
+        player.currentInteraction = this;
 
         OnOpenShop?.Invoke();
     }
@@ -23,6 +24,6 @@ public sealed class Laptop : Interactable
             return;
         player.disableLook = false;
         player.disableMove = false;
-        InteractExit();
+        player.currentInteraction = null;
     }
 }

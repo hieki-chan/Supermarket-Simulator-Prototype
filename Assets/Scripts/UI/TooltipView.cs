@@ -13,14 +13,18 @@ public class TooltipView : MonoBehaviour
         rectTransform = GetComponent<RectTransform>();
     }
 
-    private void OnEnable()
+    public void Show(string text)
     {
+        tooltipText.text = text;
+        gameObject.SetActive(true);
         rectTransform.anchoredPosition = Vector3.zero;
         LeanTween.moveY(rectTransform, 50, .2f);
     }
 
     public void Hide()
     {
+        if (!gameObject.activeSelf)
+            return;
         LeanTween.moveY(rectTransform, 0, .2f);
         Flag.Disable(gameObject, .25f);
     }

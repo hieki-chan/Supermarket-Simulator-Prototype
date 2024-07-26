@@ -22,7 +22,7 @@ namespace Supermarket
 
         public void SetValue(float val)
         {
-            value = val + Random.Range(0, 100f);
+            value = val + (PaymentType == PaymentType.Cash ? Random.Range(0, 100f) : 0);
         }
 
         public void OnPayCorrect()

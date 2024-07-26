@@ -23,7 +23,7 @@ public class DeliveryManager : MonoBehaviour
             {
                 Company = key,
                 CartItems = items[key],
-                time = 5,
+                time = 2,
             });
         }
         if(!delivering)

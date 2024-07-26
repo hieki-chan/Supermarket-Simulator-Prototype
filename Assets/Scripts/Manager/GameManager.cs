@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-#if UNITY_EDITOR
+/*#if UNITY_EDITOR
     private void OnGUI()
     {
         GUILayout.BeginArea(new Rect(0, 0, 200, 100));
@@ -10,5 +10,5 @@ public class GameManager : MonoBehaviour
         Time.timeScale = GUILayout.HorizontalSlider(Time.timeScale, 0, 5);
         GUILayout.EndArea();
     }
-#endif
+#endif*/
 }

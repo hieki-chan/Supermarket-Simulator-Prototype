@@ -2,13 +2,13 @@
 using UnityEngine;
 using Hieki.Utils;
 using Supermarket.Player;
+using System.Collections.Generic;
 
 namespace Supermarket.Customers
 {
-    public class Storage : Interactable
+    public class Storage : Interactable, IInteractButton01, IInteractButton02
     {
         static SimplePool<PriceTag> PriceTagPool;
-
 
         [SerializeField] private ProductInfo furnitureInfo;
         public ArrangementGrid[] grids;
@@ -16,18 +16,31 @@ namespace Supermarket.Customers
         [SerializeField] private PriceTag priceTagPrefab;
         [SerializeField] private Vector3 priceTagPositionOffse;
 
-        PriceTag[] activePriceTags;
+        PriceTag[] activePriceTagsSelf;
+
+        public State state { get; private set; }
+
+        [Header("Rotation")]
+        [SerializeField] private float range;
+        PlayerController player;
+
+        public enum State
+        {
+            Normal,
+            Moving,
+        }
 
         protected override void Awake()
         {
             base.Awake();
             PriceTagPool ??= new SimplePool<PriceTag>(priceTagPrefab, 9);
-            activePriceTags = new PriceTag[grids.Length];
+            activePriceTagsSelf = new PriceTag[grids.Length];
         }
 
-        public override void OnInteract(PlayerController targetPlayer)
+        public override void OnHoverEnter(PlayerController player)
         {
-            base.OnInteract(targetPlayer);
+            base.OnHoverEnter(player);
+            this.player = player;
         }
 
         public bool TryArrangeProduct(ProductOnSale product, Transform tier)
@@ -39,13 +52,14 @@ namespace Supermarket.Customers
                 if (gridTrans == tier || gridTrans == tier.parent)
                 {
                     bool isSuccess = grid.Push(product, false);
-                    if (activePriceTags[i] == null)
+                    if (activePriceTagsSelf[i] == null)
                     {
                         PriceTag tag = PriceTagPool.GetOrCreate(priceTagPrefab, Position.Offset(gridTrans, priceTagPositionOffse), transform.rotation);
                         //tag.transform.parent = gridTrans;
                         tag.transform.position += transform.forward;
-                        tag.product = product;
-                        activePriceTags[i] = tag;
+                        tag.productInfo = product.ProductInfo;
+                        activePriceTagsSelf[i] = tag;
+                        PriceTag.ActivePriceTags.Add(tag);
                     }
 
                     if (isSuccess)
@@ -94,11 +108,14 @@ namespace Supermarket.Customers
                 {
                     ProductOnSale product = grid.Pop();
 
-                    if (grid.Count == 0 && activePriceTags[i] != null)
+                    if (grid.Count == 0 && activePriceTagsSelf[i] != null)
                     {
-                        PriceTagPool.Return(activePriceTags[i]);
-                        activePriceTags[i] = null;
+                        PriceTagPool.Return(activePriceTagsSelf[i]);
+                        activePriceTagsSelf[i] = null;
                     }
+
+                    Debug.Log(product, product);
+
                     return product;
                 }
 
@@ -109,12 +126,60 @@ namespace Supermarket.Customers
             return null;
         }
 
-        public void RotateLeft90()
+        //ROTATION
+
+        public bool GetButtonState01()
         {
-            transform.rotation = Quaternion.Euler(0, transform.eulerAngles.x + 90, 0);
+            return true;
         }
 
-        public void RotateRight90()
+        public string GetButtonTitle01()
+        {
+            return player.currentInteraction != this ? "Move" : "Ok";
+        }
+
+        public void OnClick_Button01()
+        {
+            if (player.currentInteraction == this)
+            {
+                MoveDone();
+                return;
+            }
+            player.currentInteraction = this;
+            transform.parent = player.transform;
+            Vector3 fwd = player.transform.position + player.transform.forward * range;
+            transform.position.Set(fwd.x, transform.position.y, fwd.z);
+            state = State.Moving;
+        }
+
+        public bool GetButtonState02()
+        {
+            return player.currentInteraction == this;
+        }
+
+        public string GetButtonTitle02()
+        {
+            return "Rotate Left 90";
+        }
+
+        public void OnClick_Button02()
+        {
+            RotateLeft90();
+        }
+
+        void MoveDone()
+        {
+            player.currentInteraction = null;
+            transform.parent = null;
+            state = State.Normal;
+        }
+
+        void RotateLeft90()
+        {
+            transform.rotation = Quaternion.Euler(0, transform.eulerAngles.y + 90, 0);
+        }
+
+        void RotateRight90()
         {
             transform.rotation = Quaternion.Euler(0, transform.eulerAngles.x - 90, 0);
         }

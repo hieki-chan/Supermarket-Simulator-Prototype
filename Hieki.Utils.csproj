@@ -64,6 +64,7 @@
     <Compile Include="Assets\Scripts\Hieki.Utils\Extensions\StringExtensions.cs" />
     <Compile Include="Assets\Scripts\Hieki.Utils\Extensions\VectorExtensions.cs" />
     <Compile Include="Assets\Scripts\Hieki.Utils\RandomUtils.cs" />
+    <Compile Include="Assets\Scripts\Hieki.Utils\Extensions\AnimatorExtensions.cs" />
     <Compile Include="Assets\Scripts\Hieki.Utils\Extensions\ArrayExtensions.cs" />
     <Compile Include="Assets\Scripts\Hieki.Utils\Flag.cs" />
     <Compile Include="Assets\Scripts\Hieki.Utils\Extensions\ListExtensions.cs" />

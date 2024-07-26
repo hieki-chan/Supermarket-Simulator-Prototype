@@ -84,7 +84,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7b643e4c7037084b8eb8b1bf852f37f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interaction: {fileID: 0}
+  m_interactionInfo: {fileID: 0}
   furnitureInfo: {fileID: 11400000, guid: 9ee9e806364ad484d98878f0d351346a, type: 2}
   grids:
   - transform: {fileID: 5681604614598586869}
@@ -122,6 +122,7 @@ MonoBehaviour:
     displayColor: {r: 1, g: 0, b: 0.18110228, a: 1}
   priceTagPrefab: {fileID: 1190130154583990490, guid: c0d42d9ddaf58654c9a2278b3cb703bb, type: 3}
   priceTagPositionOffse: {x: 0, y: 0, z: 0}
+  range: 2
 --- !u!1 &3091803834982494205
 GameObject:
   m_ObjectHideFlags: 0

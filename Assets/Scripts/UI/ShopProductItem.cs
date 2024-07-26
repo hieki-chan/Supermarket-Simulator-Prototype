@@ -51,7 +51,7 @@ public class ShopProductItem : MonoBehaviour
 
     private void CalculateTotalCost()
     {
-        totalText.text = (product.UnitCost * amount).ToString();
+        totalText.text = (product.UnitCost * product.UnitPerPack * amount).ToString();
     }
 
     public UnityEvent<CartItem> OnAddToCart;
