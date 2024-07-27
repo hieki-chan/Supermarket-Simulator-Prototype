@@ -1,7 +1,5 @@
 #if !UNITY_FLASH
 using UnityEngine;
-using System.Collections;
-using DentedPixel;
 
 public class GeneralEventsListeners : MonoBehaviour {
 

@@ -18,4 +18,7 @@ MonoBehaviour:
     value: 0
   m_MarketPrice:
     value: 0
+  m_UnitPerPack: 0
   m_Company: {fileID: 11400000, guid: 20f6839c12f89b243a1fa37cf1056d20, type: 2}
+  m_ProductOnSale: {fileID: 0}
+  m_Furniture: {fileID: 1922493800882088766, guid: 8d3acb0e802b6d844b85acb5df083602, type: 3}

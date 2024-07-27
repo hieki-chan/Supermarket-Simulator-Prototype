@@ -1,10 +1,9 @@
 using UnityEngine;
-using System.Collections;
-using DentedPixel;
 
-namespace DentedPixel.LTExamples{
+namespace DentedPixel.LTExamples
+{
 
-public class PathBezier : MonoBehaviour {
+    public class PathBezier : MonoBehaviour {
 
 	public Transform[] trans;
 	

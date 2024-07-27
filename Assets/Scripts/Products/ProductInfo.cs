@@ -30,6 +30,9 @@ namespace Supermarket.Products
         public ProductOnSale ProductOnSale => m_ProductOnSale;
         [SerializeField] ProductOnSale m_ProductOnSale;
 
+        public Furniture Furniture => m_Furniture;
+        [SerializeField] Furniture m_Furniture;
+
 #if UNITY_EDITOR
         private void OnValidate()
         {

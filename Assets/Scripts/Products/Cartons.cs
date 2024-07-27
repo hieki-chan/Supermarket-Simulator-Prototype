@@ -2,7 +2,6 @@
 using Supermarket.Player;
 using Supermarket.Customers;
 using Supermarket.Products;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Cartons : Interactable, IInteractButton01, IInteractButton02
@@ -16,7 +15,7 @@ public class Cartons : Interactable, IInteractButton01, IInteractButton02
     }
 #endif
 
-    public List<ProductOnSale> ProductInBox;
+    public Furniture furniture;
 
     public ArrangementGrid grid;
 
@@ -40,6 +39,11 @@ public class Cartons : Interactable, IInteractButton01, IInteractButton02
         base.Awake();
         rb = GetComponent<Rigidbody>();
         col = GetComponent<Collider>();
+    }
+
+    private void OnEnable()
+    {
+        furniture = null;
     }
 
     public override void OnInteract(PlayerController targetPlayer)
@@ -117,6 +121,11 @@ public class Cartons : Interactable, IInteractButton01, IInteractButton02
         }
     }
 
+    public void PackFurniture(Furniture furniture)
+    {
+        this.furniture = furniture;
+    }
+
     public ProductOnSale GetItem()
     {
         return grid.Peek();
@@ -125,6 +134,11 @@ public class Cartons : Interactable, IInteractButton01, IInteractButton02
     public ProductOnSale GetItemOut()
     {
         return grid.Pop();
+    }
+
+    public bool IsEmpty()
+    {
+        return grid.Count == 0 && furniture == null;
     }
 
 

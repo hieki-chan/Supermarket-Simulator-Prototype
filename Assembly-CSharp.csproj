@@ -88,7 +88,6 @@
     <Compile Include="Assets\Scripts\StateMachine\IState.cs" />
     <Compile Include="Assets\Scripts\UI\InteractButtonsView.cs" />
     <Compile Include="Assets\Scripts\Customer\States\Base\CustomerStateHandler.cs" />
-    <Compile Include="Assets\Scripts\Pricing\ICurrency.cs" />
     <Compile Include="Assets\Scripts\Furniture\CheckoutDesk.cs" />
     <Compile Include="Assets\Scripts\MVP\Presenter.cs" />
     <Compile Include="Assets\Scripts\Shopping\OnlineShopManager.cs" />
@@ -101,15 +100,17 @@
     <Compile Include="Assets\Scripts\Furniture\PriceTag.cs" />
     <Compile Include="Assets\Scripts\Furniture\Laptop.cs" />
     <Compile Include="Assets\Scripts\Customer\Customer.cs" />
-    <Compile Include="Assets\Scripts\Furniture\BuyTriggerer.cs" />
     <Compile Include="Assets\Scripts\Customer\States\ChoosingState.cs" />
+    <Compile Include="Assets\Scripts\Furniture\BuyTriggerer.cs" />
     <Compile Include="Assets\Scripts\Customer\CustomerMood.cs" />
     <Compile Include="Assets\Scripts\Products\ProductOnSale.cs" />
     <Compile Include="Assets\Scripts\Shopping\Search\Fuzz.cs" />
     <Compile Include="Assets\Scripts\Pricing\ItemPricing.cs" />
+    <Compile Include="Assets\Scripts\Furniture\GarbageBin.cs" />
     <Compile Include="Assets\Scripts\UI\TooltipView.cs" />
     <Compile Include="Assets\Scripts\UI\PriceSettingView.cs" />
     <Compile Include="Assets\Scripts\UI\PaymentTerminal.cs" />
+    <Compile Include="Assets\Scripts\Furniture\Furniture.cs" />
     <Compile Include="Assets\Scripts\StateMachine\ITransition.cs" />
     <Compile Include="Assets\Scripts\Manager\DeliveryManager.cs" />
     <Compile Include="Assets\Scripts\Products\ProductInfo.cs" />
@@ -127,6 +128,7 @@
     <Compile Include="Assets\Scripts\Shopping\CartData.cs" />
     <Compile Include="Assets\Scripts\Customer\PaymentObject.cs" />
     <Compile Include="Assets\Scripts\Time-Weather\RealTimeWeather.cs" />
+    <Compile Include="Assets\Scripts\Furniture\AnimeFigure.cs" />
     <Compile Include="Assets\Scripts\UI\LookZone.cs" />
   </ItemGroup>
   <ItemGroup>

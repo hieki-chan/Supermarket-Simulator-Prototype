@@ -2,11 +2,10 @@
 using UnityEngine;
 using Hieki.Utils;
 using Supermarket.Player;
-using System.Collections.Generic;
 
 namespace Supermarket.Customers
 {
-    public class Storage : Interactable, IInteractButton01, IInteractButton02
+    public class Storage : Furniture, IInteractButton01, IInteractButton02
     {
         static SimplePool<PriceTag> PriceTagPool;
 

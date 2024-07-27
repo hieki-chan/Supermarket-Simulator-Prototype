@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Supermarket.Products;
 
 public class DeliveryManager : MonoBehaviour
 {
@@ -47,7 +48,10 @@ public class DeliveryManager : MonoBehaviour
                     {
                         Cartons box = Cartons.Pool.GetOrCreate(Vector3.up * 5, Quaternion.identity);
 
-                        box.PackItem(item.product.ProductOnSale, item.product.UnitPerPack);
+                        if (item.product.ProductType == ProductType.Products)
+                            box.PackItem(item.product.ProductOnSale, item.product.UnitPerPack);
+                        else
+                            box.PackFurniture(item.product.Furniture);
 
                         yield return waitForBox;
                     }

@@ -53,6 +53,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - license
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8b194391cf87f6344a6cab454baad2cf
+    m_Address: Assets/GameAssets/Products/Anime Figure.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - products
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 5e39c648b0407bc448a068ab14104db8, type: 2}
   m_SchemaSet:
