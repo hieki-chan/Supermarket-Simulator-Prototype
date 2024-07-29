@@ -53,7 +53,8 @@ namespace Supermarket.Products
         [SerializeField] private LeanTweenType tween = LeanTweenType.easeInSine;
         [SerializeField] private float tweenTime = .25f;
 
-        public int Count => products.Count;
+        public int Count => /*products.Count;*/ count;
+        [SerializeField] private int count;
         public Stack<ProductOnSale> products = new Stack<ProductOnSale>();
 
         public bool Push(ProductOnSale product, bool setParent = true)
@@ -63,7 +64,7 @@ namespace Supermarket.Products
                 Debug.LogWarning($"{p.GetType()} and {product.GetType()} are not the same type", transform);
                 return false;
             }
-            int count = products.Count;
+            int count = Count;
 
             Vector2 size = product.GetWorldSize();
 
@@ -156,13 +157,16 @@ namespace Supermarket.Products
             worldPos += startCorner;
             worldPos = worldPos.RotateVector(transform.eulerAngles.y) + origin;
 
-            product.transform.LeanMove(worldPos, tweenTime).setEase(tween);
+            product.transform.LeanMove(worldPos, tweenTime).setEase(tween).setOnComplete(() =>
+            {
+                //product.transform.position = worldPos;
+                if (setParent)
+                    product.transform.parent = transform;
+                //product.transform.localRotation = Quaternion.identity;
+                products.Push(product);
+            });
 
-            //product.transform.position = worldPos;
-            if(setParent)
-                product.transform.parent = transform;
-            //product.transform.localRotation = Quaternion.identity;
-            products.Push(product);
+            this.count++;
 
             return true;
         }
@@ -171,6 +175,7 @@ namespace Supermarket.Products
         {
             if (products.TryPop(out var product))
             {
+                count--;
                 return product;
             }
 

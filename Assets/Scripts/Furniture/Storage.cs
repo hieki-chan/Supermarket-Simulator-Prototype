@@ -51,6 +51,9 @@ namespace Supermarket.Customers
                 if (gridTrans == tier || gridTrans == tier.parent)
                 {
                     bool isSuccess = grid.Push(product, false);
+                    if (!isSuccess)
+                        continue;
+
                     if (activePriceTagsSelf[i] == null)
                     {
                         PriceTag tag = PriceTagPool.GetOrCreate(priceTagPrefab, Position.Offset(gridTrans, priceTagPositionOffse), transform.rotation);
@@ -61,9 +64,8 @@ namespace Supermarket.Customers
                         PriceTag.ActivePriceTags.Add(tag);
                     }
 
-                    if (isSuccess)
-                        product.transform.parent = transform.parent;
-
+                    product.transform.parent = transform;
+                    product.transform.localRotation = Quaternion.identity;
                     return isSuccess;
                 }
             }
@@ -112,8 +114,6 @@ namespace Supermarket.Customers
                         PriceTagPool.Return(activePriceTagsSelf[i]);
                         activePriceTagsSelf[i] = null;
                     }
-
-                    Debug.Log(product, product);
 
                     return product;
                 }

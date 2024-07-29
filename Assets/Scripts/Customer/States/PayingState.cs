@@ -20,6 +20,7 @@ public class PayingState : CustomerStateBase
     public override void OnStateEnter()
     {
         paid = false;
+        Customer.currentStorage = null;
         CheckoutDesk checkoutDesk = SupermarketManager.Mine.CheckoutDesk;
 
         for (int i = 0; i < Customer.productsInBag.Count; i++)

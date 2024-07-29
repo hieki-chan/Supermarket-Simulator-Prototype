@@ -93,12 +93,12 @@ public class ChoosingState : CustomerStateBase
 
     IEnumerator TakeProduct()
     {
-        Storage storage = SupermarketManager.Mine.GetAvailableStorage();
+        //Storage storage = SupermarketManager.Mine.GetAvailableStorage();
 
-        if (storage)
-        {
-            currentStorage = Customer.currentStorage = storage;
-        }
+        //if (storage)
+        //{
+        //    currentStorage = Customer.currentStorage = storage;
+        //}
 
         while (takedCount < takeCount)
         {
@@ -144,7 +144,7 @@ public class ChoosingState : CustomerStateBase
 
             return;
         }
-
+        Debug.Log(product, product);
         product.transform.parent = Customer.handHoldTarget;
         product.transform.localPosition = Vector3.zero;
         Customer.productsInBag.Add(product);
