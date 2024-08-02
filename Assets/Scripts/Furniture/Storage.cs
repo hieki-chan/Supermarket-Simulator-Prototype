@@ -125,6 +125,26 @@ namespace Supermarket.Customers
             return null;
         }
 
+        public override void OnGet(PlayerController player)
+        {
+            this.player = player;
+            Move();
+        }
+
+        public void Move()
+        {
+            if (player.currentInteraction == this)
+            {
+                MoveDone();
+                return;
+            }
+            player.currentInteraction = this;
+            transform.parent = player.transform;
+            Vector3 fwd = player.transform.position + player.transform.forward * range;
+            transform.position = new Vector3(fwd.x, transform.position.y, fwd.z);
+            state = State.Moving;
+        }
+
         //ROTATION
 
         public bool GetButtonState01()
@@ -139,16 +159,7 @@ namespace Supermarket.Customers
 
         public void OnClick_Button01()
         {
-            if (player.currentInteraction == this)
-            {
-                MoveDone();
-                return;
-            }
-            player.currentInteraction = this;
-            transform.parent = player.transform;
-            Vector3 fwd = player.transform.position + player.transform.forward * range;
-            transform.position.Set(fwd.x, transform.position.y, fwd.z);
-            state = State.Moving;
+            Move();
         }
 
         public bool GetButtonState02()

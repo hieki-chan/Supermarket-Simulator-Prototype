@@ -51,7 +51,7 @@ public sealed class CheckoutDesk : Interactable, IInteractButton01
     public GameObject coin0_50;
 
     [Header("Screen")]
-    public TextMeshPro screenText;
+    public CheckoutScreen screen;
 
     public PaymentTerminal paymentTerminal;
     public MoneyChanger moneyChangePannel;
@@ -117,7 +117,7 @@ public sealed class CheckoutDesk : Interactable, IInteractButton01
             packedCout--;
             ItemPricing price = SupermarketManager.Mine.GetItemPricing(product.ProductInfo);
             totalCost += price.price;
-            screenText.text = $"Total: {totalCost}";
+            screen.DisplayCost(totalCost);
 
             if (packedCout == 0)
             {
@@ -134,20 +134,14 @@ public sealed class CheckoutDesk : Interactable, IInteractButton01
             currentPayment.SetValue(totalCost);
             Customer.PaymentObjectPool.Return(obj.PaymentType, obj);
 
-            screenText.text = obj.PaymentType switch
-            {
-                PaymentType.Cash => $"Cash Payment \nReceived:{obj.value} \nTotal:{totalCost} \nChange:{obj.value - totalCost} \nGiving:{0}",
-                PaymentType.CreditCard => $"Card Payment \nTotal:{totalCost}",
-                _ => ""
-            };
-
-
             switch (obj.PaymentType)
             {
                 case PaymentType.CreditCard:
+                    screen.Display(totalCost);
                     paymentTerminal.Check(currentPayment.value, OnPayCorrect, OnPayIncorrect);
                     break;
                 case PaymentType.Cash:
+                    screen.Display(obj.value, totalCost, obj.value - totalCost, StandardCurrency.zero);
                     moneyChangePannel.Check(GetMoney, OnResetMoney, OnOK);
                     break;
                 default:
@@ -220,7 +214,7 @@ public sealed class CheckoutDesk : Interactable, IInteractButton01
         packedCout++;
     }
 
-    public void GetMoney(float val)
+    public void GetMoney(float val, float totalGiving)
     {
         Vector3 from = Offset(moneyChangePosFrom);
         Vector3 to = Offset(moneyChangePosTo + new Vector3(UnityEngine.Random.Range(-range, range), 0, UnityEngine.Random.Range(-range, range)));
@@ -241,6 +235,8 @@ public sealed class CheckoutDesk : Interactable, IInteractButton01
             keyValue = val,
             trans = money,
         });
+
+        screen.DisplayGiving(totalGiving);
     }
 
     public void OnResetMoney()

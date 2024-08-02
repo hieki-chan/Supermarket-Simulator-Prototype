@@ -25,6 +25,8 @@ namespace Supermarket.Player
         //[SerializeField]
         //private float groundCheckDistance;
 
+        [SerializeField] private UnityEvent OnMove;
+
         [Header("Camera")]
         [SerializeField]
         private Camera mainCamera;
@@ -121,6 +123,9 @@ namespace Supermarket.Player
             Vector3 relativeDir = (transform.right * direction.x + transform.forward * direction.y) * (moveSpeed * Time.deltaTime);
             if (m_Controller.enabled)
                 m_Controller.Move(relativeDir);
+
+            if(direction != Vector2.zero)
+                OnMove?.Invoke();
         }
 
         private void Gravity()

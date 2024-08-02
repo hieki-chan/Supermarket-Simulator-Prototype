@@ -20,7 +20,7 @@ public class MoneyChanger : MonoBehaviour
     public Button coin0_20;
     public Button coin0_50;
 
-    public Action<float> OnClick;
+    public Action<float, float> OnClick;
     public Action OnReset;
     public Func<float, bool> OnOk;
 
@@ -50,7 +50,7 @@ public class MoneyChanger : MonoBehaviour
         coin0_50.onClick.AddListener(() => { Give(.50f); });
     }
 
-    public void Check(Action<float> OnClick, Action OnReset, Func<float, bool> OnOK)
+    public void Check(Action<float, float> OnClick, Action OnReset, Func<float, bool> OnOK)
     {
         this.OnClick = OnClick;
         this.OnReset = OnReset;
@@ -61,7 +61,7 @@ public class MoneyChanger : MonoBehaviour
 
     public void Give(float val)
     {
-        OnClick?.Invoke(val);
         totalGiving += val;
+        OnClick?.Invoke(val, totalGiving);
     }
 }

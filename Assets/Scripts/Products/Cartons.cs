@@ -150,11 +150,21 @@ public class Cartons : Interactable, IInteractButton01, IInteractButton02
     }
     public bool GetButtonState01()
     {
-        return storage && grid.Count > 0;
+        return storage && grid.Count > 0 || furniture != null;
     }
     public void OnClick_Button01()
     {
-        PlaceItem();
+        if(!furniture)
+            PlaceItem();
+        else
+        {
+            Furniture f = Furniture.Pool.GetOrCreate(furniture.GetType(), furniture, transform.position, Quaternion.identity);
+            f.OnGet(player);
+            f.OnInteractEnter();
+            f.OnInteract(player);
+            furniture = null;
+            Throw();
+        }
     }
 
 

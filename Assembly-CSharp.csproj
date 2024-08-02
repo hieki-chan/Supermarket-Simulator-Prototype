@@ -90,6 +90,7 @@
     <Compile Include="Assets\Scripts\Customer\States\Base\CustomerStateHandler.cs" />
     <Compile Include="Assets\Scripts\Furniture\CheckoutDesk.cs" />
     <Compile Include="Assets\Scripts\MVP\Presenter.cs" />
+    <Compile Include="Assets\Scripts\UI\CheckoutScreen.cs" />
     <Compile Include="Assets\Scripts\Shopping\OnlineShopManager.cs" />
     <Compile Include="Assets\Scripts\Interaction\InteractionPresenter.cs" />
     <Compile Include="Assets\Scripts\Customer\States\Base\ViewableAttribute.cs" />
@@ -111,6 +112,7 @@
     <Compile Include="Assets\Scripts\UI\PriceSettingView.cs" />
     <Compile Include="Assets\Scripts\UI\PaymentTerminal.cs" />
     <Compile Include="Assets\Scripts\Furniture\Furniture.cs" />
+    <Compile Include="Assets\Scripts\Sounds\WalkSound.cs" />
     <Compile Include="Assets\Scripts\StateMachine\ITransition.cs" />
     <Compile Include="Assets\Scripts\Manager\DeliveryManager.cs" />
     <Compile Include="Assets\Scripts\Products\ProductInfo.cs" />
