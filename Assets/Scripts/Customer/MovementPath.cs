@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UR = UnityEngine.Random;
 
@@ -7,9 +8,14 @@ namespace Supermarket.Customers
 {
     public class MovementPath : MonoBehaviour
     {
-        public List<Node> Nodes => Paths;
+        public List<PathNode> Nodes
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            get => Paths;
+        }
+
         [SerializeField]
-        private List<Node> Paths;
+        private List<PathNode> Paths;
 
         public Vector3 this[int index, bool global = false]
         {
@@ -20,7 +26,7 @@ namespace Supermarket.Customers
 
             set
             {
-                Node node = Paths[index];
+                PathNode node = Paths[index];
                 node.vertex = global ? value : value - transform.position;
                 Paths[index] = node;
             }
@@ -41,7 +47,7 @@ namespace Supermarket.Customers
 #endif
     }
     [Serializable]
-    public struct Node
+    public struct PathNode
     {
         public Vector3 vertex;
         public float rotateY;

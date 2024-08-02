@@ -3,7 +3,7 @@ using UnityEditor;
 using Supermarket.Customers;
 
 #if UNITY_EDITOR
-[CustomPropertyDrawer(typeof(Node))]
+[CustomPropertyDrawer(typeof(PathNode))]
 internal class NodeEditor : PropertyDrawer
 {
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)

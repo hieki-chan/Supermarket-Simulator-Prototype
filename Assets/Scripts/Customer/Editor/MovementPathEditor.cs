@@ -27,7 +27,7 @@ public class MovementPathEditor : Editor
 
         for (int i = 0; i < path.Count; i++)
         {
-            Node vertex = path.Nodes[i];
+            PathNode vertex = path.Nodes[i];
             Vector3 worldPosition = path[i, true];
 
             EditorGUI.BeginChangeCheck();
@@ -44,7 +44,7 @@ public class MovementPathEditor : Editor
             if (EditorGUI.EndChangeCheck())
             {
                 //Undo.RecordObject(path, $"Rotate Y At {i}");
-                Node node = path.Nodes[i];
+                PathNode node = path.Nodes[i];
                 node.rotateY = newRotationY;
                 path.Nodes[i] = node;
             }
@@ -65,7 +65,7 @@ public class MovementPathEditor : Editor
                 //main line
                 Handles.DrawLine(from, to);
 
-                Node node = path.Nodes[i + 1];
+                PathNode node = path.Nodes[i + 1];
                 Vector3 fromDir = Quaternion.Euler(0, vertex.rotateY, 0) * Vector3.forward;
                 Vector3 toDir = Quaternion.Euler(0, vertex.rotateY, 0) * Vector3.forward;
 

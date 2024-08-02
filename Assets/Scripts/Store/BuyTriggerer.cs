@@ -9,7 +9,7 @@ public sealed class BuyTriggerer : MonoBehaviour
     {
         if (other.gameObject.TryGetComponent<Customer>(out var customer) && RandomUtils.Chance(chance))
         {
-            customer.StateHandler.SwitchState<HeadingToStorageState>();
+            customer.goingShopping = true;
         }
     }
 }

@@ -1,14 +1,15 @@
-﻿using Hieki.Utils;
-using Supermarket.Products;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
+using TMPro;
+using Supermarket.Products;
+using Hieki.AI;
+using Hieki.Utils;
 
 namespace Supermarket.Customers
 {
-    public class Customer : MonoBehaviour
+    public class Customer : MonoBehaviour, ITreeComponent
     {
         public const int MAX_PRODUCTS = 10;
 
@@ -27,15 +28,26 @@ namespace Supermarket.Customers
         //public float MoveSpeed => moveSpeed;
         //[SerializeField] private float moveSpeed;
 
+        //--------------------------BEHAVIOURS-----------------------------------
+
+        [SerializeField] private CustomerBehaviours behaviours;
+
         public CustomerStateHandler StateHandler => stateHandler;
         [SerializeField] private CustomerStateHandler stateHandler;
 
+        [Header("Path Movement")]
         [NonSerialized]
         public MovementPath path;
+
+        [NonEditable] public Vector3 targetPosition;
+
         [NonEditable]
         public int currentNode;
         public Action OnPathComplete;
 
+        [Header("Shopping")]
+        [NonEditable]
+        public bool goingShopping;
         [NonSerialized]
         public Storage currentStorage;
 
@@ -76,6 +88,9 @@ namespace Supermarket.Customers
                 PaymentObjectPool.Create(cashObject.PaymentType, cashObject, 1);
                 PaymentObjectPool.Create(creditCardObject.PaymentType, creditCardObject, 1);
             }
+
+            behaviours = new CustomerBehaviours();
+            behaviours.InitTree(this);
         }
 
         private void OnEnable()
@@ -85,7 +100,7 @@ namespace Supermarket.Customers
 
         public void OnUpdate()
         {
-            stateHandler.UpdateState();
+            behaviours.Evaluate();
         }
 
         public void MoveTowards(Vector3 targetPosition)
@@ -114,6 +129,11 @@ namespace Supermarket.Customers
             flatPos.y = 0;
 
             return (flatTarget - flatPos).sqrMagnitude <= m_Agent.stoppingDistance * m_Agent.stoppingDistance;
+        }
+
+        public void CompletePath()
+        {
+            OnPathComplete?.Invoke();
         }
 
         public void Say(string content)

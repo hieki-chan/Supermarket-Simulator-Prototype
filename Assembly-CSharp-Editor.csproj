@@ -1140,6 +1140,10 @@
       <Project>{C2BA3288-3120-6940-6F91-D794E99AE7C8}</Project>
       <Name>LeanTween</Name>
     </ProjectReference>
+    <ProjectReference Include="Hieki.AI.csproj">
+      <Project>{13FF2CC1-DEB9-9387-DFB1-3CE70E825F06}</Project>
+      <Name>Hieki.AI</Name>
+    </ProjectReference>
     <ProjectReference Include="Joystick.csproj">
       <Project>{B5439728-C593-4BC8-76C0-BE080F60F3BC}</Project>
       <Name>Joystick</Name>

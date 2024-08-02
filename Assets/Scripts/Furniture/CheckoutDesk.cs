@@ -6,7 +6,6 @@ using Supermarket.Pricing;
 using Supermarket.Products;
 using System;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 public sealed class CheckoutDesk : Interactable, IInteractButton01
