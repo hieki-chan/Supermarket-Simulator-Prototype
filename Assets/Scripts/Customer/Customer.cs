@@ -20,7 +20,7 @@ namespace Supermarket.Customers
         public static readonly int GiveHash = Animator.StringToHash("Give");
         public static readonly int UnGiveHash = Animator.StringToHash("UnGive");
 
-        public static Pool<PaymentType, PaymentObject> PaymentObjectPool;
+        public static UnitPool<PaymentType, PaymentObject> PaymentObjectPool;
 
         [NonEditable] public CustomerType type;
         [NonEditable] public CustomerMood mood;
@@ -83,7 +83,7 @@ namespace Supermarket.Customers
 
             if (PaymentObjectPool == null)
             {
-                PaymentObjectPool = new Pool<PaymentType, PaymentObject>(1);
+                PaymentObjectPool = new UnitPool<PaymentType, PaymentObject>(1);
 
                 PaymentObjectPool.Create(cashObject.PaymentType, cashObject, 1);
                 PaymentObjectPool.Create(creditCardObject.PaymentType, creditCardObject, 1);

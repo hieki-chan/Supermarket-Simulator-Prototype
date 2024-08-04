@@ -92,6 +92,8 @@ namespace Supermarket.Player
             //move = disableMove? Vector2.zero : playerInput.Player.Move.ReadValue<Vector2>();
             look = (disableLook || !lookPerformed) ? Vector2.zero : playerInput.Player.Look.ReadValue<Vector2>();
 
+            //print(playerInput.Player.Look.ReadValue<Vector2>());
+
             moveJoyStick.enabled = !disableMove;
             move = moveJoyStick.Direction;
 

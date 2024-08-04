@@ -1,4 +1,6 @@
-﻿using Supermarket.Player;
+﻿using QuickOutline;
+using Supermarket.Player;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 namespace Supermarket
@@ -6,7 +8,11 @@ namespace Supermarket
     [RequireComponent(typeof(Outline))]
     public abstract class Interactable : MonoBehaviour
     {
-        public InteractionInfo interactionInfo => m_interactionInfo;
+        public InteractionInfo interactionInfo
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            get; 
+        }
         [SerializeField] private InteractionInfo m_interactionInfo;
 
         //public UnityAction<Interactable> OnNoInteraction;

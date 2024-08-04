@@ -6,7 +6,7 @@ using Hieki.Utils;
 
 public class CustomerManager : MonoBehaviour
 {
-    SimplePool<Customer> CustomerPool;
+    MonoPool<Customer> CustomerPool;
 
     public List<Customer> CustomerPrefabs;
     public int countPerEach = 2;
@@ -29,7 +29,7 @@ public class CustomerManager : MonoBehaviour
     {
         MovementPaths = GetComponentsInChildren<MovementPath>();
 
-        CustomerPool = new SimplePool<Customer>();
+        CustomerPool = new MonoPool<Customer>();
         for (int i = 0; i < CustomerPrefabs.Count; i++)
         {
             CustomerPool.Create(CustomerPrefabs[i], countPerEach, c =>

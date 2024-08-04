@@ -7,7 +7,7 @@ namespace Supermarket
     public class PaymentObject : Interactable
     {
         public PaymentType PaymentType;
-        public StandardCurrency value;
+        public unit value;
         public UnityAction OnPayCorrected;
 
         private void OnEnable()

@@ -11,9 +11,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp-Editor", "A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeanTween", "LeanTween.csproj", "{C2BA3288-3120-6940-6F91-D794E99AE7C8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DOTween.Modules", "DOTween.Modules.csproj", "{676BDE12-5597-1D77-E18C-548496C6319B}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hieki.Utils", "Hieki.Utils.csproj", "{CF980A4B-2D35-BE30-03EC-E2A6DF87C0C4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickOutline", "QuickOutline.csproj", "{0401955F-E826-1162-837A-AF901F202A11}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hieki.Search", "Hieki.Search.csproj", "{B8BDC3AD-20A5-65F2-4F06-969DBA8F0B85}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +45,10 @@ Global
 		{C2BA3288-3120-6940-6F91-D794E99AE7C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C2BA3288-3120-6940-6F91-D794E99AE7C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C2BA3288-3120-6940-6F91-D794E99AE7C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{676BDE12-5597-1D77-E18C-548496C6319B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{676BDE12-5597-1D77-E18C-548496C6319B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{676BDE12-5597-1D77-E18C-548496C6319B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{676BDE12-5597-1D77-E18C-548496C6319B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CF980A4B-2D35-BE30-03EC-E2A6DF87C0C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CF980A4B-2D35-BE30-03EC-E2A6DF87C0C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CF980A4B-2D35-BE30-03EC-E2A6DF87C0C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -49,6 +57,10 @@ Global
 		{0401955F-E826-1162-837A-AF901F202A11}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0401955F-E826-1162-837A-AF901F202A11}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0401955F-E826-1162-837A-AF901F202A11}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8BDC3AD-20A5-65F2-4F06-969DBA8F0B85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8BDC3AD-20A5-65F2-4F06-969DBA8F0B85}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8BDC3AD-20A5-65F2-4F06-969DBA8F0B85}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8BDC3AD-20A5-65F2-4F06-969DBA8F0B85}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -6,6 +6,6 @@ namespace Supermarket.Pricing
     {
         public ProductInfo product;
 
-        public StandardCurrency price;
+        public unit price;
     }
 }

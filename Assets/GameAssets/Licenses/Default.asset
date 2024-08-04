@@ -12,9 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1bbc89751e5c214cb256a9faa200a4a, type: 3}
   m_Name: Default
   m_EditorClassIdentifier: 
+  m_LicenseName: Product License
+  m_Description: 'allow you to purchase and sell new products:'
+  m_Cost:
+    value: 0
+  m_RequireStoreLevel: 0
   m_AllowedPurchaseAndSellProducts:
   - {fileID: 11400000, guid: c8150ee50176ce34f98c67be9a7cb545, type: 2}
   - {fileID: 11400000, guid: 8c8d88ff7a64f0d40a49c8b53cf36422, type: 2}
   - {fileID: 11400000, guid: 9a57b13e79ad95546bbac8e7a10d9303, type: 2}
-  m_Price:
-    value: 2.64

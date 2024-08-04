@@ -216,7 +216,7 @@ namespace Supermarket.Player
                     ""path"": ""<Pointer>/delta"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse;Touch"",
+                    ""groups"": ""Touch"",
                     ""action"": ""Look"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -234,7 +234,7 @@ namespace Supermarket.Player
                 },
                 {
                     ""name"": """",
-                    ""id"": ""55b14d23-0f96-43e6-99c9-c38709ad4e29"",
+                    ""id"": ""bcbb221f-bf7e-4767-bdaa-1db4410241a7"",
                     ""path"": ""<Mouse>/delta"",
                     ""interactions"": """",
                     ""processors"": """",

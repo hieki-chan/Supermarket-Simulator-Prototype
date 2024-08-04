@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8584411a03c50c245a198edb1eab0523, type: 3}
   m_Name: Anime Figure
   m_EditorClassIdentifier: 
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 21300000, guid: 17caaa083f4b18049897dbb192026664, type: 3}
   m_ProductType: 1
   m_UnitCost:
-    value: 16.96
+    value: 64.99
   m_MarketPrice:
     value: 0
   m_UnitPerPack: 1

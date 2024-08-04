@@ -498,18 +498,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 4480791386025440993}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 939cda28acc795b4f8297bd1cdabbcf7, type: 3}
+  m_Script: {fileID: 11500000, guid: 8b0215c081ad32642bbc970311f89e47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   icon: {fileID: 4689173187792085680}
   productName: {fileID: 2320401236831804735}
   info: {fileID: 379634400608927148}
-  amountText: {fileID: 7855299200861509158}
-  totalText: {fileID: 7408378658192113922}
+  amountText: {fileID: 3300266675010577847}
+  totalText: {fileID: 130052563792489977}
+  RemoveButton: {fileID: 1461712171341550860}
   amount: 0
-  OnRemove:
-    m_PersistentCalls:
-      m_Calls: []
+  company: {fileID: 0}
 --- !u!1 &4737707194809880531
 GameObject:
   m_ObjectHideFlags: 0

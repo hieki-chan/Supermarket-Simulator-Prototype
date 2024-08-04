@@ -1,14 +1,44 @@
 ﻿using Supermarket.Pricing;
-using Supermarket.Products;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "License", menuName = "Licenses")]
-public class License : ScriptableObject
+namespace Supermarket.Products
 {
-    public List<ProductInfo> AllowedPurchaseAndSellProducts => m_AllowedPurchaseAndSellProducts;
-    [SerializeField] private List<ProductInfo> m_AllowedPurchaseAndSellProducts = new List<ProductInfo>();
+    [CreateAssetMenu(fileName = "License", menuName = "Licenses")]
+    public class License : ScriptableObject
+    {
+        public string LicenseName
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            get => m_LicenseName;
+        }
+        [SerializeField, TextArea] private string m_LicenseName;
 
-    public StandardCurrency Price => m_Price;
-    [SerializeField] private StandardCurrency m_Price;
+        public string Description
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            get => m_Description;
+        }
+        [SerializeField, TextArea] private string m_Description;
+
+        public unit Cost
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            get => m_Cost;
+        }
+        [SerializeField] private unit m_Cost;
+
+        public int StoreLeveRequired
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            get => m_RequireStoreLevel;
+        }
+        [SerializeField] private int m_RequireStoreLevel;
+
+
+
+        public List<ProductInfo> AllowedPurchaseAndSellProducts => m_AllowedPurchaseAndSellProducts;
+        [SerializeField] private List<ProductInfo> m_AllowedPurchaseAndSellProducts = new List<ProductInfo>();
+    }
 }

@@ -7,7 +7,13 @@ namespace Hieki.AI
         /// <summary>
         /// current state of the node.
         /// </summary>
-        protected NodeState currentState;
+        public NodeState currentState
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            get;
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            protected set;
+        }
 
         /*public bool entered { get; set; } = false;
 

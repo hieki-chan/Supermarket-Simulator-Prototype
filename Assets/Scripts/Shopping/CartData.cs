@@ -14,7 +14,7 @@ public class CartData
     private Dictionary<Company, List<CartItem>> m_CartItems = new Dictionary<Company, List<CartItem>>();
 
     [SerializeField, NonEditable]
-    private StandardCurrency totalCost;
+    private unit totalCost;
 
     public void Add(CartItem item)
     {
@@ -64,7 +64,7 @@ public class CartData
         totalCost = 0;
     }
 
-    public StandardCurrency TotalCost()
+    public unit TotalCost()
     {
         //StandardCurrency cost = new StandardCurrency();
         //foreach (var item in CartItems)

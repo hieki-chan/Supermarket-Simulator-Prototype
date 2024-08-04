@@ -1,6 +1,6 @@
 ﻿using Supermarket.Products;
 
-public class AnimeFigure : Furniture
+public sealed class AnimeFigure : Furniture
 {
 
 }

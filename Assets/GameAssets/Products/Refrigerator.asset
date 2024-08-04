@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8584411a03c50c245a198edb1eab0523, type: 3}
+  m_Name: Refrigerator
+  m_EditorClassIdentifier: 
+  m_Icon: {fileID: 21300000, guid: 53b92d457582cdd418cf8b919004dafd, type: 3}
+  m_ProductType: 1
+  m_UnitCost:
+    value: 199.99
+  m_MarketPrice:
+    value: 0
+  m_UnitPerPack: 1
+  m_Company: {fileID: 11400000, guid: b043482dff08e7249ac459cffe7309b7, type: 2}
+  m_ProductOnSale: {fileID: 0}
+  m_Furniture: {fileID: 6270512193847150591, guid: 85eb35cf96f440f4396b95edc59e2ca8, type: 3}

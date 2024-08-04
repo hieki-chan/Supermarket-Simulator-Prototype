@@ -7,13 +7,15 @@ using Supermarket.Products;
 using System.Linq;
 using Supermarket.Pricing;
 using Supermarket;
+using Cysharp.Threading.Tasks;
 
 public class OnlineShopManager : MonoBehaviour
 {
-
     const string PRODUCTS_KEY = "products";
+    const string LICENSES_KEY = "license";
 
     private List<ProductInfo> productsInfo;
+    private List<License> licenses;
 
     [SerializeField] CartData cartData;
     Laptop laptop;
@@ -32,18 +34,32 @@ public class OnlineShopManager : MonoBehaviour
         laptop = SupermarketManager.Mine.Laptop;
         laptop.OnOpenShop += () => shopView.gameObject.SetActive(true);
 
-        StartCoroutine(LoadAllItems());
+        LoadAllItems().Forget();
     }
 
-    IEnumerator LoadAllItems()
+    private async UniTaskVoid LoadAllItems()
     {
+        //Product Infos
         AsyncOperationHandle<IList<ProductInfo>> handle = Addressables.LoadAssetsAsync<ProductInfo>(PRODUCTS_KEY, loadedProduct => { });
 
-        yield return handle;
+        await handle;
 
-        productsInfo = handle.Result.ToList();
+        if (handle.Status == AsyncOperationStatus.Succeeded)
+        {
+            productsInfo = handle.Result.ToList();
+            shopView.OnItemsLoaded(productsInfo);
+        }
 
-        shopView.LoadAllItems(productsInfo);
+        //Licenses
+        AsyncOperationHandle<IList<License>> handle2 = Addressables.LoadAssetsAsync<License>(LICENSES_KEY, loadedProduct => { });
+
+        await handle2;
+
+        if(handle2.Status == AsyncOperationStatus.Succeeded)
+        {
+            licenses = handle2.Result.ToList();
+            shopView.OnLicensesLoaded(licenses);
+        }
     }
 
     public void OnAddToCart(CartItem cartItem)
@@ -63,7 +79,7 @@ public class OnlineShopManager : MonoBehaviour
 
     void Buy()
     {
-        StandardCurrency totalCost = cartData.TotalCost();
+        unit totalCost = cartData.TotalCost();
         if (SupermarketManager.Mine.Money < totalCost)
         {
             //

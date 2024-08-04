@@ -59,6 +59,24 @@ MonoBehaviour:
     m_SerializedLabels:
     - products
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ebbd50e0039f81a4eaf9981e54312769
+    m_Address: Assets/GameAssets/Products/Men's Milk.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - products
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2528248ca0c18f941a38857deba91635
+    m_Address: Assets/GameAssets/Products/Refrigerator.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - products
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5ddaa228c503bc6489d408f11152b798
+    m_Address: Assets/GameAssets/Licenses/1.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - license
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 5e39c648b0407bc448a068ab14104db8, type: 2}
   m_SchemaSet:

@@ -57,7 +57,7 @@ CapsuleCollider:
   m_Radius: 0.13
   m_Height: 0.41
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0.2, z: 0}
 --- !u!114 &6471382487762890280
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -88,9 +88,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34afeee072d226e4fba8a9d6fc8a4073, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interaction: {fileID: 0}
+  m_interactionInfo: {fileID: 0}
   productInfo: {fileID: 11400000, guid: 9a57b13e79ad95546bbac8e7a10d9303, type: 2}
-  worldSize: {x: 0.26, y: 0.26}
+  worldSize: {x: 0.3, y: 0.3}
+  height: 0.12
 --- !u!1 &6899840578157299741
 GameObject:
   m_ObjectHideFlags: 0
@@ -118,7 +119,7 @@ Transform:
   m_GameObject: {fileID: 6899840578157299741}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.2, z: 0}
   m_LocalScale: {x: 0.25, y: 0.2, z: 0.25}
   m_ConstrainProportionsScale: 0
   m_Children: []

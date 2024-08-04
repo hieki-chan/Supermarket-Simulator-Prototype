@@ -1,4 +1,5 @@
-﻿using Hieki.Utils;
+﻿using DG.Tweening;
+using Hieki.Utils;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -50,11 +51,11 @@ namespace Supermarket.Products
 
         [SerializeField] private StartAxis startAxis;
 
-        [SerializeField] private LeanTweenType tween = LeanTweenType.easeInSine;
+        [SerializeField] private Ease tween = Ease.InOutSine;
         [SerializeField] private float tweenTime = .25f;
 
         public int Count => /*products.Count;*/ count;
-        [SerializeField] private int count;
+        [SerializeField, NonEditable] private int count;
         public Stack<ProductOnSale> products = new Stack<ProductOnSale>();
 
         public bool Push(ProductOnSale product, bool setParent = true)
@@ -153,18 +154,16 @@ namespace Supermarket.Products
                     break;
             }
 
-            Vector3 origin = Position.Offset(transform, offset);
             worldPos += startCorner;
-            worldPos = worldPos.RotateVector(transform.eulerAngles.y) + origin;
-
-            product.transform.LeanMove(worldPos, tweenTime).setEase(tween).setOnComplete(() =>
+            worldPos = worldPos.RotateVector(transform.eulerAngles.y) + WorldPos();
+            if (setParent)
+                product.transform.parent = transform;
+            product.transform.DOMove(worldPos, tweenTime).SetEase(tween).onComplete = () =>
             {
                 //product.transform.position = worldPos;
-                if (setParent)
-                    product.transform.parent = transform;
                 //product.transform.localRotation = Quaternion.identity;
                 products.Push(product);
-            });
+            };
 
             this.count++;
 
@@ -192,7 +191,7 @@ namespace Supermarket.Products
             return null;
         }
 
-        public Vector3 WorldPos() => Position.Offset(transform, offset);
+        public Vector3 WorldPos() => transform.position + transform.TransformVector(offset);
 
 #if UNITY_EDITOR
         [Header("Display Settings"), Space]

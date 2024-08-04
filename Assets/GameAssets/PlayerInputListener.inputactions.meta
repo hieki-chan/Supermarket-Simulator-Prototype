@@ -11,4 +11,4 @@ ScriptedImporter:
   generateWrapperCode: 1
   wrapperCodePath: Assets/Scripts/Player/PlayerInputListener.cs
   wrapperClassName: 
-  wrapperCodeNamespace: Supermaket.Player
+  wrapperCodeNamespace: Supermarket.Player

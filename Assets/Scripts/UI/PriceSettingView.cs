@@ -18,16 +18,16 @@ public class PriceSettingView : MonoBehaviour
     public Button MinusButton;
     public Slider slider;
 
-    [SerializeField, Range(0.05f, 0.1f)] 
+    [SerializeField, Range(0.01f, 0.1f)] 
     private float deltaValue = 0.01f;
     [NonEditable, SerializeField] 
-    private float currentPrice;
+    private unit currentPrice;
     [Space]
     public Button OkButton;
 
     ItemPricing itemPricing;
 
-    Action<StandardCurrency> OnOk;
+    Action<unit> OnOk;
 
     private void Awake()
     {
@@ -39,7 +39,7 @@ public class PriceSettingView : MonoBehaviour
         OkButton.onClick.AddListener(OnOK);
     }
 
-    public void Set(ItemPricing itemPricing, Action<StandardCurrency> OnOk)
+    public void Set(ItemPricing itemPricing, Action<unit> OnOk)
     {
         this.itemPricing = itemPricing;
         currentPrice = itemPricing.price;
@@ -53,7 +53,7 @@ public class PriceSettingView : MonoBehaviour
         profit.text = (currentPrice - itemPricing.product.UnitCost).ToString();
 
         slider.minValue = 0;
-        slider.maxValue = (itemPricing.product.UnitCost * 2.55f).Rounded();
+        slider.maxValue = (itemPricing.product.MarketPrice * 2.15f).Rounded();
         slider.value = currentPrice;
 
         this.OnOk = OnOk;

@@ -5,13 +5,15 @@ namespace Supermarket.Products
 {
     public sealed class ProductOnSale : Interactable
     {
-        public static Pool<string, ProductOnSale> Pool = new Pool<string, ProductOnSale>(9);
+        public static UnitPool<string, ProductOnSale> Pool = new UnitPool<string, ProductOnSale>(9);
         public ProductInfo ProductInfo => productInfo;
-        [SerializeField]
+        [SerializeField, NewProduct]
         private ProductInfo productInfo;
 
         [SerializeField] private Vector2 worldSize;
-
+#if UNITY_EDITOR
+        [SerializeField] private float height = .1f;
+#endif
         Collider cols;
 
         protected override void Awake()
@@ -50,13 +52,13 @@ namespace Supermarket.Products
 #if UNITY_EDITOR
         private void OnDrawGizmosSelected()
         {
-            Gizmos.DrawWireCube(transform.position, new Vector3(worldSize.x, (worldSize.y + worldSize.x) / 2, worldSize.y));
+            Gizmos.DrawWireCube(transform.position + Vector3.up * (height), new Vector3(worldSize.x, (worldSize.y + worldSize.x) / 2, worldSize.y));
         }
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
         static void Init()  //domain reloading
         {
-            Pool = new Pool<string, ProductOnSale>(9);
+            Pool = new UnitPool<string, ProductOnSale>(9);
         }
 #endif
     }

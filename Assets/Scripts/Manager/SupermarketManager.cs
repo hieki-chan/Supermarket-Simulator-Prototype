@@ -18,8 +18,8 @@ public class SupermarketManager : MonoBehaviour
 
     private List<ItemPricing> itemPricings = new List<ItemPricing>(10);
 
-    public StandardCurrency Money => money;
-    [SerializeField] private StandardCurrency money;
+    public unit Money => money;
+    [SerializeField] private unit money;
 
     [Header("UI"), Space]
     public PriceSettingView priceSettings;
@@ -75,7 +75,7 @@ public class SupermarketManager : MonoBehaviour
         return null;
     }
 
-    public bool TryConsume(StandardCurrency amout)
+    public bool TryConsume(unit amout)
     {
         if(money >= amout)
         {
@@ -86,7 +86,7 @@ public class SupermarketManager : MonoBehaviour
         return false;
     }
 
-    public void Store(StandardCurrency amout)
+    public void Store(unit amout)
     {
         money += amout;
     }

@@ -705,7 +705,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3729163585784148604}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ae0440b631947a4c80a8e006a62684e, type: 3}
+  m_Script: {fileID: 11500000, guid: 7c974aca18ac6b245a85eb99876f6549, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   icon: {fileID: 4978844362050532865}
@@ -714,10 +714,8 @@ MonoBehaviour:
   companyName: {fileID: 7815285012843518302}
   amountText: {fileID: 8757049326205919534}
   totalText: {fileID: 6597599712977401851}
+  addToCartBttn: {fileID: 4395284274809920550}
   amount: 0
-  OnAddToCart:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &4281006128715576823
 GameObject:
   m_ObjectHideFlags: 0

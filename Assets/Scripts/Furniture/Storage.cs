@@ -5,11 +5,10 @@ using Supermarket.Player;
 
 namespace Supermarket.Customers
 {
-    public class Storage : Furniture, IInteractButton01, IInteractButton02
+    public sealed class Storage : Furniture
     {
-        static SimplePool<PriceTag> PriceTagPool;
+        static MonoPool<PriceTag> PriceTagPool;
 
-        [SerializeField] private ProductInfo furnitureInfo;
         public ArrangementGrid[] grids;
 
         [SerializeField] private PriceTag priceTagPrefab;
@@ -17,26 +16,15 @@ namespace Supermarket.Customers
 
         PriceTag[] activePriceTagsSelf;
 
-        public State state { get; private set; }
 
-        [Header("Rotation")]
-        [SerializeField] private float range;
-        PlayerController player;
-
-        public enum State
-        {
-            Normal,
-            Moving,
-        }
-
-        protected override void Awake()
+        protected sealed override void Awake()
         {
             base.Awake();
-            PriceTagPool ??= new SimplePool<PriceTag>(priceTagPrefab, 9);
+            PriceTagPool ??= new MonoPool<PriceTag>(priceTagPrefab, 9);
             activePriceTagsSelf = new PriceTag[grids.Length];
         }
 
-        public override void OnHoverEnter(PlayerController player)
+        public sealed override void OnHoverEnter(PlayerController player)
         {
             base.OnHoverEnter(player);
             this.player = player;
@@ -131,69 +119,8 @@ namespace Supermarket.Customers
             Move();
         }
 
-        public void Move()
-        {
-            if (player.currentInteraction == this)
-            {
-                MoveDone();
-                return;
-            }
-            player.currentInteraction = this;
-            transform.parent = player.transform;
-            Vector3 fwd = player.transform.position + player.transform.forward * range;
-            transform.position = new Vector3(fwd.x, transform.position.y, fwd.z);
-            state = State.Moving;
-        }
 
-        //ROTATION
-
-        public bool GetButtonState01()
-        {
-            return true;
-        }
-
-        public string GetButtonTitle01()
-        {
-            return player.currentInteraction != this ? "Move" : "Ok";
-        }
-
-        public void OnClick_Button01()
-        {
-            Move();
-        }
-
-        public bool GetButtonState02()
-        {
-            return player.currentInteraction == this;
-        }
-
-        public string GetButtonTitle02()
-        {
-            return "Rotate Left 90";
-        }
-
-        public void OnClick_Button02()
-        {
-            RotateLeft90();
-        }
-
-        void MoveDone()
-        {
-            player.currentInteraction = null;
-            transform.parent = null;
-            state = State.Normal;
-        }
-
-        void RotateLeft90()
-        {
-            transform.rotation = Quaternion.Euler(0, transform.eulerAngles.y + 90, 0);
-        }
-
-        void RotateRight90()
-        {
-            transform.rotation = Quaternion.Euler(0, transform.eulerAngles.x - 90, 0);
-        }
-
+#if UNITY_EDITOR
         private void OnDrawGizmosSelected()
         {
             foreach (var grid in grids)
@@ -202,11 +129,10 @@ namespace Supermarket.Customers
             }
         }
 
-#if UNITY_EDITOR
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
         static void Init()  //domain reloading
         {
-            PriceTagPool = new SimplePool<PriceTag>();
+            PriceTagPool = new MonoPool<PriceTag>();
         }
 #endif
     }

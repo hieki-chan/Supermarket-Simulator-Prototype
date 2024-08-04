@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 namespace Hieki.Utils
@@ -25,6 +26,22 @@ namespace Hieki.Utils
                 return default;
 
             return list[Random.Range(0, list.Count)];
+        }
+
+        /// <summary>
+        /// Swaps two elements in the list at the specified indices.
+        /// </summary>
+        public static void SwapAt<T>(this List<T> source, int index1, int index2)
+        {
+            if (index1 >= source.Count || index2 >= source.Count || index1 < 0 || index2 < 0)
+            {
+                Debug.Log("Swaping List: Index is out of range");
+                return;
+            }
+
+            T val = source[index1];
+            source[index1] = source[index2];
+            source[index2] = val;
         }
 
         public static List<T> ForeachRandomStart<T>(this List<T> list, System.Action<T> callback)

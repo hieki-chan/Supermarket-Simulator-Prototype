@@ -15,9 +15,10 @@ MonoBehaviour:
   m_Icon: {fileID: 21300000, guid: a78c36a9d4073544293855c5376ef4f3, type: 3}
   m_ProductType: 0
   m_UnitCost:
-    value: 0.35
+    value: 0.38
   m_MarketPrice:
-    value: 0.22
+    value: 0.59
   m_UnitPerPack: 20
   m_Company: {fileID: 11400000, guid: 1eebd5d02c43f80489240a1850a55d03, type: 2}
   m_ProductOnSale: {fileID: 6363908454605290731, guid: 14f935642f7e9fb47b0915cee3d7ee9c, type: 3}
+  m_Furniture: {fileID: 0}

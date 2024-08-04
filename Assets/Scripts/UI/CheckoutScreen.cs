@@ -17,7 +17,7 @@ public class CheckoutScreen : MonoBehaviour
     public TextMeshProUGUI totalPaymentText;
 
 
-    public void DisplayCost(StandardCurrency totalCost)
+    public void DisplayCost(unit totalCost)
     {
         totalCostText.text = totalCost;
         creditCardPaymentScreen.SetActive(false);
@@ -26,7 +26,7 @@ public class CheckoutScreen : MonoBehaviour
     /// <summary>
     /// Cash Payment
     /// </summary>
-    public void Display(StandardCurrency received, StandardCurrency total, StandardCurrency change, StandardCurrency giving)
+    public void Display(unit received, unit total, unit change, unit giving)
     {
         receivedText.text = $"Received: {received}";
         totalText.text = $"Total: {total}";
@@ -38,7 +38,7 @@ public class CheckoutScreen : MonoBehaviour
         cashPaymentScreen.gameObject.SetActive(true);
     }
 
-    public void DisplayGiving(StandardCurrency giving)
+    public void DisplayGiving(unit giving)
     {
         givingText.text = $"Giving: {giving}";
     }
@@ -46,7 +46,7 @@ public class CheckoutScreen : MonoBehaviour
     /// <summary>
     /// Credit Card Payment
     /// </summary>
-    public void Display(StandardCurrency total)
+    public void Display(unit total)
     {
         totalPaymentText.text = $"Total:{total}";
 

@@ -1,6 +1,5 @@
 ﻿using Hieki.AI;
 using Supermarket.Customers;
-using TMPro;
 
 public class NextPathNode : Node<Customer>
 {

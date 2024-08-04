@@ -1,6 +1,5 @@
 ﻿using Hieki.AI;
 using Hieki.Utils;
-using UnityEngine;
 
 namespace Supermarket.Customers
 {
