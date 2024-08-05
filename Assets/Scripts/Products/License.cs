@@ -34,7 +34,7 @@ namespace Supermarket.Products
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get => m_RequireStoreLevel;
         }
-        [SerializeField] private int m_RequireStoreLevel;
+        [SerializeField, Min(0)] private int m_RequireStoreLevel;
 
 
 

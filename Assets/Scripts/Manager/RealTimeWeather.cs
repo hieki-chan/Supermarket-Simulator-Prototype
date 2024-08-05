@@ -11,7 +11,21 @@ public class RealTimeWeather : MonoBehaviour
     [SerializeField, NonEditable] private float dayTimer;
 
 
-    private void Update()
+    public Light directionalLight;
+    public Material daySkybox;
+    public Material nightSkybox;
+    public float dayIntensity = 1f;
+    public float nightIntensity = 0.2f;
+    public Color dayColor = Color.white;
+    public Color nightColor = new Color(0.2f, 0.2f, 0.5f);
+    public Color dayAmbient = Color.white;
+    public Color nightAmbient = new Color(0.1f, 0.1f, 0.2f);
+
+    [Range(0, 1)]
+    public float dayNightFactor; // 0 = night, 1 = day
+
+
+    void Update()
     {
         dayTimer += Time.deltaTime;
         DayPart();
@@ -20,6 +34,17 @@ public class RealTimeWeather : MonoBehaviour
         {
             NextDay();
         }
+
+
+        // Update Skybox
+        RenderSettings.skybox = (dayNightFactor > 0.5f) ? daySkybox : nightSkybox;
+
+        // Update Directional Light
+        directionalLight.intensity = Mathf.Lerp(nightIntensity, dayIntensity, dayNightFactor);
+        directionalLight.color = Color.Lerp(nightColor, dayColor, dayNightFactor);
+
+        // Update Ambient Light
+        RenderSettings.ambientLight = Color.Lerp(nightAmbient, dayAmbient, dayNightFactor);
     }
 
     void DayPart()

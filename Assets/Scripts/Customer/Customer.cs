@@ -100,7 +100,7 @@ namespace Supermarket.Customers
 
         public void OnUpdate()
         {
-            behaviours.Evaluate();
+            behaviours.Process();
         }
 
         public void MoveTowards(Vector3 targetPosition)

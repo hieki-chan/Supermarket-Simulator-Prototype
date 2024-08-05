@@ -13,6 +13,12 @@ namespace Hieki.AI
             get;
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             protected set;
+        } 
+            = NodeState.Unknow;
+
+        public Node()
+        {
+            this.currentState = NodeState.Unknow;
         }
 
         /*public bool entered { get; set; } = false;
@@ -43,11 +49,33 @@ namespace Hieki.AI
 
         }*/
 
+
+        public NodeState Process()
+        {
+            if(currentState == NodeState.Unknow)
+            {
+                OnPerform();
+            }
+
+            return Evaluate();
+        }
+
+        protected virtual void OnPerform()
+        {
+
+        }
+
+        public virtual void Release()
+        {
+            currentState = NodeState.Unknow;
+        }
+
+
         /// <summary>
         /// Evaluates the node
         /// </summary>
         /// <returns></returns>
-        public abstract NodeState Evaluate();
+        protected abstract NodeState Evaluate();
 
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

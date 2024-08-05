@@ -3,7 +3,7 @@
     public class Inverter : DecoratorNode
     {
         public Inverter(Node child) : base(child) { }
-        public override NodeState Evaluate() => currentState = child.Evaluate() switch
+        protected override NodeState Evaluate() => currentState = child.Process() switch
         {
             NodeState.Running => NodeState.Running,
             NodeState.Success => NodeState.Failure,

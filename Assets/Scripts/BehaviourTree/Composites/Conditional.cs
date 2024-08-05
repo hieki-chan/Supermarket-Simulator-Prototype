@@ -1,6 +1,6 @@
-﻿/*using System;
+﻿using System;
 
-namespace ProjectN.System
+namespace Hieki.AI
 {
     /// <summary>
     /// <see cref="Conditional"/> is a <see cref="Node"/> that only has 2 children. If conditional returns true, run child 1 else run child 2.
@@ -8,42 +8,30 @@ namespace ProjectN.System
     /// <see cref="Conditional"/> will returns <see cref="NodeState.Running"/>/<see cref="NodeState.Success"/>/<see cref="NodeState.Failure"/>.
     /// Otherwise returns <see cref="NodeState.Invalid"/>
     /// </summary>
-    [CreateTreeNodeMenu("Composites/Conditional")]
     public class Conditional : Node
     {
-        readonly Func<Node, bool> condition;
-        NodeState child1State, child2State;
+        Node condition, successChild, failureChild;
 
-        public Conditional() : base() { }
-        public Conditional(Node successChild, Node failureChild, Func<Node, bool> condition) : base()
-        { 
-            children.Add(successChild);
-            children.Add(failureChild);
-            this.condition = condition; 
+        public Conditional(Node condition, Node successChild, Node failureChild)
+        {
+            this.condition = condition;
+            this.successChild = successChild;
+            this.failureChild = failureChild;
         }
 
-        public override NodeState Evaluate()
+        protected override NodeState Evaluate()
         {
-            child1State = child2State = NodeState.Invalid;
-            if (condition(this))
+            switch(condition.Process())
             {
-                if (children[0])
-                    child1State = children[0].Evaluate();
+                case NodeState.Success:
+                    failureChild.Release();
+                    return currentState = successChild.Process();
+                case NodeState.Failure:
+                    successChild.Release();
+                    return currentState = failureChild.Process();
+                default:
+                    return currentState = NodeState.Running;
             }
-            else 
-            {
-                if (children[0])
-                    child2State = children[0].Evaluate();
-            }
-            //cases:
-            //- one is success,
-            //- one is running,
-            //- one is failure,
-            //- both childs are null or invalid.
-            return currentState = 
-                (child1State == NodeState.Success || child2State == NodeState.Success) ? NodeState.Success :
-                (child1State == NodeState.Running && child2State == NodeState.Running) ? NodeState.Running :
-                (child1State == NodeState.Failure && child2State == NodeState.Failure) ? NodeState.Failure : NodeState.Invalid;
         }
 
         ///<example>
@@ -56,4 +44,3 @@ namespace ProjectN.System
         ///</example>
     }
 }
-*/

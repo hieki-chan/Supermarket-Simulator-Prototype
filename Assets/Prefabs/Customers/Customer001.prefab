@@ -71,7 +71,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 220
-  m_StoppingDistance: 0.1
+  m_StoppingDistance: 0.2
   m_AutoTraverseOffMeshLink: 0
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -95,6 +95,7 @@ MonoBehaviour:
   mood: 0
   targetPosition: {x: 0, y: 0, z: 0}
   currentNode: 0
+  goingShopping: 0
   productsInBag: []
   handHoldTarget: {fileID: 3460416284539370385}
   cashObject: {fileID: -4086098168302515535, guid: 960049b82a286fa4aab98ba35bf3ba17, type: 3}
@@ -559,6 +560,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 0fd99eaf1751d6a4094b39e06df92fdc, type: 2}
+    - target: {fileID: 5866666021909216657, guid: 9cf0571302cf51b4fbb7f0c386e723dd, type: 3}
+      propertyPath: m_CullingMode
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 9cf0571302cf51b4fbb7f0c386e723dd, type: 3}
       propertyPath: m_ApplyRootMotion
       value: 0

@@ -17,11 +17,11 @@ namespace Hieki.AI
         public Sequence() : base() { }
         public Sequence(List<Node> children) : base(children) { }
 
-        public sealed override NodeState Evaluate()
+        protected sealed override NodeState Evaluate()
         {
             foreach (var child in children)
             {
-                switch (child.Evaluate())
+                switch (child.Process())
                 {
                     //return running if any child nodes return running.
                     case NodeState.Running:

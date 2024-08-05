@@ -1,13 +1,20 @@
-﻿using Hieki.AI;
+﻿using UnityEngine;
+using Hieki.AI;
 using Supermarket.Customers;
 
 public class HeadingToStorage : Node<Customer>
 {
     public HeadingToStorage(Customer customer) : base(customer) { }
 
-    public override NodeState Evaluate()
+    protected override void OnPerform()
     {
-        component.MoveTowards(component.currentStorage.transform.position);
+        Transform storageTrans = component.currentStorage.transform;
+        component.targetPosition = storageTrans.position + storageTrans.forward * .75f + storageTrans.right * Random.Range(-.5f, .5f);
+    }
+
+    protected override NodeState Evaluate()
+    {
+        component.MoveTowards(component.targetPosition);
         return Running();
     }
 }

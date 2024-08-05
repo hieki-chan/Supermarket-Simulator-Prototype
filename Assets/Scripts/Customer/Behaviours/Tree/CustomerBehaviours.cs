@@ -17,15 +17,30 @@ public class CustomerBehaviours : BehaviourTree<Customer>
                 {
                     new Sequence(new List<Node>()
                     {
-                        new IsChoosingProducts(data),
-                        new ChoosingProducts(data),
+                        new IsInWaitingQueue(data),
+                        new NextWaitingNode(data),
+                        new Paying(data),
+                        new OnPaymentSuccess(data)
                     }),
 
                     new Sequence(new List<Node>()
                     {
+                        new IsChoosingProducts(data),
+                        new ChoosingProducts(data),
+                    }),
+/*
+                    new Sequence(new List<Node>()
+                    {
                         new IsReachedStorage(data).Invert(),    //if not reached storage
                         new HeadingToStorage(data),
-                    }),
+                    }),*/
+
+                    new Conditional
+                    (
+                        new IsReachedStorage(data).Invert(),
+                        new HeadingToStorage(data),
+                        new LookAtStorage(data).Wait(1)
+                    ),
                 }),
             }),
 

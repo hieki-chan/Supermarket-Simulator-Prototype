@@ -1,5 +1,4 @@
-﻿using Supermarket;
-using Supermarket.Pricing;
+﻿using Supermarket.Pricing;
 using Supermarket.Products;
 using System;
 using System.Collections.Generic;

@@ -5,7 +5,14 @@ public class IsReachedPathNode : Node<Customer>
 {
     public IsReachedPathNode(Customer customer)  : base(customer) { }
 
-    public override NodeState Evaluate()
+    protected override void OnPerform()
+    {
+        MovementPath path = component.path;
+        int currentNode = component.currentNode = 0;
+        component.targetPosition = path.Nodes[currentNode].vertex;
+    }
+
+    protected override NodeState Evaluate()
     {
         if (component.Reached(component.targetPosition))
         {

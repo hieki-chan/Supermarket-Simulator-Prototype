@@ -5,7 +5,7 @@
     /// </summary>
     public class Leaf : Node
     {
-        public override NodeState Evaluate()
+        protected override NodeState Evaluate()
         {
             return Failure();
         }

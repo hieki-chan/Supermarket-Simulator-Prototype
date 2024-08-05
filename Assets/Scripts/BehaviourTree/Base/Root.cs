@@ -8,9 +8,9 @@
         Node child;
         public Root(Node node) : base() { child = node; }
 
-        public override NodeState Evaluate()
+        protected override NodeState Evaluate()
         {
-            return child.Evaluate();
+            return child.Process();
         }
     }
 }

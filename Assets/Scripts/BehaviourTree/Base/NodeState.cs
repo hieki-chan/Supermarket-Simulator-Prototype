@@ -5,6 +5,7 @@
         Running,
         Success,
         Failure,
+        Unknow,
         //Invalid,
     }
 }

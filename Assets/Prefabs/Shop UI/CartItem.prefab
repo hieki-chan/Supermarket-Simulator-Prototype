@@ -504,8 +504,8 @@ MonoBehaviour:
   icon: {fileID: 4689173187792085680}
   productName: {fileID: 2320401236831804735}
   info: {fileID: 379634400608927148}
-  amountText: {fileID: 3300266675010577847}
-  totalText: {fileID: 130052563792489977}
+  amountText: {fileID: 7855299200861509158}
+  totalText: {fileID: 7408378658192113922}
   RemoveButton: {fileID: 1461712171341550860}
   amount: 0
   company: {fileID: 0}

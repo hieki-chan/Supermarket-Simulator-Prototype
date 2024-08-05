@@ -19,11 +19,11 @@ namespace Hieki.AI
         public Parallel() : base() { }
         public Parallel(List<Node> children) : base(children) { }
 
-        public override NodeState Evaluate()
+        protected override NodeState Evaluate()
         {
             foreach (var child in children)
             {
-                switch (child.Evaluate())
+                switch (child.Process())
                 {
                     //check if any child nodes return running.
                     case NodeState.Running:

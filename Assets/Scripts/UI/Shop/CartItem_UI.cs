@@ -1,5 +1,4 @@
-﻿using Supermarket;
-using Supermarket.Products;
+﻿using Supermarket.Products;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;

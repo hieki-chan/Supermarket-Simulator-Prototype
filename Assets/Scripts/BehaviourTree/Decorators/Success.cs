@@ -4,7 +4,7 @@
     {
         public Success() : base(null) { }
 
-        public override NodeState Evaluate()
+        protected override NodeState Evaluate()
         {
             return currentState = NodeState.Success;
         }

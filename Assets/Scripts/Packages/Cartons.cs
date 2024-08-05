@@ -118,7 +118,7 @@ public class Cartons : Interactable, IInteractButton01, IInteractButton02, IInte
         rb.AddRelativeForce(Vector3.up * (THROW_FORCE_UP * Time.deltaTime), ForceMode.Impulse);
 
         player.currentInteraction = null;
-        pickedUp = true;
+        pickedUp = false;
     }
 
     public async UniTaskVoid OpenAsync()

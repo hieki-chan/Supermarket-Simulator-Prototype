@@ -7,7 +7,7 @@ namespace Supermarket.Customers
     {
         public WalkingNode(Customer customer) : base(customer) { }
 
-        public override NodeState Evaluate()
+        protected override NodeState Evaluate()
         {
             component.m_Animator.DynamicPlay(Customer.WalkingHash, .02f);
 

@@ -5,7 +5,7 @@ public class IsChoosingProducts : Node<Customer>
 {
     public IsChoosingProducts(Customer customer) : base(customer) { }
 
-    public override NodeState Evaluate()
+    protected override NodeState Evaluate()
     {
         return currentState = NodeState.Failure;
     }

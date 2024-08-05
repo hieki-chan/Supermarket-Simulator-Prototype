@@ -5,7 +5,7 @@ public class NextPathNode : Node<Customer>
 {
     public NextPathNode(Customer customer) : base(customer) { }
 
-    public override NodeState Evaluate()
+    protected override NodeState Evaluate()
     {
         int currNode = ++component.currentNode;
         if (currNode >= component.path.Count)

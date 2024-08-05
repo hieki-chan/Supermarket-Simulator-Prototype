@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Supermarket
+namespace Supermarket.Products
 {
     [CreateAssetMenu(fileName = "Company", menuName = "Company")]
     public class Company : ScriptableObject

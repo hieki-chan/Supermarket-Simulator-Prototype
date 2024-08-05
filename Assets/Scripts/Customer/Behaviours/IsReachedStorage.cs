@@ -1,21 +1,16 @@
 ﻿using Hieki.AI;
 using Supermarket.Customers;
-using UnityEngine;
 
 public class IsReachedStorage : Node<Customer>
 {
     public IsReachedStorage(Customer customer) : base(customer) { }
 
-    public override NodeState Evaluate()
+    protected override NodeState Evaluate()
     {
-        if (component.Reached(component.currentStorage.transform.position))
+        if (component.Reached(component.targetPosition))
         {
-
-            Debug.Log("a");
             return currentState = NodeState.Success;
         }
-
-
         return currentState = NodeState.Failure;
     }
 }

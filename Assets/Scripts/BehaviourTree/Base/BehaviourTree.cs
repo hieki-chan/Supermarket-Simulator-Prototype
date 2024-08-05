@@ -18,9 +18,9 @@
         {
             InitTree();
         }*/
-        public virtual void Evaluate()
+        public virtual void Process()
         {
-            root?.Evaluate();
+            root?.Process();
         }
         public virtual void InitTree(Root root) => this.root = root;
     }

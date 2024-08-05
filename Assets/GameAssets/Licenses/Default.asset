@@ -15,8 +15,8 @@ MonoBehaviour:
   m_LicenseName: Product License
   m_Description: 'allow you to purchase and sell new products:'
   m_Cost:
-    value: 0
-  m_RequireStoreLevel: 0
+    value: 4.82
+  m_RequireStoreLevel: 56
   m_AllowedPurchaseAndSellProducts:
   - {fileID: 11400000, guid: c8150ee50176ce34f98c67be9a7cb545, type: 2}
   - {fileID: 11400000, guid: 8c8d88ff7a64f0d40a49c8b53cf36422, type: 2}

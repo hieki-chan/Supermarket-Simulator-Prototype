@@ -6,7 +6,6 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 using Supermarket.Products;
 using System.Linq;
 using Supermarket.Pricing;
-using Supermarket;
 using Cysharp.Threading.Tasks;
 
 public class OnlineShopManager : MonoBehaviour

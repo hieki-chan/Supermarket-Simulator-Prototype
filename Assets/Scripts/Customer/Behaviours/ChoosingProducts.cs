@@ -6,8 +6,18 @@ public class ChoosingProducts : Node<Customer>
 {
     public ChoosingProducts(Customer customer) : base(customer) { }
 
-    public override NodeState Evaluate()
+    protected override NodeState Evaluate()
     {
         throw new NotImplementedException();
+    }
+
+    private void TryTake()
+    {
+
+    }
+
+    private void ToOtherStorage()
+    {
+
     }
 }

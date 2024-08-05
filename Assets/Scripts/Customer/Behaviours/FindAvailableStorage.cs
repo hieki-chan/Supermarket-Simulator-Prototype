@@ -7,7 +7,7 @@ public class FindAvailableStorage : Node<Customer>
 {
     public FindAvailableStorage(Customer customer) : base(customer) { }
 
-    public override NodeState Evaluate()
+    protected override NodeState Evaluate()
     {
         component.currentStorage ??= SupermarketManager.Mine.GetAvailableStorage();
         component.currentStorage ??= SupermarketManager.Mine.Storages.PickOne();
