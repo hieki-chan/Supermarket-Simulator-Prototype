@@ -44,7 +44,7 @@ namespace Hieki.Utils
             source[index2] = val;
         }
 
-        public static List<T> ForeachRandomStart<T>(this List<T> list, System.Action<T> callback)
+        public static List<T> ForeachRandomStart<T>(this List<T> list, System.Func<T, bool> callback)
         {
             int count = list.Count;
             int realIndex = Random.Range(0, count);
@@ -54,7 +54,10 @@ namespace Hieki.Utils
             {
                 var item = list[realIndex];
 
-                callback?.Invoke(item);
+                if((bool)(callback?.Invoke(item)))
+                {
+                    return list;
+                }
 
                 loopIndex++;
                 realIndex = (int)Mathf.Repeat(loopIndex, count - 1);

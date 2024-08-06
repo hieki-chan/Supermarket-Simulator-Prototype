@@ -63,8 +63,10 @@
     <Compile Include="Assets\Scripts\Store\BuyTriggerer.cs" />
     <Compile Include="Assets\Scripts\Customer\Behaviours\IsChoosingProducts.cs" />
     <Compile Include="Assets\Scripts\Customer\CustomerType.cs" />
+    <Compile Include="Assets\Scripts\Sounds\RainSound.cs" />
     <Compile Include="Assets\Scripts\Customer\Behaviours\IsReachedPathNode.cs" />
     <Compile Include="Assets\Scripts\Furniture\Storage.cs" />
+    <Compile Include="Assets\Scripts\UI\DayTimeView.cs" />
     <Compile Include="Assets\Scripts\UI\Shop\ShopProductItem.cs" />
     <Compile Include="Assets\Scripts\Products\Company.cs" />
     <Compile Include="Assets\Scripts\Customer\States\PayingState.cs" />
@@ -72,7 +74,6 @@
     <Compile Include="Assets\Scripts\Customer\CustomerTransition.cs" />
     <Compile Include="Assets\Scripts\MVP\MVPInitializer.cs" />
     <Compile Include="Assets\Scripts\Customer\States\WalkingState.cs" />
-    <Compile Include="Assets\Scripts\UI\RealTimeWeatherView.cs" />
     <Compile Include="Assets\Scripts\Manager\SupermarketManager.cs" />
     <Compile Include="Assets\Scripts\Packages\Package.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerInputListener.cs" />
@@ -143,6 +144,7 @@
     <Compile Include="Assets\Scripts\Attributes\NewProductAttribute.cs" />
     <Compile Include="Assets\Scripts\Customer\MovementPath.cs" />
     <Compile Include="Assets\Scripts\UI\Tab\IndexedButton.cs" />
+    <Compile Include="Assets\Scripts\UI\TimeAndWeather\RealTimeWeatherView.cs" />
     <Compile Include="Assets\Scripts\Customer\CustomerManager.cs" />
     <Compile Include="Assets\Scripts\Store\AreaPacking2D.cs" />
     <Compile Include="Assets\Scripts\Packages\Cartons.cs" />
@@ -154,6 +156,7 @@
     <Compile Include="Assets\Scripts\Furniture\AnimeFigure.cs" />
     <Compile Include="Assets\Scripts\Pool\UnitPool.cs" />
     <Compile Include="Assets\Scripts\UI\LookZone.cs" />
+    <Compile Include="Assets\Scripts\UI\DayTimePresenter.cs" />
     <Compile Include="Assets\Scripts\Customer\Behaviours\LookAtStorage.cs" />
   </ItemGroup>
   <ItemGroup>
