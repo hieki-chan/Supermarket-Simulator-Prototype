@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 using Hieki.Utils;
 using UnityEngine.Events;
 using System;
+using Hieki.Pubsub;
 
 namespace Supermarket.Player
 {
@@ -36,7 +37,8 @@ namespace Supermarket.Player
         [SerializeField, Range(-120, 0)] private float lookDownClampedAngle;
         [SerializeField, Range(0, 120)] private float lookUpClampedAngle;
         [SerializeField] private float lookSmoothSpeed;
-        [SerializeField] private float lookSensitivity;
+        [SerializeField] private float lookSensitivity;     //default sensitivity.
+        [SerializeField, NonEditable] private float finalLookSensitivity;   //final sensitivity.
         [SerializeField, Tooltip("Inverse look up/down")]
         private bool inverseX;
         [SerializeField, Tooltip("Inverse look left/right")]
@@ -61,9 +63,37 @@ namespace Supermarket.Player
         [NonSerialized]
         public CharacterController m_Controller;
 
+        //-----------------------------Sub Event----------------------------\\
+        //Camera Sensivivity event.
+        Topic camSenTopic = Topic.FromMessage<CamSensitivityMessage>();
+        Topic controlTopic = Topic.FromMessage<ControlStateMessage>();
+        Topic interactTopic = Topic.FromMessage<InteractMessage>();
+
+        ISubscriber subscriber = new Subscriber();
+
         private void Awake()
         {
             playerInput = new PlayerInputListener();
+
+            //Subcribes events
+            subscriber.Subscribe<CamSensitivityMessage>(camSenTopic, (message) =>
+            {
+                finalLookSensitivity = lookSensitivity * message.camSensitivity;
+            });
+
+            subscriber.Subscribe<ControlStateMessage>(controlTopic, (message) =>
+            {
+                disableMove = disableLook = !message.state;
+            });
+
+            subscriber.Subscribe<InteractMessage>(interactTopic, (message) =>
+            {
+                if(currentInteraction != null && currentInteraction != message.interaction)
+                {
+                    currentInteraction.OnInteractExit();
+                }
+                currentInteraction = message.interaction;
+            });
         }
 
         private void Start()
@@ -154,11 +184,11 @@ namespace Supermarket.Player
 
             //camera look
             //look left/right
-            rotateY -= look.x * lookSensitivity * Time.deltaTime * (inverseY ? -1 : 1);
+            rotateY -= look.x * finalLookSensitivity * Time.deltaTime * (inverseY ? -1 : 1);
             rotateY = Mathf.Repeat(rotateY, 360);
 
             //look up/down
-            rotateX -= look.y * lookSensitivity * Time.deltaTime * (inverseX ? -1 : 1);
+            rotateX -= look.y * finalLookSensitivity * Time.deltaTime * (inverseX ? -1 : 1);
             rotateX = Mathf.Clamp(rotateX, lookDownClampedAngle, lookUpClampedAngle);
 
             cameraTrans.localRotation = Quaternion.Slerp(cameraTrans.localRotation, Quaternion.Euler(rotateX, rotateY, 0), Time.deltaTime * lookSmoothSpeed);

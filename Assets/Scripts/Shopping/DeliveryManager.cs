@@ -6,6 +6,7 @@ using Supermarket.Products;
 using Hieki.Pubsub;
 using Cysharp.Threading.Tasks;
 using System;
+using UnityEngine.UIElements;
 
 public class DeliveryManager : MonoBehaviour
 {
@@ -69,8 +70,10 @@ public class DeliveryManager : MonoBehaviour
                     {
                         case ProductType.Products:
                             {
-                                Cartons box = Cartons.Pool.GetOrCreate(Vector3.up * 5, Quaternion.identity);
+                                Cartons box = Cartons.Pool.GetOrCreate(Vector3.up * 5, Quaternion.identity, false);
                                 box.PackItem(item.product.ProductOnSale, item.product.UnitPerPack);
+                                await EnablePackageDelayed(box.gameObject);
+
                                 break;
                             }
 
@@ -78,13 +81,14 @@ public class DeliveryManager : MonoBehaviour
                             {
                                 Package pack = Package.Pool.Get();
                                 pack.Pack(item.product.Furniture);
+                                await EnablePackageDelayed(pack.gameObject);
                                 break;
                             }
                         default:
                             break;
                     }
 
-                    await UniTask.Delay(TimeSpan.FromSeconds(0.8333f));
+                    //await UniTask.Delay(TimeSpan.FromSeconds(0.8333f));
                 }
             }
             Orders.RemoveAt(0);
@@ -94,5 +98,11 @@ public class DeliveryManager : MonoBehaviour
         }
 
         delivering = false;
+    }
+
+    private async UniTask EnablePackageDelayed(GameObject GO)
+    {
+        await UniTask.Delay(833);
+        GO.SetActive(true);
     }
 }

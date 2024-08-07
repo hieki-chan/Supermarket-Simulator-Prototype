@@ -17,23 +17,31 @@ public class OnlineShopManager : MonoBehaviour
     private List<License> licenses;
 
     [SerializeField] CartData cartData;
-    Laptop laptop;
 
     public ShopView shopView;
 
+    //----------------------------Open/Close Shop-----------------------------\\
+    Topic shopTopic = Topic.FromString("shop-state");
+
     //----------------------------Buy-----------------------------\\
     Topic buyTopic = Topic.FromString("buy-delivery");
+
+    //======================Publish/Subscribe========================\\
     IPublisher publisher = new Publisher();
+    ISubscriber subscriber = new Subscriber();
 
     private void Awake()
     {
         cartData = new CartData();
         shopView.OnAddToCart += OnAddToCart;
         shopView.OnRemovedFromCart += OnRemoveFromCart;
-        shopView.OnShopClosed += () => laptop.OnShopClosed();
         shopView.OnBuy += Buy;
-        laptop = SupermarketManager.Mine.Laptop;
-        laptop.OnOpenShop += () => shopView.gameObject.SetActive(true);
+        shopView.OnShopClosed += () => publisher.Publish(shopTopic, new OnlineShopMessage(false));
+
+        subscriber.Subscribe<OnlineShopMessage>(shopTopic, (message) =>
+        {
+            shopView.gameObject.SetActive(message.state);
+        });
 
         LoadAllItems().Forget();
     }

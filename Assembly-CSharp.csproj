@@ -9,8 +9,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <ProjectGuid>{708F7866-3372-D939-1DF5-29CAD8487187}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -61,9 +60,11 @@
     <Analyzer Include="C:\Unity\Hub\Editor\2022.3.27f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Manager\TimeWeatherMessages.cs" />
     <Compile Include="Assets\Scripts\Store\BuyTriggerer.cs" />
     <Compile Include="Assets\Scripts\Customer\Behaviours\IsChoosingProducts.cs" />
     <Compile Include="Assets\Scripts\Customer\CustomerType.cs" />
+    <Compile Include="Assets\Scripts\Player\PlayerMessages.cs" />
     <Compile Include="Assets\Scripts\Sounds\RainSound.cs" />
     <Compile Include="Assets\Scripts\Customer\Behaviours\IsReachedPathNode.cs" />
     <Compile Include="Assets\Scripts\Furniture\Storage.cs" />
@@ -73,8 +74,10 @@
     <Compile Include="Assets\Scripts\Customer\States\PayingState.cs" />
     <Compile Include="Assets\Scripts\Manager\RealTimeWeather.cs" />
     <Compile Include="Assets\Scripts\Customer\CustomerTransition.cs" />
+    <Compile Include="Assets\Scripts\SaveLoad\LocalSaveLoad.cs" />
     <Compile Include="Assets\Scripts\MVP\MVPInitializer.cs" />
     <Compile Include="Assets\Scripts\Customer\States\WalkingState.cs" />
+    <Compile Include="Assets\Scripts\Sounds\GlobalAudioMix.cs" />
     <Compile Include="Assets\Scripts\Manager\SupermarketManager.cs" />
     <Compile Include="Assets\Scripts\Packages\Package.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerInputListener.cs" />
@@ -87,12 +90,14 @@
     <Compile Include="Assets\Scripts\Customer\Behaviours\NextPathNode.cs" />
     <Compile Include="Assets\Scripts\Store\CheckoutDesk.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerController.cs" />
-    <Compile Include="Assets\Scripts\MVP\TooltipPresenter.cs" />
+    <Compile Include="Assets\Scripts\Furniture\FurniturePlacer.cs" />
+    <Compile Include="Assets\Scripts\PlaySettings\PlaySettings.cs" />
     <Compile Include="Assets\Scripts\Interaction\Interactable.cs" />
     <Compile Include="Assets\Scripts\Store\Laptop.cs" />
     <Compile Include="Assets\Scripts\Shopping\CartItem.cs" />
     <Compile Include="Assets\Scripts\UI\OrderView.cs" />
     <Compile Include="Assets\Scripts\Products\ArrangementGrid.cs" />
+    <Compile Include="Assets\Scripts\Shopping\ShopMessages.cs" />
     <Compile Include="Assets\Scripts\Interaction\IInteractButtons.cs" />
     <Compile Include="Assets\Scripts\StateMachine\IState.cs" />
     <Compile Include="Assets\Scripts\UI\InteractButtonsView.cs" />
@@ -120,7 +125,6 @@
     <Compile Include="Assets\Scripts\Pricing\ItemPricing.cs" />
     <Compile Include="Assets\Scripts\Customer\Behaviours\WalkingNode.cs" />
     <Compile Include="Assets\Scripts\UI\Shop\CartItem_UI.cs" />
-    <Compile Include="Assets\Scripts\Manager\WeatherMessage.cs" />
     <Compile Include="Assets\Scripts\UI\TooltipView.cs" />
     <Compile Include="Assets\Scripts\Customer\Behaviours\IsGoingShopping.cs" />
     <Compile Include="Assets\Scripts\UI\PriceSettingView.cs" />
@@ -131,11 +135,14 @@
     <Compile Include="Assets\Scripts\StateMachine\ITransition.cs" />
     <Compile Include="Assets\Scripts\Customer\Behaviours\Paying.cs" />
     <Compile Include="Assets\Scripts\Customer\Behaviours\Tree\CustomerBehaviours.cs" />
+    <Compile Include="Assets\Scripts\MVP\SettingsPresenter.cs" />
     <Compile Include="Assets\Scripts\Store\AutomaticDoor.cs" />
+    <Compile Include="Assets\Scripts\Sounds\VolumeMessages.cs" />
     <Compile Include="Assets\Scripts\UI\Shop\License_UI.cs" />
     <Compile Include="Assets\Scripts\Products\ProductInfo.cs" />
     <Compile Include="Assets\Scripts\Manager\GameManager.cs" />
     <Compile Include="Assets\Scripts\Customer\States\WaitingState.cs" />
+    <Compile Include="Assets\Scripts\UI\SettingsUI.cs" />
     <Compile Include="Assets\Scripts\Store\OpenClosedSignBoard.cs" />
     <Compile Include="Assets\Scripts\Customer\PaymentType.cs" />
     <Compile Include="Assets\Scripts\Pricing\VietNamDong.cs" />
@@ -1217,6 +1224,10 @@
       <Project>{C2BA3288-3120-6940-6F91-D794E99AE7C8}</Project>
       <Name>LeanTween</Name>
     </ProjectReference>
+    <ProjectReference Include="Hieki.AI.csproj">
+      <Project>{13FF2CC1-DEB9-9387-DFB1-3CE70E825F06}</Project>
+      <Name>Hieki.AI</Name>
+    </ProjectReference>
     <ProjectReference Include="QuickOutline.csproj">
       <Project>{0401955F-E826-1162-837A-AF901F202A11}</Project>
       <Name>QuickOutline</Name>
@@ -1224,10 +1235,6 @@
     <ProjectReference Include="Hieki.Pubsub.csproj">
       <Project>{6E3773E9-139E-EDDF-C572-903648F6FB4F}</Project>
       <Name>Hieki.Pubsub</Name>
-    </ProjectReference>
-    <ProjectReference Include="Hieki.AI.csproj">
-      <Project>{13FF2CC1-DEB9-9387-DFB1-3CE70E825F06}</Project>
-      <Name>Hieki.AI</Name>
     </ProjectReference>
     <ProjectReference Include="Joystick.csproj">
       <Project>{B5439728-C593-4BC8-76C0-BE080F60F3BC}</Project>

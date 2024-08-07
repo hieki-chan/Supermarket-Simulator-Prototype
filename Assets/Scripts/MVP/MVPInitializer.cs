@@ -7,9 +7,17 @@ public class MVPInitializer : MonoBehaviour
 
     public DayTimePresenter DayTimePresenter;
 
+    public SettingsPresenter settingsPresenter;
+
     private void Awake()
     {
         InteractionPresenter.Initialize();
         DayTimePresenter.Initialize();
+        settingsPresenter.Initialize();
+    }
+
+    private void OnDestroy()
+    {
+        settingsPresenter.OnDestroy();
     }
 }

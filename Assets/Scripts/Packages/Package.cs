@@ -35,7 +35,7 @@ public class Package : Interactable, IInteractButton01
 
     public bool GetButtonState01()
     {
-        return true;
+        return furniture;
     }
 
     public string GetButtonTitle01()

@@ -63,6 +63,7 @@
     <Compile Include="Assets\Scripts\Customer\Editor\NodeEditor.cs" />
     <Compile Include="Assets\Scripts\Customer\Editor\CustomerStateHandlerDrawer.cs" />
     <Compile Include="Assets\Scripts\Furniture\Editor\CheckoutPointDrawer.cs" />
+    <Compile Include="Assets\Scripts\SaveLoad\Editor\PersistenceDataPathOpener.cs" />
     <Compile Include="Assets\Scripts\Products\Editor\PPPCalculator.cs" />
     <Compile Include="Assets\Scripts\Products\Editor\ProductInfoCreator.cs" />
     <Compile Include="Assets\Scripts\Attributes\Editor\CreateSOAttributeDrawer.cs" />
@@ -1167,6 +1168,10 @@
       <Project>{C2BA3288-3120-6940-6F91-D794E99AE7C8}</Project>
       <Name>LeanTween</Name>
     </ProjectReference>
+    <ProjectReference Include="Hieki.AI.csproj">
+      <Project>{13FF2CC1-DEB9-9387-DFB1-3CE70E825F06}</Project>
+      <Name>Hieki.AI</Name>
+    </ProjectReference>
     <ProjectReference Include="QuickOutline.csproj">
       <Project>{0401955F-E826-1162-837A-AF901F202A11}</Project>
       <Name>QuickOutline</Name>
@@ -1174,10 +1179,6 @@
     <ProjectReference Include="Hieki.Pubsub.csproj">
       <Project>{6E3773E9-139E-EDDF-C572-903648F6FB4F}</Project>
       <Name>Hieki.Pubsub</Name>
-    </ProjectReference>
-    <ProjectReference Include="Hieki.AI.csproj">
-      <Project>{13FF2CC1-DEB9-9387-DFB1-3CE70E825F06}</Project>
-      <Name>Hieki.AI</Name>
     </ProjectReference>
     <ProjectReference Include="Joystick.csproj">
       <Project>{B5439728-C593-4BC8-76C0-BE080F60F3BC}</Project>

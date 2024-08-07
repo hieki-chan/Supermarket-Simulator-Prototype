@@ -1,29 +1,48 @@
-﻿using Supermarket;
+﻿using Hieki.Pubsub;
+using Supermarket;
 using Supermarket.Player;
-using UnityEngine.Events;
 
 public sealed class Laptop : Interactable
 {
-    public UnityAction OnOpenShop;
+    Topic shopTopic = Topic.FromString("shop-state");
+    Topic playerCtrlTopic = Topic.FromMessage<ControlStateMessage>();
+    Topic interactTopic = Topic.FromMessage<InteractMessage>();
 
-    PlayerController player;
+    IPublisher publisher = new Publisher();
+    ISubscriber subscriber = new Subscriber();
+
+    bool isBuying;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        subscriber.Subscribe<OnlineShopMessage>(shopTopic, OnShopClosed);
+    }
 
     public override void OnInteract(PlayerController targetPlayer)
     {
-        player = targetPlayer;
-        player.disableLook = true;
-        player.disableMove = true;
-        player.currentInteraction = this;
+        isBuying = true;
 
-        OnOpenShop?.Invoke();
+        publisher.Publish(shopTopic, new OnlineShopMessage(true));
     }
 
-    public void OnShopClosed()
+    public void OnShopClosed(OnlineShopMessage message)
     {
-        if (player == null)
+        if (isBuying == false)
             return;
-        player.disableLook = false;
-        player.disableMove = false;
-        player.currentInteraction = null;
+
+        switch (message.state)
+        {
+            case false:
+                publisher.Publish(playerCtrlTopic, new ControlStateMessage(true));
+                publisher.Publish(interactTopic, new InteractMessage(null));
+                isBuying = false;
+                break;
+
+            case true:
+                publisher.Publish(playerCtrlTopic, new ControlStateMessage(false));
+                publisher.Publish(interactTopic, new InteractMessage(this));
+                break;
+        }
     }
 }

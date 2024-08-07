@@ -19,5 +19,15 @@ namespace Hieki.Pubsub
         {
             return new Topic(str.GetHashCode());
         }
+
+        public static Topic FromMessage<T>() where T : IMessage
+        {
+            return Topic.FromString(typeof(T).FullName);
+        }
+
+        public static Topic FromType<T>()
+        {
+            return Topic.FromString(typeof(T).FullName);
+        }
     }
 }

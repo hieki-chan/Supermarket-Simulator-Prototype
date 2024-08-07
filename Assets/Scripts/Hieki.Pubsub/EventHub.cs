@@ -14,7 +14,12 @@ namespace Hieki.Pubsub
                 subscriber.callbackMessages = new Dictionary<Topic, System.Delegate> ();
             }
 
-            subscriber.callbackMessages.Add(topic, callbackMessage);
+            if(!subscriber.callbackMessages.TryAdd(topic, callbackMessage))
+            {
+#if UNITY_EDITOR
+                Debug.Log($"Multi-Sub not supported: cannot subscribe {topic.id} more than 1 time: {subscriber}");
+#endif
+            }
 
             if (m_Subscribers.TryGetValue(topic, out List<ISubscriber> subscribers))
             {
@@ -36,20 +41,19 @@ namespace Hieki.Pubsub
 
         public static void Publish<T>(Topic topic, T message) where T : IMessage
         {
-            if (m_Subscribers.TryGetValue(topic, out List<ISubscriber> subscribers))
+            if (!m_Subscribers.TryGetValue(topic, out List<ISubscriber> subscribers))
             {
-                foreach (var subscriber in subscribers)
-                {
-                    if (!subscriber.callbackMessages.TryGetValue(topic, out var callback))
-                    {
-                        continue;
-                    }
+                return;
+            }
 
-                    CallbackMessage<T> callbackMessage = callback as CallbackMessage<T>;
-                    //subscriber.callbackMessage(message);
-                    if (callbackMessage != null)
-                        callbackMessage(message);
+            foreach (var subscriber in subscribers)
+            {
+                if (!subscriber.callbackMessages.TryGetValue(topic, out var callback))
+                {
+                    continue;
                 }
+
+                (callback as CallbackMessage<T>)?.Invoke(message);
             }
         }
 

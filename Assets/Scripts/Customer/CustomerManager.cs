@@ -3,6 +3,7 @@ using Supermarket;
 using System.Collections.Generic;
 using UnityEngine;
 using Hieki.Utils;
+using Hieki.Pubsub;
 
 public class CustomerManager : MonoBehaviour
 {
@@ -24,8 +25,13 @@ public class CustomerManager : MonoBehaviour
     [SerializeField, NonEditable]
     private float timer;
 
+    [NonEditable, SerializeField] private bool stopSpawn;
 
-    private void Start()
+    Topic dayPartTopic = Topic.FromString("daypart-change");
+    ISubscriber subscriber = new Subscriber();
+
+
+    private void Awake()
     {
         MovementPaths = GetComponentsInChildren<MovementPath>();
 
@@ -47,18 +53,20 @@ public class CustomerManager : MonoBehaviour
 
         RandomTime();
 
+        subscriber.Subscribe<DayPartMessage>(dayPartTopic, OnDayNightChange);
     }
 
     private void Update()
     {
-        timer += Time.deltaTime;
+        if(!stopSpawn)
+            timer += Time.deltaTime;
 
         if (timer >= randomTime)
         {
             SpawnCustomer();
             RandomTime();
         }
-
+        
         UpdateCustomers();
     }
 
@@ -88,5 +96,10 @@ public class CustomerManager : MonoBehaviour
     {
         randomTime = Random.Range(minTime, maxTime);
         timer = 0;
+    }
+
+    void OnDayNightChange(DayPartMessage message)
+    {
+        stopSpawn = message.dayPart >= RealTimeWeather.DayParts.Night;
     }
 }

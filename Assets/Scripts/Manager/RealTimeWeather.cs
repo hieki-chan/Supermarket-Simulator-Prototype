@@ -1,15 +1,18 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Events;
+using System.Collections.Generic;
+using System.Threading;
+using Cysharp.Threading.Tasks;
 using Hieki.Pubsub;
 using Hieki.Utils;
 using static Hieki.Utils.RandomUtils;
+using UnityEditor.Experimental.GraphView;
 
 public class RealTimeWeather : MonoBehaviour
 {
     [Header("Day Time And Weather")]
     [SerializeField, NonEditable] private Day day;
-    [SerializeField, NonEditable] private DayParts part;
+    [SerializeField, NonEditable] private DayParts dayPart;
     [SerializeField, NonEditable] private Weather weather;
 
     [SerializeField] private float dayDuration;
@@ -37,9 +40,12 @@ public class RealTimeWeather : MonoBehaviour
     [NonEditable, SerializeField] 
     private GameObject rainParticleInstance;
 
-    private IPublisher rainPublisher;
-    private Topic weatherTopic;
+    private IPublisher publisher;
 
+    private Topic dayPartTopic = Topic.FromString("daypart-change");
+    private Topic weatherTopic = Topic.FromString("weather-change");
+
+    CancellationToken token;
 
     #region EVENTS
     public UnityAction<Day> OnDayChange;
@@ -53,25 +59,48 @@ public class RealTimeWeather : MonoBehaviour
 
         rainParticleInstance = Instantiate(rainParticlePrefab);
         rainParticleInstance.SetActive(false);
-        weatherTopic = Topic.FromString("weather-change");
-        rainPublisher = new Publisher();
+
+        publisher = new Publisher();
+
+        //day changes
+        DayChange();
+
+        //day part changes
+        DayPartChange();
+
+        //weather changes
+        WeatherChange();
+
+        //update delayed
+        token = this.GetCancellationTokenOnDestroy();
+        PeriodicUpdate().Forget();
     }
 
-    void Update()
+    private async UniTaskVoid PeriodicUpdate()
     {
-        dayTimer += Time.deltaTime;
-        dayNightFactor = dayTimer / dayDuration;
 
-        DayPart();
+        while (true)
+        {
+            await UniTask.Delay(1000, false, PlayerLoopTiming.Update, token);
+            DayElapse();
+        }
+    }
+
+    void DayElapse()
+    {
+        dayTimer += 1;
+        dayNightFactor = dayTimer / dayDuration;
 
         if (dayTimer >= dayDuration)
         {
             NextDay();
         }
 
+        DayPart();
+
 
         // Update Skybox
-        RenderSettings.skybox = (part < DayParts.Evening) ? daySkybox : nightSkybox;
+        RenderSettings.skybox = (dayPart < DayParts.Evening) ? daySkybox : nightSkybox;
 
         // Update Directional Light
         directionalLight.intensity = Mathf.Lerp(dayIntensity, nightIntensity, dayNightFactor);
@@ -92,12 +121,20 @@ public class RealTimeWeather : MonoBehaviour
             _ => DayParts.Night,
         };
 
-        if (part != this.part)
+        if (part != dayPart)
         {
-            this.part = part;
-            OnDayPartChange?.Invoke(part);
+            dayPart = part;
+
+            DayPartChange();
+
             WeatherForecast();
         }
+    }
+
+    void DayPartChange()
+    {
+        OnDayPartChange?.Invoke(dayPart);
+        publisher.Publish(dayPartTopic, new DayPartMessage(dayPart));
     }
 
     public void EndDay()
@@ -105,7 +142,7 @@ public class RealTimeWeather : MonoBehaviour
 
     }
 
-    private void NextDay()
+    void NextDay()
     {
         dayTimer = 0;
         day++;
@@ -115,12 +152,16 @@ public class RealTimeWeather : MonoBehaviour
             day = Day.Monday;
         }
 
-        part = DayParts.Morning;
+        dayPart = DayParts.Morning;
+        DayChange();
+    }
 
+    void DayChange()
+    {
         OnDayChange?.Invoke(day);
     }
 
-    private void SetWeatherMatrix()
+    void SetWeatherMatrix()
     {
         weatherMatrix = new Dictionary<Weather, List<NextWeather>>()
         {
@@ -139,7 +180,7 @@ public class RealTimeWeather : MonoBehaviour
                     new NextWeather(Weather.Sunny, .75f),
                     new NextWeather(Weather.Windy, .3f),
                     new NextWeather(Weather.Cloudy, .25f),
-                    new NextWeather(Weather.Rainy, .5f),
+                    new NextWeather(Weather.Rainy, .7f),
                 }
             },
 
@@ -158,7 +199,7 @@ public class RealTimeWeather : MonoBehaviour
                     new NextWeather(Weather.Cloudy, .45f),
                     new NextWeather(Weather.Windy, .25f),
                     new NextWeather(Weather.Stormy, .25f),
-                    new NextWeather(Weather.Rainy, .4f),
+                    new NextWeather(Weather.Rainy, .65f),
                     new NextWeather(Weather.Sunny, .25f),
                     new NextWeather(Weather.Clear, .5f),
                 }
@@ -175,7 +216,7 @@ public class RealTimeWeather : MonoBehaviour
             {
                 Weather.Stormy, new List<NextWeather>
                 {
-                    new NextWeather(Weather.Rainy, .5f),
+                    new NextWeather(Weather.Rainy, .677f),
                     new NextWeather(Weather.Cloudy, .4f),
                     new NextWeather(Weather.Sunny, .5f),
                 }
@@ -186,9 +227,9 @@ public class RealTimeWeather : MonoBehaviour
     /// <summary>
     /// determines the next weather
     /// </summary>
-    private void WeatherForecast()
+    void WeatherForecast()
     {
-        if (part != (DayParts.Morning | DayParts.Afternoon | DayParts.Evening))
+        if (dayPart != (DayParts.Morning | DayParts.Afternoon | DayParts.Evening))
             return;
 
         var matrix = weatherMatrix[weather];
@@ -198,30 +239,32 @@ public class RealTimeWeather : MonoBehaviour
             if (Chance(next.chance))
             {
                 weather = next.weather;
-                OnWeatherChange?.Invoke(weather);
+                WeatherChange();
 
-
-                rainPublisher.Publish(weatherTopic, new WeatherMessage()
-                {
-                    weather = weather,
-                });
-
-                if (weather == Weather.Rainy)
-                    Rain();
-                else
-                    StopRain();
                 return true;
             }
             return false;
         });
     }
 
-    private void Rain()
+    void WeatherChange()
+    {
+        OnWeatherChange?.Invoke(weather);
+
+        publisher.Publish(weatherTopic, new WeatherMessage(weather));
+
+        if (weather == Weather.Rainy)
+            Rain();
+        else
+            StopRain();
+    }
+
+    void Rain()
     {
         rainParticleInstance.SetActive(true);
     }
 
-    private void StopRain()
+    void StopRain()
     {
         rainParticleInstance.SetActive(false);
     }

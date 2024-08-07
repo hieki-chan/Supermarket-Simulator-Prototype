@@ -8,5 +8,10 @@ namespace Supermarket.MVP
         [SerializeField] protected V view;
 
         public abstract void Initialize();
+
+        /// <summary>
+        /// Useful for cancel UniTask
+        /// </summary>
+        public virtual void OnDestroy() { }
     }
 }
