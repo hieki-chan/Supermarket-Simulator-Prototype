@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using Supermarket.Products;
 using UnityEngine.Events;
 using TMPro;
-using Hieki;
 using UnityEngine.UI;
 using Supermarket.Pricing;
 using Supermarket;
 using System.Linq;
+using Hieki.Search;
 
 public class ShopView : MonoBehaviour
 {

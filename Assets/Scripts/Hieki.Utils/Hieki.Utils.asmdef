@@ -1,3 +1,14 @@
 {
-	"name": "Hieki.Utils"
+    "name": "Hieki.Utils",
+    "rootNamespace": "Hieki",
+    "references": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }

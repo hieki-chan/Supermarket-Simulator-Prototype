@@ -74,16 +74,16 @@ namespace Supermarket.Player
 
         private void OnEnable()
         {
-            playerInput.Enable();
-
             playerInput.Player.Touch.performed += OnTouch;
+
+            playerInput.Enable();
         }
 
-        private void OnDisable()
+        private void OnDestroy()
         {
-            playerInput.Disable();
-
             playerInput.Player.Touch.performed -= OnTouch;
+
+            playerInput.Disable();
         }
 
         private void Update()
@@ -109,10 +109,10 @@ namespace Supermarket.Player
 
             RayCastTarget();
 
-            if (Input.GetMouseButtonDown(0))
+            /*if (Input.GetMouseButtonDown(0))
             {
                 OnTap(Input.mousePosition);
-            }
+            }*/
         }
 
         private void LateUpdate()
@@ -126,7 +126,7 @@ namespace Supermarket.Player
             if (m_Controller.enabled)
                 m_Controller.Move(relativeDir);
 
-            if(direction != Vector2.zero)
+            if (direction != Vector2.zero)
                 OnMove?.Invoke();
         }
 
@@ -222,10 +222,12 @@ namespace Supermarket.Player
             }
         }
 
-        private void OnTouch(InputAction.CallbackContext context)
+        public void OnTouch(InputAction.CallbackContext context)
         {
-            print("touch");
-            Vector2 screenPos = context.ReadValue<Vector2>();
+            //print("touch");
+
+            Vector2 screenPos = playerInput.Player.SceenPosition.ReadValue<Vector2>();
+
             OnTap(screenPos);
         }
 

@@ -25,21 +25,21 @@
                 },
                 {
                     "name": "Touch",
-                    "type": "Value",
+                    "type": "Button",
                     "id": "cc91a1e1-8bcf-4038-86cc-83acf377c96e",
-                    "expectedControlType": "Vector2",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Fire",
-                    "type": "Button",
+                    "name": "SceenPosition",
+                    "type": "Value",
                     "id": "ac2977a8-c418-4b9b-9c73-24e29675477f",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -167,21 +167,32 @@
                 {
                     "name": "",
                     "id": "886e731e-7071-4ae4-95c0-e61739dad6fd",
-                    "path": "<Touchscreen>/primaryTouch/tap",
+                    "path": "<Touchscreen>/primaryTouch/position",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Touch",
-                    "action": "Fire",
+                    "action": "SceenPosition",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "cc58f034-80b2-4d4f-b007-5edc7eb2af81",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SceenPosition",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
                     "id": "3fd0962e-9e10-4afc-aa2a-362508a9f216",
-                    "path": "<Touchscreen>/primaryTouch/position",
+                    "path": "<Touchscreen>/Press",
                     "interactions": "Tap",
                     "processors": "",
-                    "groups": "Touch;Keyboard&Mouse",
+                    "groups": "Touch",
                     "action": "Touch",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -190,7 +201,7 @@
                     "name": "",
                     "id": "44f2ff20-6c1d-468f-b75f-f50dfc553252",
                     "path": "<Mouse>/leftButton",
-                    "interactions": "",
+                    "interactions": "Tap",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "Touch",

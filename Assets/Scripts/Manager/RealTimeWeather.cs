@@ -1,7 +1,8 @@
-﻿using Hieki.Utils;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using Hieki.Pubsub;
+using Hieki.Utils;
 using static Hieki.Utils.RandomUtils;
 
 public class RealTimeWeather : MonoBehaviour
@@ -31,11 +32,14 @@ public class RealTimeWeather : MonoBehaviour
     public float dayNightFactor = 0; // 0 = day, 1 = night
 
     [Header("Rain Effects")]
-    public RainSound rainSound;
     public GameObject rainParticlePrefab;
 
     [NonEditable, SerializeField] 
     private GameObject rainParticleInstance;
+
+    private IPublisher rainPublisher;
+    private Topic weatherTopic;
+
 
     #region EVENTS
     public UnityAction<Day> OnDayChange;
@@ -49,8 +53,8 @@ public class RealTimeWeather : MonoBehaviour
 
         rainParticleInstance = Instantiate(rainParticlePrefab);
         rainParticleInstance.SetActive(false);
-
-        rainSound.Play(false);
+        weatherTopic = Topic.FromString("weather-change");
+        rainPublisher = new Publisher();
     }
 
     void Update()
@@ -195,6 +199,13 @@ public class RealTimeWeather : MonoBehaviour
             {
                 weather = next.weather;
                 OnWeatherChange?.Invoke(weather);
+
+
+                rainPublisher.Publish(weatherTopic, new WeatherMessage()
+                {
+                    weather = weather,
+                });
+
                 if (weather == Weather.Rainy)
                     Rain();
                 else
@@ -208,13 +219,11 @@ public class RealTimeWeather : MonoBehaviour
     private void Rain()
     {
         rainParticleInstance.SetActive(true);
-        rainSound.Play(true);
     }
 
     private void StopRain()
     {
         rainParticleInstance.SetActive(false);
-        rainSound.Play(false);
     }
 
     public enum Day

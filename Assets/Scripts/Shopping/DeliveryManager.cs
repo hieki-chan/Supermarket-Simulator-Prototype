@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using Supermarket;
 using Supermarket.Products;
+using Hieki.Pubsub;
+using Cysharp.Threading.Tasks;
+using System;
 
 public class DeliveryManager : MonoBehaviour
 {
@@ -12,13 +15,22 @@ public class DeliveryManager : MonoBehaviour
     public List<Order> Orders = new List<Order>();
     bool delivering;
 
+    Topic orderTopic = Topic.FromString("buy-delivery");
+    ISubscriber subscriber;
+
     private void Awake()
     {
         Cartons.Pool = new MonoPool<Cartons>(cartonBoxPrefab, 8);
         Package.Pool = new MonoPool<Package>(packagePrefab, 8);
+
+        subscriber = new Subscriber();
+        subscriber.Subscribe<CartData>(orderTopic, (orderMessage) =>
+        {
+            Order(orderMessage);
+        });
     }
 
-    public void Order(CartData data)
+    private void Order(CartData data)
     {
         var items = data.CartItems;
         foreach (var key in items.Keys)
@@ -31,11 +43,11 @@ public class DeliveryManager : MonoBehaviour
             });
         }
         if (!delivering)
-            StartCoroutine(Delivery());
+            Delivery().Forget();
     }
 
-    WaitForSeconds waitForBox = new WaitForSeconds(0.8333f);
-    public IEnumerator Delivery()
+
+    private async UniTaskVoid Delivery()
     {
         delivering = true;
         float t = 0;
@@ -45,7 +57,7 @@ public class DeliveryManager : MonoBehaviour
 
             if (t < Orders[0].time)
             {
-                yield return null;
+                await UniTask.NextFrame();
                 continue;
             }
 
@@ -72,13 +84,13 @@ public class DeliveryManager : MonoBehaviour
                             break;
                     }
 
-                    yield return waitForBox;
+                    await UniTask.Delay(TimeSpan.FromSeconds(0.8333f));
                 }
             }
             Orders.RemoveAt(0);
             t = 0;
 
-            yield return null;
+            await UniTask.NextFrame();
         }
 
         delivering = false;

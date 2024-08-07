@@ -6,6 +6,7 @@ using Supermarket.Products;
 using System.Linq;
 using Supermarket.Pricing;
 using Cysharp.Threading.Tasks;
+using Hieki.Pubsub;
 
 public class OnlineShopManager : MonoBehaviour
 {
@@ -20,7 +21,9 @@ public class OnlineShopManager : MonoBehaviour
 
     public ShopView shopView;
 
-    public DeliveryManager deliveryManager;
+    //----------------------------Buy-----------------------------\\
+    Topic buyTopic = Topic.FromString("buy-delivery");
+    IPublisher publisher = new Publisher();
 
     private void Awake()
     {
@@ -78,12 +81,14 @@ public class OnlineShopManager : MonoBehaviour
     void Buy()
     {
         unit totalCost = cartData.TotalCost();
+
         if (SupermarketManager.Mine.Money < totalCost)
         {
             //
         }
 
-        deliveryManager.Order(cartData);
+        publisher.Publish(buyTopic, cartData);
+
         cartData.Clear();
         shopView.OnBought();
     }

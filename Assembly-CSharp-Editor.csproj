@@ -1163,10 +1163,6 @@
       <Project>{CF980A4B-2D35-BE30-03EC-E2A6DF87C0C4}</Project>
       <Name>Hieki.Utils</Name>
     </ProjectReference>
-    <ProjectReference Include="Hieki.Search.csproj">
-      <Project>{B8BDC3AD-20A5-65F2-4F06-969DBA8F0B85}</Project>
-      <Name>Hieki.Search</Name>
-    </ProjectReference>
     <ProjectReference Include="LeanTween.csproj">
       <Project>{C2BA3288-3120-6940-6F91-D794E99AE7C8}</Project>
       <Name>LeanTween</Name>
@@ -1175,6 +1171,10 @@
       <Project>{0401955F-E826-1162-837A-AF901F202A11}</Project>
       <Name>QuickOutline</Name>
     </ProjectReference>
+    <ProjectReference Include="Hieki.Pubsub.csproj">
+      <Project>{6E3773E9-139E-EDDF-C572-903648F6FB4F}</Project>
+      <Name>Hieki.Pubsub</Name>
+    </ProjectReference>
     <ProjectReference Include="Hieki.AI.csproj">
       <Project>{13FF2CC1-DEB9-9387-DFB1-3CE70E825F06}</Project>
       <Name>Hieki.AI</Name>
@@ -1182,6 +1182,10 @@
     <ProjectReference Include="Joystick.csproj">
       <Project>{B5439728-C593-4BC8-76C0-BE080F60F3BC}</Project>
       <Name>Joystick</Name>
+    </ProjectReference>
+    <ProjectReference Include="Hieki.Search.csproj">
+      <Project>{B8BDC3AD-20A5-65F2-4F06-969DBA8F0B85}</Project>
+      <Name>Hieki.Search</Name>
     </ProjectReference>
     <ProjectReference Include="DOTween.Modules.csproj">
       <Project>{676BDE12-5597-1D77-E18C-548496C6319B}</Project>

@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using Hieki.Utils;
 using System;
+using Hieki.Pubsub;
 
 [RequireComponent(typeof(AudioSource))]
-[DefaultExecutionOrder(-1)]     //Awake before RealTimeWeather.cs
 public class RainSound : MonoBehaviour
 {
     public Vector3 zone;
@@ -26,10 +26,21 @@ public class RainSound : MonoBehaviour
 
     AudioSource audioSource;
 
+    Topic weatherTopic = Topic.FromString("weather-change");
+    ISubscriber subscriber;
+
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
         audioSource.spatialBlend = 0; // 2D sound
+        audioSource.loop = true;
+        Play(false);
+
+        subscriber = new Subscriber();
+        subscriber.Subscribe<WeatherMessage>(weatherTopic, (weatherMessage) =>
+        {
+            Play(weatherMessage.weather == RealTimeWeather.Weather.Rainy);
+        });
     }
 
     private void Update()

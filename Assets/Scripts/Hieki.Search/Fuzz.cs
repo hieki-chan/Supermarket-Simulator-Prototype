@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Hieki
+namespace Hieki.Search
 {
     public static class Fuzz
     {

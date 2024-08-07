@@ -1,11 +1,12 @@
-﻿using Supermarket.Pricing;
-using Supermarket.Products;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Supermarket.Pricing;
+using Supermarket.Products;
+using Hieki.Pubsub;
 
 [Serializable]
-public class CartData
+public class CartData : IMessage
 {
     public Dictionary<Company, List<CartItem>> CartItems { get => m_CartItems; private set => m_CartItems = value; }
 

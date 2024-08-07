@@ -49,21 +49,21 @@ namespace Supermarket.Player
                 },
                 {
                     ""name"": ""Touch"",
-                    ""type"": ""Value"",
+                    ""type"": ""Button"",
                     ""id"": ""cc91a1e1-8bcf-4038-86cc-83acf377c96e"",
-                    ""expectedControlType"": ""Vector2"",
+                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Fire"",
-                    ""type"": ""Button"",
+                    ""name"": ""SceenPosition"",
+                    ""type"": ""Value"",
                     ""id"": ""ac2977a8-c418-4b9b-9c73-24e29675477f"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": false
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -191,21 +191,32 @@ namespace Supermarket.Player
                 {
                     ""name"": """",
                     ""id"": ""886e731e-7071-4ae4-95c0-e61739dad6fd"",
-                    ""path"": ""<Touchscreen>/primaryTouch/tap"",
+                    ""path"": ""<Touchscreen>/primaryTouch/position"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Touch"",
-                    ""action"": ""Fire"",
+                    ""action"": ""SceenPosition"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cc58f034-80b2-4d4f-b007-5edc7eb2af81"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SceenPosition"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
                     ""id"": ""3fd0962e-9e10-4afc-aa2a-362508a9f216"",
-                    ""path"": ""<Touchscreen>/primaryTouch/position"",
+                    ""path"": ""<Touchscreen>/Press"",
                     ""interactions"": ""Tap"",
                     ""processors"": """",
-                    ""groups"": ""Touch;Keyboard&Mouse"",
+                    ""groups"": ""Touch"",
                     ""action"": ""Touch"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -214,7 +225,7 @@ namespace Supermarket.Player
                     ""name"": """",
                     ""id"": ""44f2ff20-6c1d-468f-b75f-f50dfc553252"",
                     ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": """",
+                    ""interactions"": ""Tap"",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Touch"",
@@ -808,7 +819,7 @@ namespace Supermarket.Player
             m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
             m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
             m_Player_Touch = m_Player.FindAction("Touch", throwIfNotFound: true);
-            m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
+            m_Player_SceenPosition = m_Player.FindAction("SceenPosition", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -885,7 +896,7 @@ namespace Supermarket.Player
         private readonly InputAction m_Player_Move;
         private readonly InputAction m_Player_Look;
         private readonly InputAction m_Player_Touch;
-        private readonly InputAction m_Player_Fire;
+        private readonly InputAction m_Player_SceenPosition;
         public struct PlayerActions
         {
             private @PlayerInputListener m_Wrapper;
@@ -893,7 +904,7 @@ namespace Supermarket.Player
             public InputAction @Move => m_Wrapper.m_Player_Move;
             public InputAction @Look => m_Wrapper.m_Player_Look;
             public InputAction @Touch => m_Wrapper.m_Player_Touch;
-            public InputAction @Fire => m_Wrapper.m_Player_Fire;
+            public InputAction @SceenPosition => m_Wrapper.m_Player_SceenPosition;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -912,9 +923,9 @@ namespace Supermarket.Player
                 @Touch.started += instance.OnTouch;
                 @Touch.performed += instance.OnTouch;
                 @Touch.canceled += instance.OnTouch;
-                @Fire.started += instance.OnFire;
-                @Fire.performed += instance.OnFire;
-                @Fire.canceled += instance.OnFire;
+                @SceenPosition.started += instance.OnSceenPosition;
+                @SceenPosition.performed += instance.OnSceenPosition;
+                @SceenPosition.canceled += instance.OnSceenPosition;
             }
 
             private void UnregisterCallbacks(IPlayerActions instance)
@@ -928,9 +939,9 @@ namespace Supermarket.Player
                 @Touch.started -= instance.OnTouch;
                 @Touch.performed -= instance.OnTouch;
                 @Touch.canceled -= instance.OnTouch;
-                @Fire.started -= instance.OnFire;
-                @Fire.performed -= instance.OnFire;
-                @Fire.canceled -= instance.OnFire;
+                @SceenPosition.started -= instance.OnSceenPosition;
+                @SceenPosition.performed -= instance.OnSceenPosition;
+                @SceenPosition.canceled -= instance.OnSceenPosition;
             }
 
             public void RemoveCallbacks(IPlayerActions instance)
@@ -1116,7 +1127,7 @@ namespace Supermarket.Player
             void OnMove(InputAction.CallbackContext context);
             void OnLook(InputAction.CallbackContext context);
             void OnTouch(InputAction.CallbackContext context);
-            void OnFire(InputAction.CallbackContext context);
+            void OnSceenPosition(InputAction.CallbackContext context);
         }
         public interface IUIActions
         {
