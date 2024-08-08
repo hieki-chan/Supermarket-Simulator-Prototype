@@ -93,9 +93,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 1
   mood: 0
+  customerSM:
+    _customer: {fileID: 6210528849407484489}
+    _storage: {fileID: 0}
+    _isShopping: 0
+    _chooseCount: 0
+    _takedCount: 0
+    _productsInBag: []
+    state: 
   targetPosition: {x: 0, y: 0, z: 0}
   currentNode: 0
   goingShopping: 0
+  takeCount: 0
+  takedCount: 0
   productsInBag: []
   handHoldTarget: {fileID: 3460416284539370385}
   cashObject: {fileID: -4086098168302515535, guid: 960049b82a286fa4aab98ba35bf3ba17, type: 3}

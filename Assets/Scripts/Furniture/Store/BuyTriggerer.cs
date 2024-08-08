@@ -22,7 +22,7 @@ public sealed class BuyTriggerer : MonoBehaviour
     {
         if (other.gameObject.TryGetComponent<Customer>(out var customer) && RandomUtils.Chance(chance))
         {
-            customer.goingShopping = true;
+            customer.Shop();
         }
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Supermarket.Products
 {
-    public abstract class Furniture : Interactable, IInteractButton01, IInteractButton02, IInteractButton03
+    public abstract class Furniture : Interactable, IInteractButton01, IInteractButton02
     {
         public static UnitPool<Type, Furniture> Pool = new UnitPool<Type, Furniture>(2);
 
@@ -67,21 +67,8 @@ namespace Supermarket.Products
             state = FurnitureState.Normal;
         }
 
-        //-----------------------------------ROTATION-------------------------------\\
 
-        void RotateLeft90()
-        {
-            transform.rotation = Quaternion.Euler(0, transform.eulerAngles.y + 90, 0);
-        }
-
-        void RotateRight90()
-        {
-            transform.rotation = Quaternion.Euler(0, transform.eulerAngles.y - 90, 0);
-        }
-
-        //----------------------------------------------------INTERACTING----------------------------------------------\\
-
-        //----------------------------------- Button 01: Move/Ok -------------------------------\\
+        //----------------------------------- Button 01: Move -------------------------------\\
         public bool GetButtonState01()
         {
             return true;
@@ -89,7 +76,7 @@ namespace Supermarket.Products
 
         public string GetButtonTitle01()
         {
-            return player.currentInteraction != this ? "Move" : "Ok";
+            return "Move";
         }
 
         public void OnClick_Button01()
@@ -97,38 +84,21 @@ namespace Supermarket.Products
             Move();
         }
 
-        //----------------------------------- Button 02: Rotate Left 90 -------------------------------\\
+        //----------------------------------- Button 02: Sell -------------------------------\\
 
         public bool GetButtonState02()
         {
-            return player.currentInteraction == this;
+            return true;
         }
 
         public string GetButtonTitle02()
         {
-            return "Rotate Left 90";
+            return "Sell";
         }
 
         public void OnClick_Button02()
         {
-            RotateLeft90();
-        }
-
-        //-----------------------------------Button 03: Rotate Right 90 -------------------------------\\
-
-        public bool GetButtonState03()
-        {
-            return player.currentInteraction == this;
-        }
-
-        public string GetButtonTitle03()
-        {
-            return "Rotate Right 90";
-        }
-
-        public void OnClick_Button03()
-        {
-            RotateRight90();
+            
         }
 
 #if UNITY_EDITOR

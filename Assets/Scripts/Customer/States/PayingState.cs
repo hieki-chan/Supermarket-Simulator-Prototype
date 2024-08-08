@@ -1,4 +1,4 @@
-﻿using Hieki.Utils;
+﻿using Cysharp.Threading.Tasks;
 using Supermarket;
 using Supermarket.Customers;
 using Supermarket.Products;
@@ -6,26 +6,21 @@ using UnityEngine;
 
 public class PayingState : CustomerStateBase
 {
-    [Viewable]
     bool paid;
 
-    public PayingState(Customer customer) : base(customer)
-    {
-        transitions = new CustomerTransition[1]
-        {
-            new CustomerTransition(typeof(WalkingState), Paid),
-        };
-    }
+    public PayingState() { }
+
+    public PayingState(CustomerSM_Model SM_model) : base(SM_model) { }
 
     public override void OnStateEnter()
     {
         paid = false;
-        Customer.currentStorage = null;
+        SM.storage = null;
         CheckoutDesk checkoutDesk = SupermarketManager.Mine.CheckoutDesk;
 
-        for (int i = 0; i < Customer.productsInBag.Count; i++)
+        for (int i = 0; i < SM.productsInBag.Count; i++)
         {
-            ProductOnSale product = Customer.productsInBag[i];
+            ProductOnSale product = SM.productsInBag[i];
 
             product.EnableInteracttion();
             product.transform.parent = null;
@@ -35,39 +30,47 @@ public class PayingState : CustomerStateBase
         checkoutDesk.OnPackedDone += OnPacked;
     }
 
-    public override void OnStateExit()
+    public override void OnStateUpdate()
     {
-        CheckoutDesk checkoutDesk = SupermarketManager.Mine.CheckoutDesk;
-        checkoutDesk.OnPackedDone -= OnPacked;
+        if (Paid())
+        {
+            SM.SwitchState<WalkingState>();
+            return;
+        }
     }
 
     void OnPacked()
     {
         PaymentObject paymentObject;
 
-        if(Customer.type == CustomerType.Poor)
+        if (customer.type == CustomerType.Poor)
         {
-            paymentObject = Customer.PaymentObjectPool.Get(PaymentType.Cash, Customer.handHoldTarget.position, Customer.handHoldTarget.rotation);
+            paymentObject = Customer.PaymentObjectPool.Get(PaymentType.Cash, customer.handHoldTarget.position, customer.handHoldTarget.rotation);
         }
         else
         {
-            paymentObject = Customer.PaymentObjectPool.Get((PaymentType)Random.Range(0, 2), Customer.handHoldTarget.position, Customer.handHoldTarget.rotation);
+            paymentObject = Customer.PaymentObjectPool.Get((PaymentType)Random.Range(0, 2), customer.handHoldTarget.position, customer.handHoldTarget.rotation);
         }
 
-        paymentObject.transform.parent = Customer.handHoldTarget;
-        paymentObject.OnPayCorrected += () => { paid = true; };
-        Customer.productsInBag.Clear();
-
-        Customer.m_Animator.CrossFade(Customer.GiveHash, .02f);
-
-        Flag.Active(1, null, () =>
+        paymentObject.transform.parent = customer.handHoldTarget;
+        paymentObject.OnPayCorrected += () =>
         {
-            paymentObject.transform.parent = null;
-        });
+            paid = true;
+            SM.storage = null;
+            SM.isShopping = false;
+        };
+        customer.productsInBag.Clear();
+
+        customer.m_Animator.CrossFade(Customer.GiveHash, .02f);
+
+        GiveMoney(paymentObject).Forget();
     }
 
-    bool Paid()
+    bool Paid() => paid;
+
+    private async UniTaskVoid GiveMoney(PaymentObject paymentObject)
     {
-        return paid;
+        await UniTask.Delay(System.TimeSpan.FromSeconds(1));
+        paymentObject.transform.parent = null;
     }
 }

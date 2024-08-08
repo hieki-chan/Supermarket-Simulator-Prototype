@@ -1,68 +1,86 @@
-﻿using Supermarket.Customers;
+﻿using UnityEngine;
+using Cysharp.Threading.Tasks;
 using Hieki.Utils;
-using CheckoutPoint = CheckoutDesk.CheckoutPoint;
+using Supermarket.Customers;
+using DG.Tweening;
+using CP = CheckoutDesk.CheckoutPoint;
 
 public class WaitingState : CustomerStateBase
 {
-    CheckoutDesk checkoutDesk;
-    CheckoutPoint checkoutPoint;
     int index;
-    bool pay;
+    CheckoutDesk checkoutDesk;
+    CP checkoutPoint;
 
-    public WaitingState(Customer customer) : base(customer)
-    {
-        checkoutDesk = SupermarketManager.Mine.CheckoutDesk;
-
-        transitions = new CustomerTransition[1]
-        {
-            new CustomerTransition(typeof(PayingState), Pay)
-        };
-    }
+    public WaitingState() { }
+    public WaitingState(CustomerSM_Model SM_model) : base(SM_model) { }
 
     public override void OnStateEnter()
     {
-        pay = false;
-        (checkoutPoint, index) = checkoutDesk.GetEmptyPoint();
-        if(checkoutPoint == null)
-        {
-            return;
-        }
-        checkoutPoint.isTaked = true;
+        SM.storage = null;
+        index = 1000;
 
-        Customer.m_Animator.CrossFade(Customer.WalkingHash, .02f);
+        checkoutDesk = checkoutDesk != null ? checkoutDesk : SupermarketManager.Mine.CheckoutDesk;
+
+        if(NextInQueue())
+             customer.m_Animator.CrossFade(Customer.WalkingHash, .02f);
     }
 
     public override void OnStateUpdate()
     {
-        Customer.MoveTowards(checkoutPoint.position);
-
-        if (Customer.Reached(checkoutPoint.position))
+        if (checkoutPoint == null)
         {
-            Customer.transform.LeanRotateY(checkoutPoint.rotateY, .25f);
-            Customer.m_Animator.DynamicPlay(Customer.IdlingHash, .05f);
-
-            if(index == 0)
+            customer.m_Animator.CrossFade(Customer.IdlingHash, .02f);
+            if (NextInQueue())
             {
-                pay = true;
+                customer.m_Animator.CrossFade(Customer.WalkingHash, .02f);
+            }
+
+            return;
+        }
+
+        if (customer.Reached(checkoutPoint.position))
+        {
+            customer.m_Animator.DynamicPlay(Customer.IdlingHash, .05f);
+            customer.Look(checkoutPoint.rotateY);
+
+            if (index == 0) //is at first queue?
+            {
+                SM.SwitchState<PayingState>();
+                Look().Forget();
             }
         }
         else
         {
-            Customer.Look((checkoutPoint.position - Transform.position), 7);
+            customer.MoveTowards(checkoutPoint.position);
         }
-        checkoutPoint.isTaked = false;
+
+        NextInQueue();
+    }
+
+    bool NextInQueue()
+    {
+        if(checkoutPoint != null)
+            checkoutPoint.isTaked = false;
+
         var (_checkoutPoint, _index) = checkoutDesk.GetEmptyPoint();
 
-        if(_index < index)
+        if (_index < index && _index != -1)
         {
             checkoutPoint = _checkoutPoint;
             index = _index;
         }
-        checkoutPoint.isTaked = true;
+
+        if (checkoutPoint != null)
+            checkoutPoint.isTaked = true;
+
+        Debug.Log(_checkoutPoint);
+        Debug.Log(checkoutPoint);
+
+        return checkoutPoint != null;
     }
 
-    bool Pay()
+    private async UniTaskVoid Look()
     {
-        return pay;
+        await customer.transform.DORotate(new Vector3(0, checkoutPoint.rotateY, 0), .25f);
     }
 }

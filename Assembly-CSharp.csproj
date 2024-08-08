@@ -61,11 +61,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Manager\TimeWeatherMessages.cs" />
-    <Compile Include="Assets\Scripts\Customer\Behaviours\IsChoosingProducts.cs" />
     <Compile Include="Assets\Scripts\Customer\CustomerType.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerMessages.cs" />
     <Compile Include="Assets\Scripts\Sounds\RainSound.cs" />
-    <Compile Include="Assets\Scripts\Customer\Behaviours\IsReachedPathNode.cs" />
     <Compile Include="Assets\Scripts\Furniture\Storage.cs" />
     <Compile Include="Assets\Scripts\UI\DayTimeView.cs" />
     <Compile Include="Assets\Scripts\UI\Shop\ShopProductItem.cs" />
@@ -76,6 +74,7 @@
     <Compile Include="Assets\Scripts\SaveLoad\LocalSaveLoad.cs" />
     <Compile Include="Assets\Scripts\MVP\MVPInitializer.cs" />
     <Compile Include="Assets\Scripts\Customer\States\WalkingState.cs" />
+    <Compile Include="Assets\Scripts\Customer\States\LookAtStorageState.cs" />
     <Compile Include="Assets\Scripts\Sounds\GlobalAudioMix.cs" />
     <Compile Include="Assets\Scripts\Manager\SupermarketManager.cs" />
     <Compile Include="Assets\Scripts\Packages\Package.cs" />
@@ -85,9 +84,8 @@
     <Compile Include="Assets\Scripts\Attributes\NonEditable.cs" />
     <Compile Include="Assets\Scripts\UI\Tab\TabEventSystems.cs" />
     <Compile Include="Assets\Scripts\SaveLoad\GlobalSaveLoad.cs" />
-    <Compile Include="Assets\Scripts\Customer\Behaviours\FindAvailableStorage.cs" />
+    <Compile Include="Assets\Scripts\Customer\States\TryTakeProductState.cs" />
     <Compile Include="Assets\Scripts\Player\CameraController.cs" />
-    <Compile Include="Assets\Scripts\Customer\Behaviours\NextPathNode.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerController.cs" />
     <Compile Include="Assets\Scripts\Furniture\FurniturePlacer.cs" />
     <Compile Include="Assets\Scripts\PlaySettings\PlaySettings.cs" />
@@ -97,12 +95,8 @@
     <Compile Include="Assets\Scripts\Products\ArrangementGrid.cs" />
     <Compile Include="Assets\Scripts\Shopping\ShopMessages.cs" />
     <Compile Include="Assets\Scripts\Interaction\IInteractButtons.cs" />
-    <Compile Include="Assets\Scripts\StateMachine\IState.cs" />
     <Compile Include="Assets\Scripts\UI\InteractButtonsView.cs" />
-    <Compile Include="Assets\Scripts\Customer\States\Base\CustomerStateHandler.cs" />
-    <Compile Include="Assets\Scripts\Customer\Behaviours\IsReachedStorage.cs" />
-    <Compile Include="Assets\Scripts\Customer\Behaviours\NextWaitingNode.cs" />
-    <Compile Include="Assets\Scripts\Customer\Behaviours\OnPaymentSuccess.cs" />
+    <Compile Include="Assets\Scripts\Customer\States\Base\CustomerSM_Model.cs" />
     <Compile Include="Assets\Scripts\MVP\Presenter.cs" />
     <Compile Include="Assets\Scripts\UI\CheckoutScreen.cs" />
     <Compile Include="Assets\Scripts\Shopping\OnlineShopManager.cs" />
@@ -110,29 +104,24 @@
     <Compile Include="Assets\Scripts\Customer\States\Base\ViewableAttribute.cs" />
     <Compile Include="Assets\Scripts\Pricing\UnitedStatesDollar.cs" />
     <Compile Include="Assets\Scripts\Customer\States\HeadingToStorageState.cs" />
-    <Compile Include="Assets\Scripts\Customer\Behaviours\ChoosingDone.cs" />
     <Compile Include="Assets\Scripts\Products\License.cs" />
+    <Compile Include="Assets\Scripts\Customer\States\GoingShoppingState.cs" />
     <Compile Include="Assets\Scripts\Furniture\PriceTag.cs" />
     <Compile Include="Assets\Scripts\Furniture\Store\GarbageBin.cs" />
     <Compile Include="Assets\Scripts\Customer\Customer.cs" />
     <Compile Include="Assets\Scripts\Shopping\DeliveryManager.cs" />
+    <Compile Include="Assets\Scripts\Customer\States\Base\CustomerTree.cs" />
     <Compile Include="Assets\Scripts\Customer\States\ChoosingState.cs" />
     <Compile Include="Assets\Scripts\Customer\CustomerMood.cs" />
-    <Compile Include="Assets\Scripts\Customer\Behaviours\IsInWaitingQueue.cs" />
     <Compile Include="Assets\Scripts\Products\ProductOnSale.cs" />
     <Compile Include="Assets\Scripts\Pricing\ItemPricing.cs" />
-    <Compile Include="Assets\Scripts\Customer\Behaviours\WalkingNode.cs" />
     <Compile Include="Assets\Scripts\UI\Shop\CartItem_UI.cs" />
     <Compile Include="Assets\Scripts\Furniture\Store\OpenClosedSignBoard.cs" />
     <Compile Include="Assets\Scripts\UI\TooltipView.cs" />
-    <Compile Include="Assets\Scripts\Customer\Behaviours\IsGoingShopping.cs" />
+    <Compile Include="Assets\Scripts\UI\SellPanel.cs" />
     <Compile Include="Assets\Scripts\UI\PriceSettingView.cs" />
     <Compile Include="Assets\Scripts\UI\PaymentTerminal.cs" />
     <Compile Include="Assets\Scripts\Sounds\WalkSound.cs" />
-    <Compile Include="Assets\Scripts\Customer\Behaviours\HeadingToStorage.cs" />
-    <Compile Include="Assets\Scripts\StateMachine\ITransition.cs" />
-    <Compile Include="Assets\Scripts\Customer\Behaviours\Paying.cs" />
-    <Compile Include="Assets\Scripts\Customer\Behaviours\Tree\CustomerBehaviours.cs" />
     <Compile Include="Assets\Scripts\MVP\SettingsPresenter.cs" />
     <Compile Include="Assets\Scripts\Furniture\Store\CheckoutDesk.cs" />
     <Compile Include="Assets\Scripts\Sounds\VolumeMessages.cs" />
@@ -146,7 +135,6 @@
     <Compile Include="Assets\Scripts\Pricing\VietNamDong.cs" />
     <Compile Include="Assets\Scripts\UI\Tab\TabGroup.cs" />
     <Compile Include="Assets\Scripts\Customer\States\Base\CustomerStateBase.cs" />
-    <Compile Include="Assets\Scripts\Customer\Behaviours\ChoosingProducts.cs" />
     <Compile Include="Assets\Scripts\UI\MoneyChanger.cs" />
     <Compile Include="Assets\Scripts\Attributes\NewProductAttribute.cs" />
     <Compile Include="Assets\Scripts\Customer\MovementPath.cs" />
@@ -155,7 +143,6 @@
     <Compile Include="Assets\Scripts\Customer\CustomerManager.cs" />
     <Compile Include="Assets\Scripts\Packages\Cartons.cs" />
     <Compile Include="Assets\Scripts\Interaction\InteractionInfo.cs" />
-    <Compile Include="Assets\Scripts\Customer\Behaviours\OnPathCompleted.cs" />
     <Compile Include="Assets\Scripts\Shopping\CartData.cs" />
     <Compile Include="Assets\Scripts\Pricing\unit.cs" />
     <Compile Include="Assets\Scripts\Customer\PaymentObject.cs" />
@@ -167,7 +154,6 @@
     <Compile Include="Assets\Scripts\Pool\UnitPool.cs" />
     <Compile Include="Assets\Scripts\UI\LookZone.cs" />
     <Compile Include="Assets\Scripts\UI\DayTimePresenter.cs" />
-    <Compile Include="Assets\Scripts\Customer\Behaviours\LookAtStorage.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

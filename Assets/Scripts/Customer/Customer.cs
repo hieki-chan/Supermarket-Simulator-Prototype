@@ -22,7 +22,7 @@ namespace Supermarket.Customers
 
         public static UnitPool<PaymentType, PaymentObject> PaymentObjectPool;
 
-        [NonEditable] public CustomerType type;
+        public CustomerType type;
         [NonEditable] public CustomerMood mood;
 
         //public float MoveSpeed => moveSpeed;
@@ -30,10 +30,8 @@ namespace Supermarket.Customers
 
         //--------------------------BEHAVIOURS-----------------------------------
 
-        [SerializeField] private CustomerBehaviours behaviours;
+        [SerializeField] private CustomerSM_Model customerSM;
 
-        public CustomerStateHandler StateHandler => stateHandler;
-        [SerializeField] private CustomerStateHandler stateHandler;
 
         [Header("Path Movement")]
         [NonSerialized]
@@ -50,6 +48,10 @@ namespace Supermarket.Customers
         public bool goingShopping;
         [NonSerialized]
         public Storage currentStorage;
+
+
+        public int takeCount;
+        public int takedCount;
 
         [NonEditable]
         public List<ProductOnSale> productsInBag;
@@ -72,11 +74,8 @@ namespace Supermarket.Customers
             m_Animator = GetComponentInChildren<Animator>();
             m_Agent = GetComponent<NavMeshAgent>();
             m_Agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
-            stateHandler = new CustomerStateHandler();
 
-            stateHandler.CreateStates(this);
 
-            stateHandler.SwitchState<WalkingState>();
 
             productsInBag = new List<ProductOnSale>(MAX_PRODUCTS);
             textMesh.gameObject.SetActive(false);
@@ -89,8 +88,7 @@ namespace Supermarket.Customers
                 PaymentObjectPool.Create(creditCardObject.PaymentType, creditCardObject, 1);
             }
 
-            behaviours = new CustomerBehaviours();
-            behaviours.InitTree(this);
+            //customerSM.CreateStates(customerSM);
         }
 
         private void OnEnable()
@@ -98,9 +96,19 @@ namespace Supermarket.Customers
             mood = (CustomerMood)UnityEngine.Random.Range((int)CustomerMood.Normal, (int)CustomerMood.Anger + 1);
         }
 
+        private void Start()
+        {
+            customerSM.Start();
+        }
+
         public void OnUpdate()
         {
-            behaviours.Process();
+            customerSM.UpdateState();
+        }
+
+        public void Shop()
+        {
+            customerSM.isShopping = true;
         }
 
         public void MoveTowards(Vector3 targetPosition)

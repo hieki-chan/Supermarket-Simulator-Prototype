@@ -1,44 +1,57 @@
-﻿using UnityEngine;
+﻿using Hieki.Utils;
 using Supermarket.Customers;
-using Hieki.Utils;
+using UnityEngine;
 
 public class HeadingToStorageState : CustomerStateBase
 {
-    [Viewable]
-    Vector3 targetPosition;
-    public HeadingToStorageState(Customer customer) : base(customer)
-    {
-        transitions = new CustomerTransition[1]
-        {
-            new CustomerTransition(typeof(ChoosingState), Reached)
-        };
-    }
+    public HeadingToStorageState() { }
+    public HeadingToStorageState(CustomerSM_Model SM_model) : base(SM_model) { }
 
     public override void OnStateEnter()
     {
-        if(!Customer.currentStorage)
-            Customer.currentStorage = SupermarketManager.Mine.GetAvailableStorage();
-        if (!Customer.currentStorage)
-            Customer.currentStorage = SupermarketManager.Mine.Storages.PickOne();
-        Transform storageTrans = Customer.currentStorage.transform;
-        targetPosition = storageTrans.position + storageTrans.forward * .75f + storageTrans.right * Random.Range(-.5f, .5f);
-        targetPosition.y = Customer.transform.position.y;
+        customer.m_Animator.SetFloat(Customer.ChoosingSpeedHash, 2);
+        customer.m_Animator.DynamicPlay(Customer.WalkingHash, .02f);
+
+        if (!FindAvaiableStorage())
+        {
+            SM.storage = SM.storage != null ? SM.storage : SupermarketManager.Mine.Storages.PickOne();
+            if(!SM.storage)
+                return;
+        }
+
+        Transform storageTrans = SM.storage.transform;
+        customer.targetPosition = storageTrans.position + storageTrans.forward * .75f + storageTrans.right * Random.Range(-.5f, .5f);
     }
 
     public override void OnStateUpdate()
     {
-        Customer.MoveTowards(targetPosition);
+        if (!FindAvaiableStorage())
+        {
+            return;
+        }
 
-        Vector3 dir = (targetPosition - Transform.position);
-        dir.y = 0;
+        if(IsReached())
+        {
+            SM.SwitchState<LookAtStorageState>();
+            return;
+        }
 
-        Quaternion rot = Quaternion.LookRotation(dir.normalized);
-        Transform.rotation = Quaternion.Slerp(Transform.rotation, rot, Time.deltaTime * 3.2f);
+        customer.MoveTowards(customer.targetPosition);
     }
 
-    bool Reached()
+    bool FindAvaiableStorage()
     {
-        return (Transform.position - targetPosition).sqrMagnitude <= .1f * .1f;
+        SM.storage = SM.storage != null ? SM.storage : SupermarketManager.Mine.GetAvailableStorage();
+
+        return SM.storage;
     }
 
+    bool IsReached()
+    {
+        if (customer.Reached(customer.targetPosition))
+        {
+            return true;
+        }
+        return false;
+    }
 }

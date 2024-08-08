@@ -16,7 +16,7 @@ public sealed class OpenClosedSignBoard : Interactable
 
     private void Start()
     {
-        isOpen = false;
+        isOpen = true;
         textMesh.text = isOpen ? OPEN : CLOSED;
 
         this.Publish(buyTopic, new CustomerBuyMessage(isOpen));

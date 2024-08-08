@@ -60,6 +60,8 @@ namespace Supermarket.Customers
             return false;
         }
 
+        public bool IsAvailable() => CheckProduct() != null;
+
         public ProductOnSale CheckProduct()
         {
             int count = grids.Length;

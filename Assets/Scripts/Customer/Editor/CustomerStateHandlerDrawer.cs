@@ -1,11 +1,11 @@
-﻿using UnityEngine;
+﻿/*using UnityEngine;
 using UnityEditor;
 using Supermarket.Customers;
 using System.Reflection;
 using System.Linq;
 
 #if UNITY_EDITOR
-[CustomPropertyDrawer(typeof(CustomerStateHandler))]
+[CustomPropertyDrawer(typeof(CustomerSM))]
 internal class CustomerStateHandlerDrawer : PropertyDrawer
 {
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
@@ -15,12 +15,12 @@ internal class CustomerStateHandlerDrawer : PropertyDrawer
         var target = property.serializedObject.targetObject;
 
         FieldInfo fieldInfo = target.GetType().GetFields(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public)
-            .Where(f => f.FieldType == typeof(CustomerStateHandler)).FirstOrDefault();
+            .Where(f => f.FieldType == typeof(CustomerSM)).FirstOrDefault();
 
         EditorGUILayout.PrefixLabel(fieldInfo.Name);
 
-        CustomerStateHandler handler = (CustomerStateHandler)fieldInfo.GetValue(target);
-        CustomerStateBase currState = handler.editorCurrentState;
+        CustomerSM handler = (CustomerSM)fieldInfo.GetValue(target);
+        CustomerTree currState = handler.editorCurrentState;
 
         EditorGUI.indentLevel++;
         EditorGUILayout.LabelField(new GUIContent($"Current State : {(currState == null ? "None" : currState.GetType().FullName)}"), GUI.skin.box);
@@ -41,4 +41,4 @@ internal class CustomerStateHandlerDrawer : PropertyDrawer
         EditorGUI.EndProperty();
     }
 }
-#endif
+#endif*/
