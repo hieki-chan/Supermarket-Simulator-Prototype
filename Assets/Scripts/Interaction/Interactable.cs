@@ -1,5 +1,4 @@
 ﻿using QuickOutline;
-using Supermarket.Player;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
@@ -27,7 +26,7 @@ namespace Supermarket
 
         #region Hovering
 
-        public virtual void OnHoverEnter(PlayerController player)
+        public virtual void OnHoverEnter(Transform playerTrans)
         {
             outline.enabled = true;
         }
@@ -70,7 +69,7 @@ namespace Supermarket
 
         }
 
-        public virtual void OnInteract(PlayerController targetPlayer)
+        public virtual void OnInteract(Transform playerTrans, Transform cameraTrans)
         {
 
         }

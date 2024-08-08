@@ -6,6 +6,7 @@ using UnityEngine;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using System.Threading;
+using Hieki.Pubsub;
 
 public class Cartons : Interactable, IInteractButton01, IInteractButton02, IInteractButton03
 {
@@ -43,7 +44,6 @@ public class Cartons : Interactable, IInteractButton01, IInteractButton02, IInte
 
     Storage storage;
     Transform tier;
-    PlayerController player;
 
     protected override void Awake()
     {
@@ -64,11 +64,10 @@ public class Cartons : Interactable, IInteractButton01, IInteractButton02, IInte
         tokenSource.Dispose();
     }
 
-    public override void OnInteract(PlayerController targetPlayer)
+    public override void OnInteract(Transform playerTrans, Transform cameraTrans)
     {
-        player = targetPlayer;
-        player.currentInteraction = this;
-        PickUp(targetPlayer.cameraTrans);
+        this.Publish(PlayerTopics.interactTopic, new InteractMessage(this));
+        PickUp(cameraTrans);
     }
 
     public override void OnHoverOther(Interactable other)
@@ -117,7 +116,7 @@ public class Cartons : Interactable, IInteractButton01, IInteractButton02, IInte
         rb.AddRelativeForce(Vector3.forward * (THROW_FORCE * Time.deltaTime), ForceMode.Impulse);
         rb.AddRelativeForce(Vector3.up * (THROW_FORCE_UP * Time.deltaTime), ForceMode.Impulse);
 
-        player.currentInteraction = null;
+        this.Publish(PlayerTopics.interactTopic, new InteractMessage(null));
         pickedUp = false;
     }
 

@@ -5,6 +5,7 @@ using Supermarket.Products;
 using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
+using Hieki.Pubsub;
 
 public class PriceTag : Interactable
 {
@@ -24,14 +25,14 @@ public class PriceTag : Interactable
     }
     [SerializeField, NonEditable] private ProductInfo m_productInfo;
 
-    public override void OnInteract(PlayerController targetPlayer)
+    public override void OnInteract(Transform playerTrans, Transform cameraTrans)
     {
         ItemPricing item = SupermarketManager.Mine.GetItemPricing(productInfo);
 
         SupermarketManager.Mine.priceSettings.Set(item, (val) =>
         {
-            targetPlayer.disableLook = false;
-            targetPlayer.disableMove = false;
+            this.Publish(PlayerTopics.controlTopic, new ControlStateMessage(true));
+
             if (val == item.price)
                 return;
             //text.text = val;
@@ -44,8 +45,7 @@ public class PriceTag : Interactable
             }
         });
 
-        targetPlayer.disableLook = true;
-        targetPlayer.disableMove = true;
+        this.Publish(PlayerTopics.controlTopic, new ControlStateMessage(false));
     }
 
 #if UNITY_EDITOR

@@ -14,7 +14,6 @@ public class SupermarketManager : MonoBehaviour
 
     [NonEditable] public List<Storage> Storages;
     [NonEditable] public CheckoutDesk CheckoutDesk;
-    [NonEditable] public Laptop Laptop;
 
     private List<ItemPricing> itemPricings = new List<ItemPricing>(10);
 
@@ -33,7 +32,6 @@ public class SupermarketManager : MonoBehaviour
 
         Storages = FindObjectsByType<Storage>(FindObjectsSortMode.None).ToList();
         CheckoutDesk = FindObjectOfType<CheckoutDesk>();
-        Laptop = FindObjectOfType<Laptop>();
     }
 
     public ItemPricing GetItemPricing(ProductInfo product)

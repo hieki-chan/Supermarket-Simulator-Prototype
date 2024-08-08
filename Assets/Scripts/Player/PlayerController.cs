@@ -64,11 +64,6 @@ namespace Supermarket.Player
         public CharacterController m_Controller;
 
         //-----------------------------Sub Event----------------------------\\
-        //Camera Sensivivity event.
-        Topic camSenTopic = Topic.FromMessage<CamSensitivityMessage>();
-        Topic controlTopic = Topic.FromMessage<ControlStateMessage>();
-        Topic interactTopic = Topic.FromMessage<InteractMessage>();
-
         ISubscriber subscriber = new Subscriber();
 
         private void Awake()
@@ -76,17 +71,22 @@ namespace Supermarket.Player
             playerInput = new PlayerInputListener();
 
             //Subcribes events
-            subscriber.Subscribe<CamSensitivityMessage>(camSenTopic, (message) =>
+            subscriber.Subscribe<CamSensitivityMessage>(PlayerTopics.camSentvtTopic, (message) =>
             {
                 finalLookSensitivity = lookSensitivity * message.camSensitivity;
             });
 
-            subscriber.Subscribe<ControlStateMessage>(controlTopic, (message) =>
+            subscriber.Subscribe<ControlStateMessage>(PlayerTopics.controlTopic, (message) =>
             {
                 disableMove = disableLook = !message.state;
             });
 
-            subscriber.Subscribe<InteractMessage>(interactTopic, (message) =>
+            subscriber.Subscribe<CharCtrllerStateMessage>(PlayerTopics.charCtrllerTopic, (message) =>
+            {
+                m_Controller.enabled = message.state;
+            });
+
+            subscriber.Subscribe<InteractMessage>(PlayerTopics.interactTopic, (message) =>
             {
                 if(currentInteraction != null && currentInteraction != message.interaction)
                 {
@@ -285,7 +285,7 @@ namespace Supermarket.Player
 
                 //currentInteraction = targetHovered;
                 //currentInteraction.OnInteract(this);
-                targetHovered.OnInteract(this);
+                targetHovered.OnInteract(transform, cameraTrans);
                 //currentInteraction.OnNoInteraction += OnInteractExit;
 
                 OnInteractWithUpdated?.Invoke(targetHovered);
@@ -302,7 +302,7 @@ namespace Supermarket.Player
 
         private void HoverEnter(Interactable interaction)
         {
-            interaction.OnHoverEnter(this);
+            interaction.OnHoverEnter(transform);
             OnHoverEntered?.Invoke(interaction);
         }
 

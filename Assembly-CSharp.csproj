@@ -61,7 +61,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Manager\TimeWeatherMessages.cs" />
-    <Compile Include="Assets\Scripts\Store\BuyTriggerer.cs" />
     <Compile Include="Assets\Scripts\Customer\Behaviours\IsChoosingProducts.cs" />
     <Compile Include="Assets\Scripts\Customer\CustomerType.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerMessages.cs" />
@@ -85,15 +84,14 @@
     <Compile Include="Assets\Scripts\Shopping\Order.cs" />
     <Compile Include="Assets\Scripts\Attributes\NonEditable.cs" />
     <Compile Include="Assets\Scripts\UI\Tab\TabEventSystems.cs" />
+    <Compile Include="Assets\Scripts\SaveLoad\GlobalSaveLoad.cs" />
     <Compile Include="Assets\Scripts\Customer\Behaviours\FindAvailableStorage.cs" />
     <Compile Include="Assets\Scripts\Player\CameraController.cs" />
     <Compile Include="Assets\Scripts\Customer\Behaviours\NextPathNode.cs" />
-    <Compile Include="Assets\Scripts\Store\CheckoutDesk.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerController.cs" />
     <Compile Include="Assets\Scripts\Furniture\FurniturePlacer.cs" />
     <Compile Include="Assets\Scripts\PlaySettings\PlaySettings.cs" />
     <Compile Include="Assets\Scripts\Interaction\Interactable.cs" />
-    <Compile Include="Assets\Scripts\Store\Laptop.cs" />
     <Compile Include="Assets\Scripts\Shopping\CartItem.cs" />
     <Compile Include="Assets\Scripts\UI\OrderView.cs" />
     <Compile Include="Assets\Scripts\Products\ArrangementGrid.cs" />
@@ -107,7 +105,6 @@
     <Compile Include="Assets\Scripts\Customer\Behaviours\OnPaymentSuccess.cs" />
     <Compile Include="Assets\Scripts\MVP\Presenter.cs" />
     <Compile Include="Assets\Scripts\UI\CheckoutScreen.cs" />
-    <Compile Include="Assets\Scripts\Store\GarbageBin.cs" />
     <Compile Include="Assets\Scripts\Shopping\OnlineShopManager.cs" />
     <Compile Include="Assets\Scripts\Interaction\InteractionPresenter.cs" />
     <Compile Include="Assets\Scripts\Customer\States\Base\ViewableAttribute.cs" />
@@ -116,6 +113,7 @@
     <Compile Include="Assets\Scripts\Customer\Behaviours\ChoosingDone.cs" />
     <Compile Include="Assets\Scripts\Products\License.cs" />
     <Compile Include="Assets\Scripts\Furniture\PriceTag.cs" />
+    <Compile Include="Assets\Scripts\Furniture\Store\GarbageBin.cs" />
     <Compile Include="Assets\Scripts\Customer\Customer.cs" />
     <Compile Include="Assets\Scripts\Shopping\DeliveryManager.cs" />
     <Compile Include="Assets\Scripts\Customer\States\ChoosingState.cs" />
@@ -125,25 +123,25 @@
     <Compile Include="Assets\Scripts\Pricing\ItemPricing.cs" />
     <Compile Include="Assets\Scripts\Customer\Behaviours\WalkingNode.cs" />
     <Compile Include="Assets\Scripts\UI\Shop\CartItem_UI.cs" />
+    <Compile Include="Assets\Scripts\Furniture\Store\OpenClosedSignBoard.cs" />
     <Compile Include="Assets\Scripts\UI\TooltipView.cs" />
     <Compile Include="Assets\Scripts\Customer\Behaviours\IsGoingShopping.cs" />
     <Compile Include="Assets\Scripts\UI\PriceSettingView.cs" />
     <Compile Include="Assets\Scripts\UI\PaymentTerminal.cs" />
-    <Compile Include="Assets\Scripts\Furniture\Furniture.cs" />
     <Compile Include="Assets\Scripts\Sounds\WalkSound.cs" />
     <Compile Include="Assets\Scripts\Customer\Behaviours\HeadingToStorage.cs" />
     <Compile Include="Assets\Scripts\StateMachine\ITransition.cs" />
     <Compile Include="Assets\Scripts\Customer\Behaviours\Paying.cs" />
     <Compile Include="Assets\Scripts\Customer\Behaviours\Tree\CustomerBehaviours.cs" />
     <Compile Include="Assets\Scripts\MVP\SettingsPresenter.cs" />
-    <Compile Include="Assets\Scripts\Store\AutomaticDoor.cs" />
+    <Compile Include="Assets\Scripts\Furniture\Store\CheckoutDesk.cs" />
     <Compile Include="Assets\Scripts\Sounds\VolumeMessages.cs" />
     <Compile Include="Assets\Scripts\UI\Shop\License_UI.cs" />
     <Compile Include="Assets\Scripts\Products\ProductInfo.cs" />
     <Compile Include="Assets\Scripts\Manager\GameManager.cs" />
     <Compile Include="Assets\Scripts\Customer\States\WaitingState.cs" />
     <Compile Include="Assets\Scripts\UI\SettingsUI.cs" />
-    <Compile Include="Assets\Scripts\Store\OpenClosedSignBoard.cs" />
+    <Compile Include="Assets\Scripts\Furniture\Store\AutomaticDoor.cs" />
     <Compile Include="Assets\Scripts\Customer\PaymentType.cs" />
     <Compile Include="Assets\Scripts\Pricing\VietNamDong.cs" />
     <Compile Include="Assets\Scripts\UI\Tab\TabGroup.cs" />
@@ -155,14 +153,17 @@
     <Compile Include="Assets\Scripts\UI\Tab\IndexedButton.cs" />
     <Compile Include="Assets\Scripts\UI\TimeAndWeather\RealTimeWeatherView.cs" />
     <Compile Include="Assets\Scripts\Customer\CustomerManager.cs" />
-    <Compile Include="Assets\Scripts\Store\AreaPacking2D.cs" />
     <Compile Include="Assets\Scripts\Packages\Cartons.cs" />
     <Compile Include="Assets\Scripts\Interaction\InteractionInfo.cs" />
     <Compile Include="Assets\Scripts\Customer\Behaviours\OnPathCompleted.cs" />
     <Compile Include="Assets\Scripts\Shopping\CartData.cs" />
     <Compile Include="Assets\Scripts\Pricing\unit.cs" />
     <Compile Include="Assets\Scripts\Customer\PaymentObject.cs" />
+    <Compile Include="Assets\Scripts\Furniture\FurnitureBase\Furniture.cs" />
+    <Compile Include="Assets\Scripts\Furniture\Store\AreaPacking2D.cs" />
     <Compile Include="Assets\Scripts\Furniture\AnimeFigure.cs" />
+    <Compile Include="Assets\Scripts\Furniture\Store\Laptop.cs" />
+    <Compile Include="Assets\Scripts\Furniture\Store\BuyTriggerer.cs" />
     <Compile Include="Assets\Scripts\Pool\UnitPool.cs" />
     <Compile Include="Assets\Scripts\UI\LookZone.cs" />
     <Compile Include="Assets\Scripts\UI\DayTimePresenter.cs" />
@@ -172,16 +173,9 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
-    <None Include="Assets\Art\StoreModels\Shader\Hidden_Universal Render Pipeline_BokehDepthOfField #68.shader" />
-    <None Include="Assets\Art\StoreModels\Shader\Hidden_Universal Render Pipeline_GaussianDepthOfField #69.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Mobile.cginc" />
-    <None Include="Assets\Art\StoreModels\Shader\Hidden_Universal Render Pipeline_CameraMotionBlur.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
-    <None Include="Assets\Art\StoreModels\Shader\Hidden_Universal_BlitHDROverlay #70.shader" />
-    <None Include="Assets\Art\StoreModels\Shader\Hidden_Universal Render Pipeline_StencilDeferred.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface-Mobile.shader" />
-    <None Include="Assets\Art\StoreModels\Shader\Hidden_Universal_BlitHDROverlay.shader" />
-    <None Include="Assets\Art\StoreModels\Shader\Hidden_Universal Render Pipeline_CameraMotionBlur #67.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface.shader" />
     <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
@@ -189,16 +183,13 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile SSD.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Properties.cginc" />
-    <None Include="Assets\Art\StoreModels\Shader\Hidden_Universal Render Pipeline_StencilDeferred #71.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Surface.cginc" />
-    <None Include="Assets\Art\StoreModels\Shader\Hidden_Universal Render Pipeline_GaussianDepthOfField.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF Overlay.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile.shader" />
-    <None Include="Assets\Art\StoreModels\Shader\Hidden_Universal Render Pipeline_BokehDepthOfField.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Sprite.shader" />
   </ItemGroup>
   <ItemGroup>

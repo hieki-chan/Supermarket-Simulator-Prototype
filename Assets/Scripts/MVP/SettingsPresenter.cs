@@ -3,8 +3,8 @@ using System.Threading;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
 using Supermarket.MVP;
-using Hieki.Pubsub;
 using Supermarket.Player;
+using Hieki.Pubsub;
 
 [Serializable]
 public class SettingsPresenter : Presenter<PlaySettings, SettingsUI>
@@ -15,7 +15,6 @@ public class SettingsPresenter : Presenter<PlaySettings, SettingsUI>
     bool shouldSave;
     CancellationTokenSource tokenSource = new CancellationTokenSource();
 
-    Topic camSenTopic = Topic.FromMessage<CamSensitivityMessage>();
     Topic musicVolumeTopic = Topic.FromMessage<MusicVolumeMessage>();
     Topic sfxVolumeTopic = Topic.FromMessage<SFXVolumeMessage>();
 
@@ -46,14 +45,14 @@ public class SettingsPresenter : Presenter<PlaySettings, SettingsUI>
 
         //Music
         view.music.wholeNumbers = false;
-        view.music.minValue = 0.1f;
+        view.music.minValue = 0.01f;
         view.music.maxValue = 2;
         view.music.value = model.music;
         view.music.onValueChanged.AddListener(OnSetMusicVolume);
 
         //SFX
         view.sfx.wholeNumbers = false;
-        view.sfx.minValue = 0.1f;
+        view.sfx.minValue = 0.01f;
         view.sfx.maxValue = 2;
         view.sfx.value = model.sfx;
         view.sfx.onValueChanged.AddListener(OnSetSFXVolume);
@@ -64,7 +63,7 @@ public class SettingsPresenter : Presenter<PlaySettings, SettingsUI>
         view.cameraSensitivity.maxValue = 1.75f;
         view.cameraSensitivity.value = model.cameraSensitivity;
         view.cameraSensitivity.onValueChanged.AddListener(OnSetCamSens);
-        publisher.Publish(camSenTopic, new CamSensitivityMessage(model.cameraSensitivity));
+        publisher.Publish(PlayerTopics.camSentvtTopic, new CamSensitivityMessage(model.cameraSensitivity));
     }
 
     private void OnSetQuality(float value)
@@ -95,7 +94,7 @@ public class SettingsPresenter : Presenter<PlaySettings, SettingsUI>
     private void OnSetCamSens(float value)
     {
         model.cameraSensitivity = value;
-        publisher.Publish(camSenTopic, new CamSensitivityMessage(model.cameraSensitivity));
+        publisher.Publish(PlayerTopics.camSentvtTopic, new CamSensitivityMessage(model.cameraSensitivity));
 
         SaveSettings();
     }

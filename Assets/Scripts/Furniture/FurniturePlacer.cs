@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using Supermarket.Products;
 using Supermarket;
-using static Supermarket.Products.Furniture;
 
 public class FurniturePlacer : Interactable, IInteractButton01
 {

@@ -24,9 +24,9 @@ namespace Supermarket.Customers
             activePriceTagsSelf = new PriceTag[grids.Length];
         }
 
-        public sealed override void OnHoverEnter(PlayerController player)
+        public sealed override void OnHoverEnter(Transform playerTrans)
         {
-            base.OnHoverEnter(player);
+            base.OnHoverEnter(playerTrans);
             this.player = player;
         }
 

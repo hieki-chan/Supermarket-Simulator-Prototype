@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using Supermarket.Player;
 
 namespace Supermarket.Products
 {
@@ -33,7 +32,7 @@ namespace Supermarket.Products
             return worldSize;
         }
 
-        public override void OnHoverEnter(PlayerController player)
+        public override void OnHoverEnter(Transform playerTrans)
         {
             return;
         }

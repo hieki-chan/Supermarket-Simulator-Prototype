@@ -4,7 +4,7 @@ namespace Hieki.Pubsub
 {
     public static class PubsubExtensions
     {
-        public static void Publish<T, T1>(this MonoBehaviour _, Topic  topic, T message) where T : IMessage
+        public static void Publish<T>(this MonoBehaviour _, Topic  topic, T message) where T : IMessage
         {
             EventHub.Publish(topic, message);
         }

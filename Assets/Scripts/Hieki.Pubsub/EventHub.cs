@@ -17,7 +17,7 @@ namespace Hieki.Pubsub
             if(!subscriber.callbackMessages.TryAdd(topic, callbackMessage))
             {
 #if UNITY_EDITOR
-                Debug.Log($"Multi-Sub not supported: cannot subscribe {topic.id} more than 1 time: {subscriber}");
+                Debug.LogWarning($"Multi-Sub not supported: cannot subscribe {topic.id} more than 1 time: {subscriber}");
 #endif
             }
 

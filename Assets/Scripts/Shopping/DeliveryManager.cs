@@ -1,12 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using Supermarket;
 using Supermarket.Products;
 using Hieki.Pubsub;
 using Cysharp.Threading.Tasks;
-using System;
-using UnityEngine.UIElements;
 
 public class DeliveryManager : MonoBehaviour
 {
