@@ -26,7 +26,7 @@ public class RainSound : MonoBehaviour
 
     AudioSource audioSource;
 
-    Topic weatherTopic = Topic.FromString("weather-change");
+    Topic weatherTopic = Topic.FromMessage<WeatherMessage>();
     ISubscriber subscriber;
 
     private void Awake()

@@ -1,4 +1,4 @@
-﻿using Hieki.Utils;
+﻿using DG.Tweening;
 using TMPro;
 using UnityEngine;
 
@@ -18,14 +18,15 @@ public class TooltipView : MonoBehaviour
         tooltipText.text = text;
         gameObject.SetActive(true);
         rectTransform.anchoredPosition = Vector3.zero;
-        LeanTween.moveY(rectTransform, 50, .2f);
+
+        rectTransform.DOMoveY(50, .2f);
     }
 
     public void Hide()
     {
         if (!gameObject.activeSelf)
             return;
-        LeanTween.moveY(rectTransform, 0, .2f);
-        Flag.Disable(gameObject, .25f);
+
+        rectTransform.DOMoveY(0, .2f).onComplete += () => gameObject.SetActive(false);
     }
 }

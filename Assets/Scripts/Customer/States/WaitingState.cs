@@ -73,9 +73,6 @@ public class WaitingState : CustomerStateBase
         if (checkoutPoint != null)
             checkoutPoint.isTaked = true;
 
-        Debug.Log(_checkoutPoint);
-        Debug.Log(checkoutPoint);
-
         return checkoutPoint != null;
     }
 

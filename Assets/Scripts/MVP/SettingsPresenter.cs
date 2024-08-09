@@ -45,14 +45,14 @@ public class SettingsPresenter : Presenter<PlaySettings, SettingsUI>
 
         //Music
         view.music.wholeNumbers = false;
-        view.music.minValue = 0.01f;
+        view.music.minValue = 0.00000001f;
         view.music.maxValue = 2;
         view.music.value = model.music;
         view.music.onValueChanged.AddListener(OnSetMusicVolume);
 
         //SFX
         view.sfx.wholeNumbers = false;
-        view.sfx.minValue = 0.01f;
+        view.sfx.minValue = 0.00000001f;
         view.sfx.maxValue = 2;
         view.sfx.value = model.sfx;
         view.sfx.onValueChanged.AddListener(OnSetSFXVolume);

@@ -42,7 +42,7 @@ public class RealTimeWeather : MonoBehaviour
     private IPublisher publisher;
 
     private Topic dayPartTopic = Topic.FromString("daypart-change");
-    private Topic weatherTopic = Topic.FromString("weather-change");
+    private Topic weatherTopic = Topic.FromMessage<WeatherMessage>();
 
     CancellationToken token;
 

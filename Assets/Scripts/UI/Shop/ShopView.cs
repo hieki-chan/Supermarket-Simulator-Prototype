@@ -45,7 +45,7 @@ public class ShopView : MonoBehaviour
 
     List<CartItem_UI> activeCart;
 
-    public UnityAction<CartItem> OnAddToCart;
+    public UnityAction<CartItem> OnAddToCart { get; set; }
     public UnityAction<Company, int> OnRemovedFromCart;
     public UnityAction OnBuy;
 
@@ -132,11 +132,12 @@ public class ShopView : MonoBehaviour
 
     void OnRemoveFromCart(CartItem_UI cartItem_UI)
     {
+        cartItem_UI.amount = 0;
         cartPool.Return(cartItem_UI);
         int i = activeCart.FindIndex(c => c == cartItem_UI);
         if (i == -1)
         {
-            //
+            return;
         }
         activeCart.RemoveAt(i);
         cartItemCountText.text = activeCart.Count.ToString();

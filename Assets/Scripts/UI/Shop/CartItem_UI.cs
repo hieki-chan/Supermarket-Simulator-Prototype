@@ -37,7 +37,7 @@ public class CartItem_UI : MonoBehaviour
         amount = cartItem.amount;
         amountText.text = amount.ToString();
         totalText.text = (productInfo.UnitCost * cartItem.amount).ToString();
-        info.text = $"Unit: {productInfo.UnitPerPack}\nUnit Price: {productInfo.UnitCost}\nStorage:";
+        info.text = $"Unit: {productInfo.UnitPerPack}\nUnit Price: {productInfo.UnitCost}\nStorage: {productInfo.Furniture}";
     }
 
 

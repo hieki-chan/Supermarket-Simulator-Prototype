@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Manager\TimeWeatherMessages.cs" />
+    <Compile Include="Assets\Scripts\Shopping\ShoppingMessages.cs" />
     <Compile Include="Assets\Scripts\Customer\CustomerType.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerMessages.cs" />
     <Compile Include="Assets\Scripts\Sounds\RainSound.cs" />
@@ -73,8 +74,10 @@
     <Compile Include="Assets\Scripts\Customer\CustomerTransition.cs" />
     <Compile Include="Assets\Scripts\SaveLoad\LocalSaveLoad.cs" />
     <Compile Include="Assets\Scripts\MVP\MVPInitializer.cs" />
+    <Compile Include="Assets\Scripts\MVP\SupermarketPresenter.cs" />
     <Compile Include="Assets\Scripts\Customer\States\WalkingState.cs" />
     <Compile Include="Assets\Scripts\Customer\States\LookAtStorageState.cs" />
+    <Compile Include="Assets\Scripts\UI\DeliveryLogger\LogMessage.cs" />
     <Compile Include="Assets\Scripts\Sounds\GlobalAudioMix.cs" />
     <Compile Include="Assets\Scripts\Manager\SupermarketManager.cs" />
     <Compile Include="Assets\Scripts\Packages\Package.cs" />
@@ -88,14 +91,14 @@
     <Compile Include="Assets\Scripts\Player\CameraController.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerController.cs" />
     <Compile Include="Assets\Scripts\Furniture\FurniturePlacer.cs" />
-    <Compile Include="Assets\Scripts\PlaySettings\PlaySettings.cs" />
+    <Compile Include="Assets\Scripts\UserData\SettingsData\PlaySettings.cs" />
     <Compile Include="Assets\Scripts\Interaction\Interactable.cs" />
     <Compile Include="Assets\Scripts\Shopping\CartItem.cs" />
     <Compile Include="Assets\Scripts\UI\OrderView.cs" />
     <Compile Include="Assets\Scripts\Products\ArrangementGrid.cs" />
-    <Compile Include="Assets\Scripts\Shopping\ShopMessages.cs" />
     <Compile Include="Assets\Scripts\Interaction\IInteractButtons.cs" />
     <Compile Include="Assets\Scripts\UI\InteractButtonsView.cs" />
+    <Compile Include="Assets\Scripts\UserData\StoreData\StoreData.cs" />
     <Compile Include="Assets\Scripts\Customer\States\Base\CustomerSM_Model.cs" />
     <Compile Include="Assets\Scripts\MVP\Presenter.cs" />
     <Compile Include="Assets\Scripts\UI\CheckoutScreen.cs" />
@@ -139,8 +142,11 @@
     <Compile Include="Assets\Scripts\Attributes\NewProductAttribute.cs" />
     <Compile Include="Assets\Scripts\Customer\MovementPath.cs" />
     <Compile Include="Assets\Scripts\UI\Tab\IndexedButton.cs" />
+    <Compile Include="Assets\Scripts\MVP\DeliveryPresenter.cs" />
     <Compile Include="Assets\Scripts\UI\TimeAndWeather\RealTimeWeatherView.cs" />
     <Compile Include="Assets\Scripts\Customer\CustomerManager.cs" />
+    <Compile Include="Assets\Scripts\UI\SupermarketView.cs" />
+    <Compile Include="Assets\Scripts\UI\DeliveryLogger\DeliveryLogger.cs" />
     <Compile Include="Assets\Scripts\Packages\Cartons.cs" />
     <Compile Include="Assets\Scripts\Interaction\InteractionInfo.cs" />
     <Compile Include="Assets\Scripts\Shopping\CartData.cs" />

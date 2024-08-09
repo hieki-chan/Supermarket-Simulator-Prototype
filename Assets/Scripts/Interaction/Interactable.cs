@@ -7,11 +7,7 @@ namespace Supermarket
     [RequireComponent(typeof(Outline))]
     public abstract class Interactable : MonoBehaviour
     {
-        public InteractionInfo interactionInfo
-        {
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get; 
-        }
+        public InteractionInfo interactionInfo => m_interactionInfo;
         [SerializeField] private InteractionInfo m_interactionInfo;
 
         //public UnityAction<Interactable> OnNoInteraction;

@@ -4,6 +4,7 @@ using Supermarket;
 using Supermarket.Products;
 using Hieki.Pubsub;
 using Cysharp.Threading.Tasks;
+using System;
 
 public class DeliveryManager : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class DeliveryManager : MonoBehaviour
 
     Topic orderTopic = Topic.FromString("buy-delivery");
     ISubscriber subscriber;
+
+    public Action OnArrived;
 
     private void Awake()
     {
@@ -59,8 +62,10 @@ public class DeliveryManager : MonoBehaviour
                 continue;
             }
 
+
             foreach (var item in Orders[0].CartItems)
             {
+                OnArrived?.Invoke();
                 for (int i = 0; i < item.amount; i++)
                 {
                     switch (item.product.ProductType)
@@ -76,7 +81,7 @@ public class DeliveryManager : MonoBehaviour
 
                         case ProductType.Furniture:
                             {
-                                Package pack = Package.Pool.Get();
+                                Package pack = Package.Pool.GetOrCreate();
                                 pack.Pack(item.product.Furniture);
                                 await EnablePackageDelayed(pack.gameObject);
                                 break;

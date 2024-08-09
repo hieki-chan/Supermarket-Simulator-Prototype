@@ -46,7 +46,7 @@ public class ChoosingState : CustomerStateBase
 
         //there's no more products?
 
-        if (SM.productsInBag.Count > 0)
+        if (SM.productsInBag.Count > 0)     //no more products to choose
         {
             SM.SwitchState<WaitingState>();
             return;

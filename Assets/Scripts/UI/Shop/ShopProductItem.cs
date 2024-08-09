@@ -36,7 +36,7 @@ public class ShopProductItem : MonoBehaviour
         icon.sprite = productInfo.Icon;
         productName.text = productInfo.name;
         companyName.text = productInfo.Company.CompanyName;
-        info.text = $"Unit: {productInfo.UnitPerPack}\nUnit Price: {productInfo.UnitCost}\nStorage:";
+        info.text = $"Unit: {productInfo.UnitPerPack}\nUnit Price: {productInfo.UnitCost}\nStorage:{productInfo.Furniture}";
         amount = 1;
         amountText.text = amount.ToString();
         CalculateTotalCost();
@@ -65,12 +65,14 @@ public class ShopProductItem : MonoBehaviour
 
     public void AddToCart()
     {
+        if (amount == 0)
+            return;
+
         CartItem cartItem = new CartItem()
         {
             product = product,
             amount = amount,
         };
-
         OnAddToCart?.Invoke(cartItem);
     }
 }

@@ -2,6 +2,7 @@
 using Supermarket.MVP;
 using Supermarket.Player;
 using System;
+using UnityEngine;
 
 [Serializable]
 public class InteractionPresenter : Presenter<PlayerController, InteractButtonsView>
@@ -25,7 +26,6 @@ public class InteractionPresenter : Presenter<PlayerController, InteractButtonsV
         if (interaction && interaction.interactionInfo)
         {
             string tooltip = interaction.interactionInfo.Tooltips;
-
             if (!string.IsNullOrEmpty(tooltip))
             {
                 tooltips.Show(tooltip);

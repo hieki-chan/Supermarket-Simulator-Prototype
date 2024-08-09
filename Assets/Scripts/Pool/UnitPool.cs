@@ -21,10 +21,10 @@ namespace Supermarket
             this.prefab = prefab;
         }
 
-        public MonoPool(T prefab, int size)
+        public MonoPool(T prefab, int size, Action<T> OnCreated = null)
         {
             this.prefab = prefab;
-            Create(size);
+            Create(size, OnCreated);
         }
 
         public void Create(int size, Action<T> OnCreated = null)

@@ -90,7 +90,7 @@ public class OnlineShopManager : MonoBehaviour
     {
         unit totalCost = cartData.TotalCost();
 
-        if (SupermarketManager.Mine.Money < totalCost)
+        if (SupermarketManager.Mine.TryConsume(totalCost))
         {
             //
         }

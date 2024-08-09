@@ -1,27 +1,43 @@
+using Supermarket;
 using Supermarket.Customers;
 using Supermarket.Pricing;
 using Supermarket.Products;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 
-[DefaultExecutionOrder(-100)]
+[DefaultExecutionOrder(-99)]
 public class SupermarketManager : MonoBehaviour
 {
     public static SupermarketManager Mine { get; private set; }
+
+    //---------------------------STORE DATA------------------------------\\
+    private StoreData storeData;
+
+    private unit Money { get => storeData.money; set => storeData.money = value; }
+
+    //-------------------------------------------------------------------\\
 
     [NonEditable] public SupermarketState State;
 
     [NonEditable] public List<Storage> Storages;
     [NonEditable] public CheckoutDesk CheckoutDesk;
 
+    
     private List<ItemPricing> itemPricings = new List<ItemPricing>(10);
 
-    public unit Money => money;
-    [SerializeField] private unit money;
 
     [Header("UI"), Space]
     public PriceSettingView priceSettings;
+
+    //----------------------------EVENTS---------------------------------\\
+    public UnityAction<unit> OnMoneyChanged;
+    public UnityAction<int> OnLevelUpgraded;
+    public UnityAction<float> OnLevelInProgress;
+
+    //-------------------------------------------------------------------\\
+
 
     private void Awake()
     {
@@ -32,6 +48,17 @@ public class SupermarketManager : MonoBehaviour
 
         Storages = FindObjectsByType<Storage>(FindObjectsSortMode.None).ToList();
         CheckoutDesk = FindObjectOfType<CheckoutDesk>();
+
+        storeData = new StoreData()
+        {
+            levelProgress = 0,
+            storeLevel = 0,
+            money = 10000,
+        };
+
+        OnMoneyChanged?.Invoke(Money);
+        OnLevelInProgress?.Invoke(storeData.storeLevel);
+        OnLevelUpgraded?.Invoke(storeData.storeLevel);
     }
 
     public ItemPricing GetItemPricing(ProductInfo product)
@@ -61,7 +88,7 @@ public class SupermarketManager : MonoBehaviour
         {
             var storage = Storages[realIndex];
 
-            if (storage.CheckProduct())
+            if (storage.IsAvailable())
             {
                 return storage;
             }
@@ -75,9 +102,10 @@ public class SupermarketManager : MonoBehaviour
 
     public bool TryConsume(unit amout)
     {
-        if(money >= amout)
+        if(Money >= amout)
         {
-            money -= amout;
+            Money -= amout;
+            OnMoneyChanged?.Invoke(Money);
             return true;
         }
 
@@ -86,7 +114,8 @@ public class SupermarketManager : MonoBehaviour
 
     public void Store(unit amout)
     {
-        money += amout;
+        Money += amout;
+        OnMoneyChanged?.Invoke(Money);
     }
 
 
