@@ -5,6 +5,8 @@ using Supermarket.Player;
 using Supermarket.Products;
 using Hieki.Pubsub;
 using Cysharp.Threading.Tasks;
+using System.Threading;
+using Unity.VisualScripting.Antlr3.Runtime;
 
 public class FurniturePlaceHelper : Interactable, IInteractButton01
 {
@@ -49,6 +51,8 @@ public class FurniturePlaceHelper : Interactable, IInteractButton01
 
     Transform playerTrans;
 
+    CancellationTokenSource tokenSource;
+
     public void Place()
     {
 
@@ -68,8 +72,11 @@ public class FurniturePlaceHelper : Interactable, IInteractButton01
         currentFakeFurniture = FakeFurniturePool.GetOrCreate(currentFurniture.GetType(), currentFurniture.FurnitureInfo.PlaceEffect.transform,
             currentFurniture.transform.position, currentFurniture.transform.rotation);
 
-        this.Publish(PlayerTopics.interactTopic, new InteractMessage(this));
         playerTrans = currentFurniture.playerTrans;
+        this.Publish(PlayerTopics.interactTopic, new InteractMessage(this));
+
+        tokenSource = new CancellationTokenSource();
+
         _ = OnMoving();
     }
 
@@ -77,7 +84,7 @@ public class FurniturePlaceHelper : Interactable, IInteractButton01
     {
         while (true)
         {
-            await UniTask.NextFrame();
+            await UniTask.NextFrame(tokenSource.Token, true);
 
             Vector3 fwd = playerTrans.position + playerTrans.forward * 2;
             currentFakeFurniture.transform.position = new Vector3(fwd.x, .014f, fwd.z);
@@ -89,6 +96,8 @@ public class FurniturePlaceHelper : Interactable, IInteractButton01
         currentFurniture.transform.position = currentFakeFurniture.position;
         currentFurniture.gameObject.SetActive(true);
         FakeFurniturePool.Return(currentFurniture.GetType(), currentFakeFurniture);
+
+        tokenSource.Cancel();
 
         this.Publish(PlayerTopics.interactTopic, new InteractMessage(null));
 
