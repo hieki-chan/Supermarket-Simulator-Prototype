@@ -77,6 +77,45 @@ MonoBehaviour:
     m_SerializedLabels:
     - license
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9d5c2770e9496fd4a8e2af717633cbf0
+    m_Address: Assets/GameAssets/Licenses/Product License 2.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - license
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e648c70318a822641ab661e835640fd6
+    m_Address: Assets/GameAssets/Licenses/Product License 3.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - license
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2ca8d07ff8ff5a4419cfd402b75f456f
+    m_Address: Assets/GameAssets/Licenses/Product License 4.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - license
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 00aac521531864e49a0fe436cbd7bc85
+    m_Address: Assets/GameAssets/Licenses/Product License 5.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - license
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 87c2f44704ef06547930dd0474ef096f
+    m_Address: Assets/Prefabs/Sell Popup.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8ed032d1d1c58c44fb331eae406a8fa2
+    m_Address: Assets/Prefabs/CheckoutPannel/MoneyChanger.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 55b133fecd69f574889bc635dfb88718
+    m_Address: Assets/Prefabs/CheckoutPannel/Terminal.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 5e39c648b0407bc448a068ab14104db8, type: 2}
   m_SchemaSet:

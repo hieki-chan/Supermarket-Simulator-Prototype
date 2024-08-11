@@ -24,12 +24,6 @@ namespace Supermarket.Customers
             activePriceTagsSelf = new PriceTag[grids.Length];
         }
 
-        public sealed override void OnHoverEnter(Transform playerTrans)
-        {
-            base.OnHoverEnter(playerTrans);
-            this.player = player;
-        }
-
         public bool TryArrangeProduct(ProductOnSale product, Transform tier)
         {
             for (int i = 0; i < grids.Length; i++)
@@ -113,12 +107,6 @@ namespace Supermarket.Customers
             }
 
             return null;
-        }
-
-        public override void OnGet(PlayerController player)
-        {
-            this.player = player;
-            Move();
         }
 
 

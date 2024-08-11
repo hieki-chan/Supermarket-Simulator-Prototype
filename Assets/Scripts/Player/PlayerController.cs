@@ -50,6 +50,8 @@ namespace Supermarket.Player
 
         [Header("Interaction")]
         [SerializeField]
+        private LayerMask interactLayers;
+        [SerializeField]
         private float maxInteractDistance;
 
         public Interactable currentInteraction { get => m_currentInteraction; set { if (value == null && m_currentInteraction != null) OnInteractExit(); else m_currentInteraction = value; } }
@@ -315,7 +317,7 @@ namespace Supermarket.Player
         private bool RayCastTarget(Vector2 screenPos, out RaycastHit hit)
         {
             Ray ray = mainCamera.ScreenPointToRay(screenPos);
-            return Physics.Raycast(ray, out hit, maxInteractDistance);
+            return Physics.Raycast(ray, out hit, maxInteractDistance, interactLayers);
         }
 
         #region Player Model Events

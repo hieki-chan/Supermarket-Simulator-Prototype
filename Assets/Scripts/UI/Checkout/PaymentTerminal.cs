@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Cysharp.Threading.Tasks;
+using DG.Tweening;
+using System;
 using System.Text;
 using TMPro;
 using UnityEngine;
@@ -57,18 +59,20 @@ public class PaymentTerminal : MonoBehaviour
         rectTrans = GetComponent<RectTransform>();
     }
 
-    private void OnEnable()
+    private async void OnEnable()
     {
         rectTrans.anchoredPosition = new Vector2(rectTrans.anchoredPosition.x, -1000);
-        LeanTween.moveY(rectTrans, 0, .2f);
+
+        await rectTrans.DOMoveY(0, .2f);
     }
 
     public void Check(float value, Action OnCorrect, Action OnIncorrect)
     {
         this.value = value;
         this.OnCorrect = OnCorrect;
-        this.OnIncorrect= OnIncorrect;
+        this.OnIncorrect = OnIncorrect;
 
+        SetText();
         gameObject.SetActive(true);
     }
 

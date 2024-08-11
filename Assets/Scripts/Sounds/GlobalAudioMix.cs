@@ -54,7 +54,7 @@ public class GlobalAudioMix : MonoBehaviour
             _=> sunnySound,
         };
 
-        FadeOut(.2f, clip).Forget();
+        FadeOut(2f, clip).Forget();
     }
 
     public async UniTaskVoid FadeOut(float FadeTime, AudioClip clip)

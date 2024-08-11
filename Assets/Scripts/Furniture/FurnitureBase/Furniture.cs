@@ -1,6 +1,6 @@
-﻿using Supermarket.Player;
-using System;
+﻿using System;
 using System.Runtime.CompilerServices;
+using Hieki.Pubsub;
 using UnityEngine;
 
 namespace Supermarket.Products
@@ -9,6 +9,7 @@ namespace Supermarket.Products
     {
         public static UnitPool<Type, Furniture> Pool = new UnitPool<Type, Furniture>(2);
 
+        public ProductInfo FurnitureInfo => furnitureInfo;
         [SerializeField, NewProduct] protected ProductInfo furnitureInfo;
 
         public FurnitureState state 
@@ -26,7 +27,7 @@ namespace Supermarket.Products
         }
 
 
-        protected PlayerController player 
+        public Transform playerTrans 
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get; 
@@ -36,35 +37,20 @@ namespace Supermarket.Products
 
         public override void OnHoverEnter(Transform playerTrans)
         {
+            this.playerTrans = playerTrans;
             outline.enabled = true;
         }
 
-        public virtual void OnGet(PlayerController player)
+        public virtual void OnGet(Transform playerTransform)
         {
 
         }
 
         //------------------------------------MOVE--------------------------------\\
 
-        public void Move()
+        private void Sell()
         {
-            if (player.currentInteraction == this)
-            {
-                MoveDone();
-                return;
-            }
-            player.currentInteraction = this;
-            transform.parent = player.transform;
-            Vector3 fwd = player.transform.position + player.transform.forward * 2;
-            transform.position = new Vector3(fwd.x, .014f, fwd.z);
-            state = FurnitureState.Moving;
-        }
-
-        private void MoveDone()
-        {
-            player.currentInteraction = null;
-            transform.parent = null;
-            state = FurnitureState.Normal;
+            this.Publish(sellTopic, new SellMessage(this));
         }
 
 
@@ -81,7 +67,7 @@ namespace Supermarket.Products
 
         public void OnClick_Button01()
         {
-            Move();
+            this.Publish(moveTopic, new MoveMessage(this));
         }
 
         //----------------------------------- Button 02: Sell -------------------------------\\
@@ -98,7 +84,38 @@ namespace Supermarket.Products
 
         public void OnClick_Button02()
         {
-            
+            this.Publish(trySellTopic, new TrySellNotify(Sell));
+        }
+
+        public static readonly Topic trySellTopic = Topic.FromMessage<TrySellNotify>();
+        public static readonly Topic sellTopic = Topic.FromMessage<SellMessage>();
+        public static readonly Topic moveTopic = Topic.FromMessage<MoveMessage>();
+
+        public readonly struct TrySellNotify : IMessage
+        {
+            public readonly Action OnConfirm;
+            public TrySellNotify(Action OnConfirm)
+            {
+                this.OnConfirm = OnConfirm;
+            }
+        }
+
+        public readonly struct SellMessage : IMessage
+        {
+            public readonly Furniture furniture;
+            public SellMessage(Furniture furniture)
+            {
+                this.furniture = furniture;
+            }
+        }
+
+        public readonly struct MoveMessage : IMessage
+        {
+            public readonly Furniture furniture;
+            public MoveMessage(Furniture furniture)
+            {
+                this.furniture = furniture;
+            }
         }
 
 #if UNITY_EDITOR

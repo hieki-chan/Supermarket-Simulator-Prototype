@@ -10,8 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a1bbc89751e5c214cb256a9faa200a4a, type: 3}
-  m_Name: 1
+  m_Name: Product License 5
   m_EditorClassIdentifier: 
+  m_LicenseName: 
+  m_LicenseId: 5
+  m_Description: 
+  m_Cost:
+    value: 0
+  m_RequireStoreLevel: 0
   m_AllowedPurchaseAndSellProducts: []
-  m_Price:
-    value: 200

@@ -6,5 +6,7 @@
         public float levelProgress;
 
         public float money;
+
+        public int[] pruchasedLicenses;
     }
 }

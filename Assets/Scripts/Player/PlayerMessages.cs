@@ -69,30 +69,46 @@ namespace Supermarket.Player
         }
     }
 
+    public readonly struct CastingMessage : IMessage
+    {
+        public readonly bool state;
+
+        public CastingMessage(bool state)
+        {
+            this.state = state;
+        }
+    }
+
     public static class PlayerTopics
     {
         /// <summary>
         /// Set target interacttion.
         /// </summary>
         public static Topic interactTopic { [MethodImpl(MethodImplOptions.AggressiveInlining)] get => _interactTopic; }
-        public static readonly Topic _interactTopic = Topic.FromMessage<InteractMessage>();
+        private static readonly Topic _interactTopic = Topic.FromMessage<InteractMessage>();
 
         /// <summary>
         /// Enable/Disable move and look control.
         /// </summary>
         public static Topic controlTopic { [MethodImpl(MethodImplOptions.AggressiveInlining)] get => _controlTopic; }
-        public static readonly Topic _controlTopic = Topic.FromMessage<ControlStateMessage>();
+        private static readonly Topic _controlTopic = Topic.FromMessage<ControlStateMessage>();
 
         /// <summary>
         /// Enable/Disable character controller.
         /// </summary>
         public static Topic charCtrllerTopic { [MethodImpl(MethodImplOptions.AggressiveInlining)] get => _controllerTopic; }
-        public static readonly Topic _controllerTopic = Topic.FromMessage<CharCtrllerStateMessage>();
+        private static readonly Topic _controllerTopic = Topic.FromMessage<CharCtrllerStateMessage>();
 
         /// <summary>
         /// Set camera sensitivity.
         /// </summary>
         public static Topic camSentvtTopic { [MethodImpl(MethodImplOptions.AggressiveInlining)] get => _camSentvtTopic; }
-        public static readonly Topic _camSentvtTopic = Topic.FromMessage<CamSensitivityMessage>();
+        private static readonly Topic _camSentvtTopic = Topic.FromMessage<CamSensitivityMessage>();
+
+        /// <summary>
+        /// Enable/Disable target casting.
+        /// </summary>
+        public static Topic castTopic { [MethodImpl(MethodImplOptions.AggressiveInlining)] get => _castTopic; }
+        private static readonly Topic _castTopic = Topic.FromMessage<CastingMessage>();
     }
 }

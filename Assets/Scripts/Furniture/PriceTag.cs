@@ -7,7 +7,7 @@ using TMPro;
 using System.Collections.Generic;
 using Hieki.Pubsub;
 
-public class PriceTag : Interactable
+public sealed class PriceTag : Interactable
 {
     public static List<PriceTag> ActivePriceTags = new List<PriceTag>(6);
 
@@ -25,7 +25,7 @@ public class PriceTag : Interactable
     }
     [SerializeField, NonEditable] private ProductInfo m_productInfo;
 
-    public override void OnInteract(Transform playerTrans, Transform cameraTrans)
+    public sealed override void OnInteract(Transform playerTrans, Transform cameraTrans)
     {
         ItemPricing item = SupermarketManager.Mine.GetItemPricing(productInfo);
 

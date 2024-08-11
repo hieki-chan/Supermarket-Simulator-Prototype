@@ -20,21 +20,17 @@ public class MoneyChanger : MonoBehaviour
     public Button coin0_20;
     public Button coin0_50;
 
-    public Action<float, float> OnClick;
-    public Action OnReset;
-    public Func<float, bool> OnOk;
+    Action<float, float> OnClick;
+    Action OnReset;
+    Action OnCorrect;
+    Action OnIncorrect;
 
+    float value;
     float totalGiving = 0;
 
     private void Awake()
     {
-        OkButton.onClick.AddListener(() =>
-        {
-            if ((bool)(OnOk?.Invoke(totalGiving)))
-            {
-                gameObject.SetActive(false);
-            }
-        });
+        OkButton.onClick.AddListener(OnOk);
         ResetButton.onClick.AddListener(() => { OnReset?.Invoke(); totalGiving = 0; });
 
         bankote1.onClick.AddListener(() => { Give(1); });
@@ -50,18 +46,31 @@ public class MoneyChanger : MonoBehaviour
         coin0_50.onClick.AddListener(() => { Give(.50f); });
     }
 
-    public void Check(Action<float, float> OnClick, Action OnReset, Func<float, bool> OnOK)
+    public void Check(float value, Action<float, float> OnClick, Action OnReset, Action OnCorrect, Action OnIncorrect)
     {
+        this.value = value;
         this.OnClick = OnClick;
         this.OnReset = OnReset;
-        this.OnOk = OnOK;
+        this.OnCorrect = OnCorrect;
+        this.OnIncorrect = OnIncorrect;
         gameObject.SetActive(true);
         totalGiving = 0;
     }
 
-    public void Give(float val)
+    void Give(float val)
     {
         totalGiving += val;
         OnClick?.Invoke(val, totalGiving);
+    }
+
+    void OnOk()
+    {
+        if (Mathf.Abs(value - totalGiving) < 0.01f)
+        {
+            OnCorrect?.Invoke();
+            gameObject.SetActive(false);
+        }
+
+        OnIncorrect?.Invoke();
     }
 }

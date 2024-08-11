@@ -100,6 +100,11 @@ public class SupermarketManager : MonoBehaviour
         return null;
     }
 
+    public void SellFurniture()
+    {
+
+    }
+
     public bool TryConsume(unit amout)
     {
         if(Money >= amout)

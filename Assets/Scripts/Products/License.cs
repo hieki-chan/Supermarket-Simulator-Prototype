@@ -1,6 +1,5 @@
 ﻿using Supermarket.Pricing;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
 namespace Supermarket.Products
@@ -8,32 +7,19 @@ namespace Supermarket.Products
     [CreateAssetMenu(fileName = "License", menuName = "Licenses")]
     public class License : ScriptableObject
     {
-        public string LicenseName
-        {
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get => m_LicenseName;
-        }
+        public string LicenseName => m_LicenseName;
         [SerializeField, TextArea] private string m_LicenseName;
 
-        public string Description
-        {
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get => m_Description;
-        }
+        public int LicenseId => m_LicenseId;
+        [SerializeField] private int m_LicenseId;
+
+        public string Description=> m_Description;
         [SerializeField, TextArea] private string m_Description;
 
-        public unit Cost
-        {
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get => m_Cost;
-        }
+        public unit Cost => m_Cost;
         [SerializeField] private unit m_Cost;
 
-        public int StoreLeveRequired
-        {
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get => m_RequireStoreLevel;
-        }
+        public int StoreLeveRequired => m_RequireStoreLevel;
         [SerializeField, Min(0)] private int m_RequireStoreLevel;
 
 

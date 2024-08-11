@@ -7,6 +7,7 @@ using Supermarket.Pricing;
 using Supermarket.Products;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public sealed class CheckoutDesk : Interactable, IInteractButton01
@@ -21,12 +22,13 @@ public sealed class CheckoutDesk : Interactable, IInteractButton01
     [SerializeField] private Vector3 moneyChangePosTo;
 
     public List<CheckoutPoint> CheckoutLine => checkoutLine;
+
     [Header("Line"), Space]
     [SerializeField] private List<CheckoutPoint> checkoutLine;
 
     [Header("Packing"), Space]
-    [SerializeField] private AreaPacking2D areaPacker;
     [SerializeField] private Vector3 packingPos;
+    [SerializeField] private Vector3 packOffset;
     [SerializeField, NonEditable] private int packedCout;
 
     public Action OnPackedDone;
@@ -52,9 +54,6 @@ public sealed class CheckoutDesk : Interactable, IInteractButton01
 
     [Header("Screen")]
     public CheckoutScreen screen;
-
-    public PaymentTerminal paymentTerminal;
-    public MoneyChanger moneyChangePannel;
 
     PaymentObject currentPayment;
 
@@ -88,8 +87,6 @@ public sealed class CheckoutDesk : Interactable, IInteractButton01
 
         activeMoney = new List<MoneyPoolable>(24);
         currentMoneyY = Position.Offset(transform, moneyChangePosTo).y;
-
-        areaPacker.StartArea();
     }
 
     public override void OnInteract(Transform playerTrans, Transform cameraTrans)
@@ -120,13 +117,17 @@ public sealed class CheckoutDesk : Interactable, IInteractButton01
 
             if (packedCout == 0)
             {
-                areaPacker.StartArea();
                 OnPackedDone?.Invoke();
             }
 
             return;
         }
 
+        NotifyPayment(other);
+    }
+
+    private void NotifyPayment(Interactable other)
+    {
         if (other is PaymentObject obj)
         {
             currentPayment = obj;
@@ -137,11 +138,11 @@ public sealed class CheckoutDesk : Interactable, IInteractButton01
             {
                 case PaymentType.CreditCard:
                     screen.Display(totalCost);
-                    paymentTerminal.Check(currentPayment.value, OnPayCorrect, OnPayIncorrect);
+                    this.Publish(CardPayTopic, new CardPayNotify(currentPayment.value, OnPayCorrect, OnPayIncorrect));
                     break;
                 case PaymentType.Cash:
                     screen.Display(obj.value, totalCost, obj.value - totalCost, unit.zero);
-                    moneyChangePannel.Check(GetMoney, OnResetMoney, OnOK);
+                    this.Publish(CashPayTopic, new CashPayNotify(totalCost, GetMoney, OnResetMoney, OnGiveCorrect, OnPayIncorrect));
                     break;
                 default:
                     break;
@@ -193,27 +194,56 @@ public sealed class CheckoutDesk : Interactable, IInteractButton01
     }
 
 
-    //--------------------------------Money Change--------------------------------------\\
-    public void ProductPackingPos(ProductOnSale product)
+    //--------------------------------Money Changing--------------------------------------\\
+    public ProductOnSale mm;
+    public ProductOnSale mm1;
+    public ProductOnSale mm2;
+
+    private void Start()
     {
-        Vector3 size = product.GetWorldSize();
-        AreaPacking2D.Item item = new AreaPacking2D.Item()
+        //ProductPacking(Instantiate(mm));
+        ProductPacking(new List<ProductOnSale>()
         {
-            sizeX = size.x,
-            sizeY = size.y,
-            spacing = (size.x + size.y) / 3,
-        };
-        areaPacker.Pack(item, out Vector2 result);
+            Instantiate(mm),
+            Instantiate(mm1),
+            Instantiate(mm),
+            Instantiate(mm),
+            Instantiate(mm2),
+        });
+        //ProductPacking(Instantiate(mm));
+        //ProductPacking(Instantiate(mm2));
+        //ProductPacking(Instantiate(mm));
+    }
 
-        Vector3 worldPos = Offset(packingPos) + new Vector3(result.x, 0, result.y);
+    public void ProductPacking(List<ProductOnSale> products)
+    {
+        var sortedProducts = products.OrderByDescending(p => p.GetWorldSize().magnitude).ToArray();
 
-        product.transform.LeanMove(worldPos, .25f);
-        product.transform.rotation = Quaternion.identity;
+        Vector3 pos = Vector3.zero;
+        for (int i = 0; i < sortedProducts.Length; i++)
+        {
+            ProductOnSale product = sortedProducts[i];
+
+            product.EnableInteracttion();
+            product.transform.parent = null;
+
+            Vector2 size = product.GetWorldSize();
+            if (i % 3 == 0)
+            {
+                pos.x += size.x;
+            }
+
+            pos += new Vector3(packOffset.x, 0, packOffset.y * (i / 3) * size.y);
+            Vector3 worldPos = Offset(packingPos) + pos;
+
+            product.transform.LeanMove(worldPos, .25f);
+            product.transform.rotation = Quaternion.identity;
+        }
 
         packedCout++;
     }
 
-    public void GetMoney(float val, float totalGiving)
+    private void GetMoney(float val, float totalGiving)
     {
         Vector3 from = Offset(moneyChangePosFrom);
         Vector3 to = Offset(moneyChangePosTo + new Vector3(UnityEngine.Random.Range(-range, range), 0, UnityEngine.Random.Range(-range, range)));
@@ -238,30 +268,25 @@ public sealed class CheckoutDesk : Interactable, IInteractButton01
         screen.DisplayGiving(totalGiving);
     }
 
-    public void OnResetMoney()
+    private void OnResetMoney()
     {
         ResetMoney(true);
+        screen.DisplayGiving(unit.zero);
     }
 
-    public bool OnOK(float val)
+    private void OnGiveCorrect()
     {
-        if (Mathf.Abs(currentPayment.value - totalCost - val) < 0.01f)
-        {
-            ResetMoney(false);
-            OnPayCorrect();
-            return true;
-        }
-        OnPayIncorrect();
-        return false;
+        ResetMoney(false);
+        OnPayCorrect();
     }
 
-    public void ResetMoney(bool playAni)
+    private void ResetMoney(bool playAni)
     {
         Vector3 from = Position.Offset(transform, moneyChangePosFrom);
 
         foreach (var m in activeMoney)
         {
-            if(playAni)
+            if (playAni)
                 m.trans.LeanMove(from, moneyGivingTime).setOnComplete(() =>
                 {
                     MoneyPool.Return(m.keyValue, m.trans);
@@ -327,7 +352,7 @@ public sealed class CheckoutDesk : Interactable, IInteractButton01
         UnityEditor.Handles.DrawWireDisc(to, Vector3.up, range);
         SceneDrawer.ArrowGizmo(from, (to - from), (to - from).magnitude / 5);
 
-        SceneDrawer.DrawWireCubeHandles(Offset(packingPos), new Vector3(areaPacker.sizeX, 0, areaPacker.sizeY), transform.rotation, Color.white, 4);
+        // SceneDrawer.DrawWireCubeHandles(Offset(packingPos), new Vector3(areaPacker.sizeX, 0, areaPacker.sizeY), transform.rotation, Color.white, 4);
     }
 #endif
 
@@ -338,4 +363,55 @@ public sealed class CheckoutDesk : Interactable, IInteractButton01
         public float rotateY;
         public bool isTaked;
     }
+
+    //--------------------------------------------------PubSub Events-----------------------------------------------\\
+    public static Topic CardPayTopic => cardPayTopic;
+
+    public static Topic CardPaidTopic => cardPaidTopic;
+
+    public static Topic CashPayTopic => cashPayTopic;
+
+
+    private static readonly Topic cardPayTopic = Topic.FromMessage<CardPayNotify>();
+    private static readonly Topic cardPaidTopic = Topic.FromMessage<CardPaidMessage>();
+    private static readonly Topic cashPayTopic = Topic.FromMessage<CashPayNotify>();
+
+
+    public readonly struct CardPayNotify : IMessage
+    {
+        public readonly float value;
+        public readonly Action OnCorrect;
+        public readonly Action OnIncorrect;
+
+        public CardPayNotify(float value, Action onCorrect, Action onIncorrect)
+        {
+            this.value = value;
+            OnCorrect = onCorrect;
+            OnIncorrect = onIncorrect;
+        }
+    }
+
+    public readonly struct CardPaidMessage : IMessage
+    {
+
+    }
+
+    public readonly struct CashPayNotify : IMessage
+    {
+        public readonly float value;
+        public readonly Action<float, float> OnClick;
+        public readonly Action OnReset; 
+        public readonly Action OnCorrect; 
+        public readonly Action OnIncorrect;
+
+        public CashPayNotify(float value, Action<float, float> onClick, Action onReset, Action onCorrect, Action onIncorrect)
+        {
+            this.value = value;
+            OnClick = onClick;
+            OnReset = onReset;
+            OnCorrect = onCorrect;
+            OnIncorrect = onIncorrect;
+        }
+    }
 }
+

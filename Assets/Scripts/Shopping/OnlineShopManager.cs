@@ -14,7 +14,7 @@ public class OnlineShopManager : MonoBehaviour
     const string LICENSES_KEY = "license";
 
     private List<ProductInfo> productsInfo;
-    private List<License> licenses;
+    private Dictionary<int, License> licenses;
 
     [SerializeField] CartData cartData;
 
@@ -66,7 +66,11 @@ public class OnlineShopManager : MonoBehaviour
 
         if(handle2.Status == AsyncOperationStatus.Succeeded)
         {
-            licenses = handle2.Result.ToList();
+            licenses = new Dictionary<int, License>();
+            foreach (var license in handle2.Result)
+            {
+                licenses.Add(license.LicenseId, license);
+            }
             shopView.OnLicensesLoaded(licenses);
         }
     }

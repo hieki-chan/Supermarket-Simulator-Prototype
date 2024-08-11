@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7512300203454248013}
   - component: {fileID: 7184571807493394025}
   m_Layer: 5
-  m_Name: Button
+  m_Name: TerminalButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

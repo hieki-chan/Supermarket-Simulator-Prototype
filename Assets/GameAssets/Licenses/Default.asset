@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Default
   m_EditorClassIdentifier: 
   m_LicenseName: Product License
+  m_LicenseId: 0
   m_Description: 'allow you to purchase and sell new products:'
   m_Cost:
     value: 4.82

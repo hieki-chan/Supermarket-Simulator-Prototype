@@ -74,7 +74,7 @@ public class ShopView : MonoBehaviour
         }
     }
 
-    public void OnLicensesLoaded(List<License> licenses)
+    public void OnLicensesLoaded(Dictionary<int, License> licenses)
     {
         shopLicenses = new List<License_UI>(licenses.Count);
 

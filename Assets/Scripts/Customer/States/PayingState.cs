@@ -18,14 +18,7 @@ public class PayingState : CustomerStateBase
         SM.storage = null;
         CheckoutDesk checkoutDesk = SupermarketManager.Mine.CheckoutDesk;
 
-        for (int i = 0; i < SM.productsInBag.Count; i++)
-        {
-            ProductOnSale product = SM.productsInBag[i];
-
-            product.EnableInteracttion();
-            product.transform.parent = null;
-            checkoutDesk.ProductPackingPos(product);
-        }
+        checkoutDesk.ProductPacking(SM.productsInBag);
 
         checkoutDesk.OnPackedDone += OnPacked;
     }

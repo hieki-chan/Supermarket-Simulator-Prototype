@@ -13,54 +13,31 @@ namespace Supermarket.Products
         //public string Name => m_Name;
         //[SerializeField] private string m_Name;
 
-        public ProductType ProductType
-        {
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get => m_ProductType;
-        }
+        public ProductType ProductType => m_ProductType;
         [SerializeField] private ProductType m_ProductType;
 
-        public unit UnitCost
-        {
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get => m_UnitCost;
-        }
+        public unit UnitCost => m_UnitCost;
         [SerializeField] private unit m_UnitCost;
 
-        public unit MarketPrice
-        {
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get => m_MarketPrice;
-        }
+        public unit MarketPrice=> m_MarketPrice;
         [SerializeField] private unit m_MarketPrice;
 
-        public int UnitPerPack
-        {
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get => m_UnitPerPack;
-        }
+        public int UnitPerPack => m_UnitPerPack;
         [SerializeField] private int m_UnitPerPack;
 
-        public Company Company
-        {
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get => m_Company;
-        }
+        public Company Company => m_Company;
+
         [SerializeField] private Company m_Company;
 
-        public ProductOnSale ProductOnSale
-        {
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get => m_ProductOnSale;
-        }
+        public ProductOnSale ProductOnSale => m_ProductOnSale;
+
         [SerializeField] ProductOnSale m_ProductOnSale;
 
-        public Furniture Furniture
-        {
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get => m_Furniture;
-        }
+        public Furniture Furniture => m_Furniture;
         [SerializeField] Furniture m_Furniture;
+
+        public GameObject PlaceEffect => m_PlaceEffect;
+        [SerializeField] GameObject m_PlaceEffect;
 
 #if UNITY_EDITOR
         private void OnValidate()
