@@ -65,7 +65,6 @@ namespace Supermarket.Customers
             for (int i = 0; i < count; i++)
             {
                 var grid = grids[realIndex];
-
                 if (grid.Count > 0)
                 {
                     ProductOnSale product = grid.Peek();
@@ -73,7 +72,7 @@ namespace Supermarket.Customers
                 }
 
                 loopIndex++;
-                realIndex = (int)Mathf.Repeat(loopIndex, count - 1);
+                realIndex = loopIndex >= count ? loopIndex - count : loopIndex;
             }
 
             return null;
@@ -103,7 +102,7 @@ namespace Supermarket.Customers
                 }
 
                 loopIndex++;
-                realIndex = (int)Mathf.Repeat(loopIndex, count - 1);
+                realIndex = loopIndex >= count ? loopIndex - count : loopIndex;
             }
 
             return null;

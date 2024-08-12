@@ -63,7 +63,7 @@ public class PaymentTerminal : MonoBehaviour
     {
         rectTrans.anchoredPosition = new Vector2(rectTrans.anchoredPosition.x, -1000);
 
-        await rectTrans.DOMoveY(0, .2f);
+        await rectTrans.DOAnchorPosY(0, .2f);
     }
 
     public void Check(float value, Action OnCorrect, Action OnIncorrect)

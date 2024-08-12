@@ -36,25 +36,11 @@ namespace Supermarket.Customers
         [Header("Path Movement")]
         [NonSerialized]
         public MovementPath path;
-
-        [NonEditable] public Vector3 targetPosition;
-
-        [NonEditable]
-        public int currentNode;
         public Action OnPathComplete;
 
         [Header("Shopping")]
         [NonEditable]
         public bool goingShopping;
-        [NonSerialized]
-        public Storage currentStorage;
-
-
-        public int takeCount;
-        public int takedCount;
-
-        [NonEditable]
-        public List<ProductOnSale> productsInBag;
 
         public Transform handHoldTarget;
 
@@ -75,9 +61,6 @@ namespace Supermarket.Customers
             m_Agent = GetComponent<NavMeshAgent>();
             m_Agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
 
-
-
-            productsInBag = new List<ProductOnSale>(MAX_PRODUCTS);
             textMesh.gameObject.SetActive(false);
 
             if (PaymentObjectPool == null)
@@ -137,11 +120,6 @@ namespace Supermarket.Customers
             flatPos.y = 0;
 
             return (flatTarget - flatPos).sqrMagnitude <= m_Agent.stoppingDistance * m_Agent.stoppingDistance;
-        }
-
-        public void CompletePath()
-        {
-            OnPathComplete?.Invoke();
         }
 
         public void Say(string content)

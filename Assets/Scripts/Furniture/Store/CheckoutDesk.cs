@@ -118,6 +118,7 @@ public sealed class CheckoutDesk : Interactable, IInteractButton01
             if (packedCout == 0)
             {
                 OnPackedDone?.Invoke();
+                OnPackedDone = null;
             }
 
             return;
@@ -142,7 +143,7 @@ public sealed class CheckoutDesk : Interactable, IInteractButton01
                     break;
                 case PaymentType.Cash:
                     screen.Display(obj.value, totalCost, obj.value - totalCost, unit.zero);
-                    this.Publish(CashPayTopic, new CashPayNotify(totalCost, GetMoney, OnResetMoney, OnGiveCorrect, OnPayIncorrect));
+                    this.Publish(CashPayTopic, new CashPayNotify(obj.value - totalCost, GetMoney, OnResetMoney, OnGiveCorrect, OnPayIncorrect));
                     break;
                 default:
                     break;
@@ -195,26 +196,6 @@ public sealed class CheckoutDesk : Interactable, IInteractButton01
 
 
     //--------------------------------Money Changing--------------------------------------\\
-    public ProductOnSale mm;
-    public ProductOnSale mm1;
-    public ProductOnSale mm2;
-
-    private void Start()
-    {
-        //ProductPacking(Instantiate(mm));
-        ProductPacking(new List<ProductOnSale>()
-        {
-            Instantiate(mm),
-            Instantiate(mm1),
-            Instantiate(mm),
-            Instantiate(mm),
-            Instantiate(mm2),
-        });
-        //ProductPacking(Instantiate(mm));
-        //ProductPacking(Instantiate(mm2));
-        //ProductPacking(Instantiate(mm));
-    }
-
     public void ProductPacking(List<ProductOnSale> products)
     {
         var sortedProducts = products.OrderByDescending(p => p.GetWorldSize().magnitude).ToArray();
@@ -240,7 +221,7 @@ public sealed class CheckoutDesk : Interactable, IInteractButton01
             product.transform.rotation = Quaternion.identity;
         }
 
-        packedCout++;
+        packedCout = products.Count;
     }
 
     private void GetMoney(float val, float totalGiving)
@@ -367,13 +348,10 @@ public sealed class CheckoutDesk : Interactable, IInteractButton01
     //--------------------------------------------------PubSub Events-----------------------------------------------\\
     public static Topic CardPayTopic => cardPayTopic;
 
-    public static Topic CardPaidTopic => cardPaidTopic;
-
     public static Topic CashPayTopic => cashPayTopic;
 
 
     private static readonly Topic cardPayTopic = Topic.FromMessage<CardPayNotify>();
-    private static readonly Topic cardPaidTopic = Topic.FromMessage<CardPaidMessage>();
     private static readonly Topic cashPayTopic = Topic.FromMessage<CashPayNotify>();
 
 
@@ -389,11 +367,6 @@ public sealed class CheckoutDesk : Interactable, IInteractButton01
             OnCorrect = onCorrect;
             OnIncorrect = onIncorrect;
         }
-    }
-
-    public readonly struct CardPaidMessage : IMessage
-    {
-
     }
 
     public readonly struct CashPayNotify : IMessage

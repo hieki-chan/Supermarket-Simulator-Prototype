@@ -20,6 +20,13 @@ public class CustomerSM_Model : StateMachine<State>
     }
     public Customer _customer;
 
+
+    [NonEditable]
+    public int currentNode;
+
+    [NonEditable] public Vector3 targetPosition;
+
+
     public Storage storage
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -109,6 +116,8 @@ public class CustomerSM_Model : StateMachine<State>
 
     public override void Start()
     {
+        productsInBag = new List<ProductOnSale>(Customer.MAX_PRODUCTS);
+
         SwitchState<WalkingState>();
     }
 

@@ -32,7 +32,7 @@ public class ChoosingState : CustomerStateBase
                 return;
 
             //find an available other storage
-            Storage storage = AvaiableStorage();
+            Storage storage = AvailableStorage();
 
             if (!storage)
             {
@@ -52,14 +52,19 @@ public class ChoosingState : CustomerStateBase
             return;
         }
 
-        if (!AvaiableStorage())
+        var _storage = AvailableStorage();
+        if (!_storage)
         {
             customer.Say("why there's nothing!");
             SM.storage = null;
             SM.isShopping = false;
 
             SM.SwitchState<WalkingState>();
+            return;
         }
+
+        SM.storage = _storage;
+        SM.SwitchState<HeadingToStorageState>();
     }
 
     public override void OnStateUpdate()
@@ -84,7 +89,7 @@ public class ChoosingState : CustomerStateBase
         return true;
     }
 
-    Storage AvaiableStorage()
+    Storage AvailableStorage()
     {
         return SupermarketManager.Mine.GetAvailableStorage();
     }

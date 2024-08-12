@@ -22,7 +22,7 @@ public class PopUps : MonoBehaviour
 
     private void Awake()
     {
-        subscriber.Subscribe<CheckoutDesk.CardPayNotify>(CheckoutDesk.CardPaidTopic, CardPay);
+        subscriber.Subscribe<CheckoutDesk.CardPayNotify>(CheckoutDesk.CardPayTopic, CardPay);
         subscriber.Subscribe<CheckoutDesk.CashPayNotify>(CheckoutDesk.CashPayTopic, CashPay);
 
         subscriber.Subscribe<Furniture.TrySellNotify>(Furniture.trySellTopic, SellFurniture);

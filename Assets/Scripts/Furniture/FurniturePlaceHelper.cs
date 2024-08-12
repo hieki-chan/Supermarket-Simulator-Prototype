@@ -6,13 +6,12 @@ using Supermarket.Products;
 using Hieki.Pubsub;
 using Cysharp.Threading.Tasks;
 using System.Threading;
-using Unity.VisualScripting.Antlr3.Runtime;
 
-public class FurniturePlaceHelper : Interactable, IInteractButton01
+public class FurniturePlaceHelper : Interactable, IInteractButton01, IInteractButton02, IInteractButton03
 {
     public static FurniturePlaceHelper instance { get; private set; }
 
-    public UnitPool<Type, Transform> FakeFurniturePool = new UnitPool<Type, Transform>();
+    public UnitPool<string, Transform> FakeFurniturePool = new UnitPool<string, Transform>();
 
     ISubscriber subscriber = new Subscriber();
 
@@ -53,14 +52,13 @@ public class FurniturePlaceHelper : Interactable, IInteractButton01
 
     CancellationTokenSource tokenSource;
 
-    public void Place()
+    private void OnDestroy()
     {
+        if (tokenSource == null)
+            return;
 
-    }
-
-    public void CanPlace()
-    {
-
+        tokenSource.Cancel();
+        tokenSource.Dispose();
     }
 
     //------------------------------------MOVE--------------------------------\\
@@ -69,7 +67,7 @@ public class FurniturePlaceHelper : Interactable, IInteractButton01
     {
         currentFurniture = message.furniture;
         currentFurniture.gameObject.SetActive(false);
-        currentFakeFurniture = FakeFurniturePool.GetOrCreate(currentFurniture.GetType(), currentFurniture.FurnitureInfo.PlaceEffect.transform,
+        currentFakeFurniture = FakeFurniturePool.GetOrCreate(currentFurniture.name, currentFurniture.FurnitureInfo.PlaceEffect.transform,
             currentFurniture.transform.position, currentFurniture.transform.rotation);
 
         playerTrans = currentFurniture.playerTrans;
@@ -86,16 +84,24 @@ public class FurniturePlaceHelper : Interactable, IInteractButton01
         {
             await UniTask.NextFrame(tokenSource.Token, true);
 
-            Vector3 fwd = playerTrans.position + playerTrans.forward * 2;
-            currentFakeFurniture.transform.position = new Vector3(fwd.x, .014f, fwd.z);
+            Vector3 fwd = playerTrans.position + playerTrans.forward * radius;
+            currentFakeFurniture.position = new Vector3(fwd.x, .014f, fwd.z);
         }
     }
 
-    public void Ok()
+    public void CanPlace()
     {
-        currentFurniture.transform.position = currentFakeFurniture.position;
+
+    }
+
+    private void Ok()
+    {
+        currentFurniture.transform.SetPositionAndRotation(currentFakeFurniture.position, currentFakeFurniture.rotation);
         currentFurniture.gameObject.SetActive(true);
-        FakeFurniturePool.Return(currentFurniture.GetType(), currentFakeFurniture);
+        FakeFurniturePool.Return(currentFurniture.name, currentFakeFurniture);
+
+        currentFakeFurniture = null;
+        currentFurniture = null;
 
         tokenSource.Cancel();
 
@@ -124,12 +130,12 @@ public class FurniturePlaceHelper : Interactable, IInteractButton01
 
     void RotateLeft90()
     {
-        transform.rotation = Quaternion.Euler(0, transform.eulerAngles.y + 90, 0);
+        currentFakeFurniture.rotation = Quaternion.Euler(0, currentFakeFurniture.eulerAngles.y + 90, 0);
     }
 
     void RotateRight90()
     {
-        transform.rotation = Quaternion.Euler(0, transform.eulerAngles.y - 90, 0);
+        currentFakeFurniture.rotation = Quaternion.Euler(0, currentFakeFurniture.eulerAngles.y - 90, 0);
     }
 
     //----------------------------------------------------INTERACTING----------------------------------------------\\

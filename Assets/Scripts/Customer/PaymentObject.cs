@@ -1,12 +1,14 @@
 ﻿using Supermarket.Pricing;
 using UnityEngine.Events;
 using UnityEngine;
+using Supermarket.Customers;
 
 namespace Supermarket
 {
     public class PaymentObject : Interactable
     {
-        public PaymentType PaymentType;
+        public PaymentType PaymentType => m_PaymentType;
+        [SerializeField] private PaymentType m_PaymentType;
         public unit value;
         public UnityAction OnPayCorrected;
 

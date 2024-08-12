@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: bc39b83fe71eadf47a0572c2b86d1378, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.5602918
+      value: -2.560292
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: bc39b83fe71eadf47a0572c2b86d1378, type: 3}
       propertyPath: m_LocalPosition.y
@@ -18,7 +18,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: bc39b83fe71eadf47a0572c2b86d1378, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3.5418456
+      value: 3.541846
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: bc39b83fe71eadf47a0572c2b86d1378, type: 3}
       propertyPath: m_LocalRotation.w
@@ -94,8 +94,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.23097181, y: 0.00254878, z: 0.14435743}
-  m_Center: {x: 0.0022637732, y: 0.0000015981495, z: -0.00018516183}
+  m_Size: {x: 0.2309718, y: 0.00254878, z: 0.1443574}
+  m_Center: {x: 0.002263773, y: 0.00000159815, z: -0.0001851618}
 --- !u!114 &693699579737888789
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -126,6 +126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1867ff43860d81d408252e84e782c630, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interaction: {fileID: 0}
-  PaymentType: 1
-  value: 0
+  m_interactionInfo: {fileID: 0}
+  m_PaymentType: 1
+  value:
+    value: 0

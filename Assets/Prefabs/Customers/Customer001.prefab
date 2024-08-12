@@ -98,7 +98,6 @@ MonoBehaviour:
     _storage: {fileID: 0}
     _isShopping: 0
     _chooseCount: 0
-    _takedCount: 0
     _productsInBag: []
     state: 
   targetPosition: {x: 0, y: 0, z: 0}

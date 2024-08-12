@@ -1,8 +1,8 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using UnityEngine;
+using Cysharp.Threading.Tasks;
+using Hieki.Utils;
 using Supermarket;
 using Supermarket.Customers;
-using Supermarket.Products;
-using UnityEngine;
 
 public class PayingState : CustomerStateBase
 {
@@ -36,15 +36,14 @@ public class PayingState : CustomerStateBase
     {
         PaymentObject paymentObject;
 
-        if (customer.type == CustomerType.Poor)
+/*        if (customer.type == CustomerType.Poor)
         {
             paymentObject = Customer.PaymentObjectPool.Get(PaymentType.Cash, customer.handHoldTarget.position, customer.handHoldTarget.rotation);
         }
-        else
+        else*/
         {
             paymentObject = Customer.PaymentObjectPool.Get((PaymentType)Random.Range(0, 2), customer.handHoldTarget.position, customer.handHoldTarget.rotation);
         }
-
         paymentObject.transform.parent = customer.handHoldTarget;
         paymentObject.OnPayCorrected += () =>
         {
@@ -52,9 +51,9 @@ public class PayingState : CustomerStateBase
             SM.storage = null;
             SM.isShopping = false;
         };
-        customer.productsInBag.Clear();
+        SM.productsInBag.Clear();
 
-        customer.m_Animator.CrossFade(Customer.GiveHash, .02f);
+        customer.m_Animator.DynamicPlay(Customer.GiveHash, .02f);
 
         GiveMoney(paymentObject).Forget();
     }

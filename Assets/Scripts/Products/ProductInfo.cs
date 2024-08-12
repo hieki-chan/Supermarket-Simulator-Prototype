@@ -7,6 +7,9 @@ namespace Supermarket.Products
     [CreateAssetMenu(fileName = "New Product", menuName = "Products")]
     public class ProductInfo : ScriptableObject
     {
+        public int ProductId => m_ProductId;
+        [SerializeField] private int m_ProductId;
+
         public Sprite Icon { get => m_Icon; }
         [SerializeField] private Sprite m_Icon;
 

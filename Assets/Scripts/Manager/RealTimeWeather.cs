@@ -68,7 +68,19 @@ public class RealTimeWeather : MonoBehaviour
         DayPartChange();
 
         //weather changes
-        WeatherChange();
+        var matrix = weatherMatrix[weather];
+
+        matrix.ForeachRandomStart((next) =>
+        {
+            if (Chance(next.chance))
+            {
+                weather = next.weather;
+                WeatherChange();
+
+                return true;
+            }
+            return false;
+        });
 
         //update delayed
         token = this.GetCancellationTokenOnDestroy();

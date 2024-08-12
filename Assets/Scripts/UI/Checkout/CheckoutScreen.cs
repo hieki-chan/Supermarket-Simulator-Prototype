@@ -20,6 +20,7 @@ public class CheckoutScreen : MonoBehaviour
     public void DisplayCost(unit totalCost)
     {
         totalCostText.text = totalCost;
+        totalCostText.gameObject.SetActive(true);
         creditCardPaymentScreen.SetActive(false);
         cashPaymentScreen.SetActive(false);
     }

@@ -10,18 +10,23 @@ public class WalkingState : CustomerStateBase
     {
         customer.m_Animator.DynamicPlay(Customer.WalkingHash, .02f);
 
-        if(customer.currentNode == 0 || customer.currentNode == customer.path.Count - 1)
+        MovementPath path = customer.path;
+
+        if (SM.currentNode == 0 || SM.currentNode == customer.path.Count - 1)
         {
-            MovementPath path = customer.path;
-            int currentNode = customer.currentNode = 0;
-            customer.targetPosition = path.Nodes[currentNode].vertex;
+            int currentNode = SM.currentNode = 0;
+            SM.targetPosition = path.Nodes[currentNode].vertex;
+        }
+        else
+        {
+            SM.targetPosition = path.Nodes[SM.currentNode].vertex;
         }
     }
     public override void OnStateUpdate()
     {
         Customer customer = SM.customer;
 
-        if (customer.Reached(customer.targetPosition))
+        if (customer.Reached(SM.targetPosition))
         {
             if (Next())
                 Complete();
@@ -42,7 +47,7 @@ public class WalkingState : CustomerStateBase
         //MovementPath path = customer.path;
         //int currentNode = customer.currentNode;
 
-        customer.MoveTowards(customer.targetPosition);
+        customer.MoveTowards(SM.targetPosition);
 
         //int previousNode = currentNode - 1;
         //if (previousNode < 0)
@@ -55,23 +60,23 @@ public class WalkingState : CustomerStateBase
 
     bool Next()
     {
-        int currNode = ++customer.currentNode;
+        int currNode = ++SM.currentNode;
         if (currNode >= customer.path.Count)
         {
             return true;
         }
         //next
         MovementPath path = customer.path;
-        int currentNode = customer.currentNode;
-        customer.targetPosition = path.Nodes[currentNode].PositionInRange();
+        int currentNode = SM.currentNode;
+        SM.targetPosition = path.Nodes[currentNode].PositionInRange();
 
         return false;
     }
 
     void Complete()
     {
-        customer.currentNode = 0;
-        customer.targetPosition = customer.path.Nodes[0].vertex;
+        SM.currentNode = 0;
+        SM.targetPosition = customer.path.Nodes[0].vertex;
         customer.OnPathComplete?.Invoke();
     }
 }
