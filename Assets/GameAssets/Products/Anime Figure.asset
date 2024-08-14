@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8584411a03c50c245a198edb1eab0523, type: 3}
   m_Name: Anime Figure
   m_EditorClassIdentifier: 
+  m_ProductId: 0
   m_Icon: {fileID: 21300000, guid: 17caaa083f4b18049897dbb192026664, type: 3}
   m_ProductType: 1
   m_UnitCost:
@@ -22,3 +23,4 @@ MonoBehaviour:
   m_Company: {fileID: 11400000, guid: 20f6839c12f89b243a1fa37cf1056d20, type: 2}
   m_ProductOnSale: {fileID: 0}
   m_Furniture: {fileID: 7759405557435625560, guid: 091148f0bca644d4d80c1f490a3738f4, type: 3}
+  m_PlaceEffect: {fileID: 1194998447343645492, guid: 1a4e222dc6a415748a6b81b92f8ee81e, type: 3}

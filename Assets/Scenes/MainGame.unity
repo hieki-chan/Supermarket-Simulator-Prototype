@@ -3582,6 +3582,11 @@ MonoBehaviour:
   currentFurniture: {fileID: 0}
   currentFakeFurniture: {fileID: 0}
   radius: 2.5
+  overlapMask:
+    serializedVersion: 2
+    m_Bits: 6145
+  isValid: 0
+  playerTrans: {fileID: 0}
 --- !u!114 &535095126
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14807,8 +14812,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1234128950}
   - component: {fileID: 1234128951}
-  m_Layer: 0
-  m_Name: GameObject
+  m_Layer: 13
+  m_Name: Bounds
   m_TagString: Bounds
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -20038,7 +20043,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 62592558511177336, guid: 8d3acb0e802b6d844b85acb5df083602, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.823
+      value: 6.24
       objectReference: {fileID: 0}
     - target: {fileID: 62592558511177336, guid: 8d3acb0e802b6d844b85acb5df083602, type: 3}
       propertyPath: m_LocalPosition.y
@@ -20046,7 +20051,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 62592558511177336, guid: 8d3acb0e802b6d844b85acb5df083602, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 7.112
+      value: 7.77
       objectReference: {fileID: 0}
     - target: {fileID: 62592558511177336, guid: 8d3acb0e802b6d844b85acb5df083602, type: 3}
       propertyPath: m_LocalRotation.w

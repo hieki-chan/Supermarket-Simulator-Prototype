@@ -285,6 +285,7 @@ public sealed class CheckoutDesk : Interactable, IInteractButton01
         currentPayment.OnPayCorrect();
         currentPayment = null;
         checkoutLine[0].isTaked = false;
+        SupermarketManager.Mine.Store(totalCost);
         totalCost = 0;
     }
 

@@ -47,6 +47,15 @@ namespace Supermarket.Products
         }
 
         //------------------------------------MOVE--------------------------------\\
+        public void Move()
+        {
+            this.Publish(moveTopic, new MoveMessage(this));
+        }
+
+        private void TrySell()
+        {
+            this.Publish(trySellTopic, new TrySellNotify(Sell));
+        }
 
         private void Sell()
         {
@@ -67,7 +76,7 @@ namespace Supermarket.Products
 
         public void OnClick_Button01()
         {
-            this.Publish(moveTopic, new MoveMessage(this));
+            Move();
         }
 
         //----------------------------------- Button 02: Sell -------------------------------\\
@@ -84,7 +93,7 @@ namespace Supermarket.Products
 
         public void OnClick_Button02()
         {
-            this.Publish(trySellTopic, new TrySellNotify(Sell));
+            TrySell();
         }
 
         public static readonly Topic trySellTopic = Topic.FromMessage<TrySellNotify>();

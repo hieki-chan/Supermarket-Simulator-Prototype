@@ -108,7 +108,7 @@ namespace Supermarket.Player
         /// <summary>
         /// Enable/Disable target casting.
         /// </summary>
-        public static Topic castTopic { [MethodImpl(MethodImplOptions.AggressiveInlining)] get => _castTopic; }
+        public static Topic castingTopic { [MethodImpl(MethodImplOptions.AggressiveInlining)] get => _castTopic; }
         private static readonly Topic _castTopic = Topic.FromMessage<CastingMessage>();
     }
 }

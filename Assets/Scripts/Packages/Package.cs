@@ -25,10 +25,8 @@ public class Package : Interactable, IInteractButton01
     public void UnPack()
     {
         Furniture f = Furniture.Pool.GetOrCreate(furniture.GetType(), furniture, transform.position, Quaternion.identity);
-        //f.OnGet(player);
-        f.OnInteractEnter();
-        //f.OnInteract(player);
         furniture = null;
+        f.Move();
 
         //Pool.Return(this);
     }

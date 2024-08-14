@@ -29,6 +29,8 @@ public class FurniturePlaceHelper : Interactable, IInteractButton01, IInteractBu
         instance = this;
 
         subscriber.Subscribe<Furniture.MoveMessage>(Furniture.moveTopic, OnMoveStart);
+
+        playerTrans = FindObjectOfType<PlayerController>().transform;
     }
 
 #if UNITY_EDITOR
@@ -48,7 +50,15 @@ public class FurniturePlaceHelper : Interactable, IInteractButton01, IInteractBu
     [SerializeField]
     private float radius;
 
-    Transform playerTrans;
+    [SerializeField]
+    private LayerMask overlapMask;
+
+    [NonEditable, SerializeField]
+    private bool isValid;
+
+    Collider[] cols = new Collider[64];
+
+    public Transform playerTrans;
 
     CancellationTokenSource tokenSource;
 
@@ -70,8 +80,8 @@ public class FurniturePlaceHelper : Interactable, IInteractButton01, IInteractBu
         currentFakeFurniture = FakeFurniturePool.GetOrCreate(currentFurniture.name, currentFurniture.FurnitureInfo.PlaceEffect.transform,
             currentFurniture.transform.position, currentFurniture.transform.rotation);
 
-        playerTrans = currentFurniture.playerTrans;
         this.Publish(PlayerTopics.interactTopic, new InteractMessage(this));
+        this.Publish(PlayerTopics.castingTopic, new CastingMessage(false));
 
         tokenSource = new CancellationTokenSource();
 
@@ -80,18 +90,34 @@ public class FurniturePlaceHelper : Interactable, IInteractButton01, IInteractBu
 
     private async UniTaskVoid OnMoving()
     {
+        int t = 0;
         while (true)
         {
             await UniTask.NextFrame(tokenSource.Token, true);
-
+            
             Vector3 fwd = playerTrans.position + playerTrans.forward * radius;
             currentFakeFurniture.position = new Vector3(fwd.x, .014f, fwd.z);
+
+            t++;
+
+            if (t < 4)
+                continue;
+
+            t = 0;
+
+            int count = Physics.OverlapBoxNonAlloc(currentFakeFurniture.position, new Vector3(.5f, 0, .5f), cols, currentFakeFurniture.rotation, overlapMask);
+
+            //for (int i = 0; i < count; i++)
+            //{
+            //    Debug.Log(cols[i], cols[i]);
+            //}
+            isValid =  count == 0;
         }
     }
 
-    public void CanPlace()
+    private bool CanPlace()
     {
-
+        return isValid;
     }
 
     private void Ok()
@@ -106,24 +132,7 @@ public class FurniturePlaceHelper : Interactable, IInteractButton01, IInteractBu
         tokenSource.Cancel();
 
         this.Publish(PlayerTopics.interactTopic, new InteractMessage(null));
-
-        /*if (player.currentInteraction == this)
-        {
-            MoveDone();
-            return;
-        }
-        player.currentInteraction = this;
-        transform.parent = player.transform;
-        Vector3 fwd = player.transform.position + player.transform.forward * 2;
-        transform.position = new Vector3(fwd.x, .014f, fwd.z);
-        state = FurnitureState.Moving;*/
-    }
-
-    private void MoveDone()
-    {
-        /*player.currentInteraction = null;
-        transform.parent = null;
-        state = FurnitureState.Normal;*/
+        this.Publish(PlayerTopics.castingTopic, new CastingMessage(true));
     }
 
     //-----------------------------------ROTATION-------------------------------\\
@@ -143,7 +152,7 @@ public class FurniturePlaceHelper : Interactable, IInteractButton01, IInteractBu
     //----------------------------------- Button 01: Move/Ok -------------------------------\\
     public bool GetButtonState01()
     {
-        return true;
+        return CanPlace();
     }
 
     public string GetButtonTitle01()
