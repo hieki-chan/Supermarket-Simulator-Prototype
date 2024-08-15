@@ -987,6 +987,7 @@ MonoBehaviour:
   amountText: {fileID: 8757049326205919534}
   totalText: {fileID: 6597599712977401851}
   addToCartBttn: {fileID: 4395284274809920550}
+  NoLicenseGO: {fileID: 9059093616730982153}
   amount: 0
 --- !u!1 &4281006128715576823
 GameObject:

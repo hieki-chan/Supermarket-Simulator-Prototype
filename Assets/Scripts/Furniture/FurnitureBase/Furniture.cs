@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using Hieki.Pubsub;
+using Hieki.Utils;
 using UnityEngine;
 
 namespace Supermarket.Products
@@ -9,8 +10,8 @@ namespace Supermarket.Products
     {
         public static UnitPool<Type, Furniture> Pool = new UnitPool<Type, Furniture>(2);
 
-        public ProductInfo FurnitureInfo => furnitureInfo;
-        [SerializeField, NewProduct] protected ProductInfo furnitureInfo;
+        public FurnitureInfo FurnitureInfo => furnitureInfo;
+        [SerializeField, NewProduct] protected FurnitureInfo furnitureInfo;
 
         public FurnitureState state 
         {
@@ -132,6 +133,19 @@ namespace Supermarket.Products
         static void Init()  //domain reloading
         {
             Pool = new UnitPool<Type, Furniture>(2);
+        }
+
+        protected virtual void OnDrawGizmosSelected()
+        {
+            switch(FurnitureInfo.Shape)
+            {
+                case FurnitureInfo.FurnitureShape.Box:
+                    SceneDrawer.DrawWireCubeGizmo(transform.position, FurnitureInfo.Size, transform.rotation, Color.blue);
+                    break;
+                case FurnitureInfo.FurnitureShape.Circle:
+                    UnityEditor.Handles.DrawWireArc(transform.position, Vector3.up, Vector3.forward, 360, FurnitureInfo.Radius);
+                    break;
+            }
         }
 #endif
     }

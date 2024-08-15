@@ -19,6 +19,8 @@ public class ShopProductItem : MonoBehaviour
 
     public Button addToCartBttn;
 
+    public GameObject NoLicenseGO;
+
 
     [SerializeField, NonEditable]
     private int amount;
@@ -28,6 +30,12 @@ public class ShopProductItem : MonoBehaviour
     private void Awake()
     {
         addToCartBttn.onClick.AddListener(AddToCart);
+    }
+
+    private void OnEnable()
+    {
+        if(product)
+            NoLicenseGO.SetActive(!SupermarketManager.Mine.HasPermission(product.ProductId));
     }
 
     public void Load(ProductInfo productInfo)
@@ -40,6 +48,8 @@ public class ShopProductItem : MonoBehaviour
         amount = 1;
         amountText.text = amount.ToString();
         CalculateTotalCost();
+
+        NoLicenseGO.SetActive(!SupermarketManager.Mine.HasPermission(productInfo.ProductId));
     }
 
     public void OnAddAmout()

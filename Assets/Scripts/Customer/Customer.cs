@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using TMPro;
-using Supermarket.Products;
 using Hieki.AI;
 using Hieki.Utils;
 

@@ -18,7 +18,4 @@ MonoBehaviour:
   m_Cost:
     value: 4.82
   m_RequireStoreLevel: 56
-  m_AllowedPurchaseAndSellProducts:
-  - {fileID: 11400000, guid: c8150ee50176ce34f98c67be9a7cb545, type: 2}
-  - {fileID: 11400000, guid: 8c8d88ff7a64f0d40a49c8b53cf36422, type: 2}
-  - {fileID: 11400000, guid: 9a57b13e79ad95546bbac8e7a10d9303, type: 2}
+  m_PermissionIds: 000000000100000002000000

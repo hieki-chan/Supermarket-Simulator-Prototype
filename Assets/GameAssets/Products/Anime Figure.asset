@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8584411a03c50c245a198edb1eab0523, type: 3}
+  m_Script: {fileID: 11500000, guid: 11f987eb49c25b24c89d3c375c9d54ee, type: 3}
   m_Name: Anime Figure
   m_EditorClassIdentifier: 
   m_ProductId: 0
@@ -24,3 +24,6 @@ MonoBehaviour:
   m_ProductOnSale: {fileID: 0}
   m_Furniture: {fileID: 7759405557435625560, guid: 091148f0bca644d4d80c1f490a3738f4, type: 3}
   m_PlaceEffect: {fileID: 1194998447343645492, guid: 1a4e222dc6a415748a6b81b92f8ee81e, type: 3}
+  m_Shape: 1
+  m_Size: {x: 0, y: 0, z: 0}
+  m_Radius: 0.38

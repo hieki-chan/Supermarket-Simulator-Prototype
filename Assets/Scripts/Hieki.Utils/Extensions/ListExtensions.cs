@@ -60,7 +60,7 @@ namespace Hieki.Utils
                 }
 
                 loopIndex++;
-                realIndex = (int)Mathf.Repeat(loopIndex, count - 1);
+                realIndex = loopIndex >= count ? loopIndex - count : loopIndex;
             }
 
             return list ;

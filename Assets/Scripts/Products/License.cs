@@ -23,8 +23,29 @@ namespace Supermarket.Products
         [SerializeField, Min(0)] private int m_RequireStoreLevel;
 
 
+        [SerializeField] private List<int> m_PermissionIds = new List<int>();
 
-        public List<ProductInfo> AllowedPurchaseAndSellProducts => m_AllowedPurchaseAndSellProducts;
-        [SerializeField] private List<ProductInfo> m_AllowedPurchaseAndSellProducts = new List<ProductInfo>();
+        HashSet<int> m_PermissionIds_Hash;
+
+
+        public void Init()
+        {
+            if (m_PermissionIds_Hash != null)
+            {
+                return;
+            }
+
+            m_PermissionIds_Hash = new HashSet<int>();
+
+            foreach (var id in m_PermissionIds)
+            {
+                m_PermissionIds_Hash.Add(id);
+            }
+        }
+
+        public bool HasPermission(int id)
+        {
+            return m_PermissionIds_Hash.Contains(id);
+        }
     }
 }

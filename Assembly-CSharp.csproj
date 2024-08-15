@@ -62,6 +62,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Manager\TimeWeatherMessages.cs" />
     <Compile Include="Assets\Scripts\Shopping\ShoppingMessages.cs" />
+    <Compile Include="Assets\Scripts\Products\FurnitureInfo.cs" />
     <Compile Include="Assets\Scripts\Customer\CustomerType.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerMessages.cs" />
     <Compile Include="Assets\Scripts\Sounds\RainSound.cs" />
@@ -101,9 +102,9 @@
     <Compile Include="Assets\Scripts\UI\InteractButtonsView.cs" />
     <Compile Include="Assets\Scripts\UI\Checkout\PaymentTerminal.cs" />
     <Compile Include="Assets\Scripts\UserData\StoreData\StoreData.cs" />
+    <Compile Include="Assets\Scripts\Singleton.cs" />
     <Compile Include="Assets\Scripts\Customer\States\Base\CustomerSM_Model.cs" />
     <Compile Include="Assets\Scripts\MVP\Presenter.cs" />
-    <Compile Include="Assets\Scripts\Shopping\OnlineShopManager.cs" />
     <Compile Include="Assets\Scripts\Interaction\InteractionPresenter.cs" />
     <Compile Include="Assets\Scripts\Customer\States\Base\ViewableAttribute.cs" />
     <Compile Include="Assets\Scripts\Pricing\UnitedStatesDollar.cs" />
@@ -126,6 +127,7 @@
     <Compile Include="Assets\Scripts\UI\SellPanel.cs" />
     <Compile Include="Assets\Scripts\UI\PriceSettingView.cs" />
     <Compile Include="Assets\Scripts\Sounds\WalkSound.cs" />
+    <Compile Include="Assets\Scripts\UserData\StoreData\StoreCombinedData.cs" />
     <Compile Include="Assets\Scripts\MVP\SettingsPresenter.cs" />
     <Compile Include="Assets\Scripts\UI\Checkout\CheckoutScreen.cs" />
     <Compile Include="Assets\Scripts\Furniture\Store\CheckoutDesk.cs" />
@@ -143,12 +145,14 @@
     <Compile Include="Assets\Scripts\Customer\States\Base\CustomerStateBase.cs" />
     <Compile Include="Assets\Scripts\Attributes\NewProductAttribute.cs" />
     <Compile Include="Assets\Scripts\Customer\MovementPath.cs" />
+    <Compile Include="Assets\Scripts\Shopping\OnlineShopPresenter.cs" />
     <Compile Include="Assets\Scripts\UI\Tab\IndexedButton.cs" />
     <Compile Include="Assets\Scripts\MVP\DeliveryPresenter.cs" />
     <Compile Include="Assets\Scripts\UI\TimeAndWeather\RealTimeWeatherView.cs" />
     <Compile Include="Assets\Scripts\Customer\CustomerManager.cs" />
     <Compile Include="Assets\Scripts\UI\SupermarketView.cs" />
     <Compile Include="Assets\Scripts\UI\DeliveryLogger\DeliveryLogger.cs" />
+    <Compile Include="Assets\Scripts\Manager\AssetManager.cs" />
     <Compile Include="Assets\Scripts\Packages\Cartons.cs" />
     <Compile Include="Assets\Scripts\Interaction\InteractionInfo.cs" />
     <Compile Include="Assets\Scripts\Shopping\CartData.cs" />

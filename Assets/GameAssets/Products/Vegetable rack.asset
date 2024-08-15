@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8584411a03c50c245a198edb1eab0523, type: 3}
+  m_Script: {fileID: 11500000, guid: 11f987eb49c25b24c89d3c375c9d54ee, type: 3}
   m_Name: Vegetable rack
   m_EditorClassIdentifier: 
-  m_ProductId: 0
+  m_ProductId: 7
   m_Icon: {fileID: 21300000, guid: 5f892cdc1a460e24aba35c4f5bbebec4, type: 3}
   m_ProductType: 1
   m_UnitCost:
@@ -24,3 +24,6 @@ MonoBehaviour:
   m_ProductOnSale: {fileID: 0}
   m_Furniture: {fileID: 1922493800882088766, guid: 8d3acb0e802b6d844b85acb5df083602, type: 3}
   m_PlaceEffect: {fileID: 6821964660528857223, guid: e04be56a85552b44cac96ee43271cf2c, type: 3}
+  m_Shape: 0
+  m_Size: {x: 1, y: 0, z: 0.7}
+  m_Radius: 0

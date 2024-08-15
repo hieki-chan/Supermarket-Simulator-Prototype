@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8584411a03c50c245a198edb1eab0523, type: 3}
   m_Name: Men's Milk
   m_EditorClassIdentifier: 
+  m_ProductId: 4
   m_Icon: {fileID: 1086910532, guid: 1201c14bb4ee74d8e99e56dc4f3f4fd1, type: 3}
   m_ProductType: 0
   m_UnitCost:

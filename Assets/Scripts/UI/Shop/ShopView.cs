@@ -16,7 +16,7 @@ public class ShopView : MonoBehaviour
     public Transform itemContainer;
 
     private List<ShopProductItem> shopProducts;
-    private List<License_UI> shopLicenses;
+    private Dictionary<int, License_UI> shopLicenses;
 
     [Header("Furniture")]
     //public ShopProductItem shopFurniturePrefab;
@@ -46,15 +46,18 @@ public class ShopView : MonoBehaviour
     List<CartItem_UI> activeCart;
 
     public UnityAction<CartItem> OnAddToCart { get; set; }
-    public UnityAction<Company, int> OnRemovedFromCart;
-    public UnityAction OnBuy;
+    public UnityAction<Company, int> OnRemovedFromCart { get; set; }
+    public UnityAction OnBuy { get; set; }
+    public UnityAction<int> OnPurchaseLicense { get; set; }
 
-    public void OnItemsLoaded(List<ProductInfo> productsInfo)
+    public void OnItemsLoaded(Dictionary<int, ProductInfo> productsInfo)
     {
         shopProducts = new List<ShopProductItem>(productsInfo.Count);
 
-        foreach (ProductInfo productInfo in productsInfo)
+        foreach (var key in productsInfo.Keys)
         {
+            ProductInfo productInfo = productsInfo[key];
+
             var p = Instantiate(shopProductPrefab);
             shopProducts.Add(p);
 
@@ -76,14 +79,16 @@ public class ShopView : MonoBehaviour
 
     public void OnLicensesLoaded(Dictionary<int, License> licenses)
     {
-        shopLicenses = new List<License_UI>(licenses.Count);
+        shopLicenses = new Dictionary<int, License_UI>(licenses.Count);
 
-        foreach (var license in licenses)
+        foreach (var licenseId in licenses.Keys)
         {
+            License license = licenses[licenseId];
             var l = Instantiate(licenseUIPrefab);
-            shopLicenses.Add(l);
+            shopLicenses.Add(licenseId, l);
             l.transform.SetParent(licenseContainer, false);
-            l.Load();
+            l.Load(license.LicenseId, license.LicenseName, license.Description, license.StoreLeveRequired, license.Cost);
+            l.OnPurchase += OnLicensePurchase;
         }
     }
 
@@ -142,6 +147,18 @@ public class ShopView : MonoBehaviour
         activeCart.RemoveAt(i);
         cartItemCountText.text = activeCart.Count.ToString();
         OnRemovedFromCart?.Invoke(cartItem_UI.company, i);
+    }
+
+    void OnLicensePurchase(int licenseId)
+    {
+        OnPurchaseLicense?.Invoke(licenseId);
+    }
+
+    public void OnPurchaseLicenseSuccess(int licenseId)
+    {
+        if (!shopLicenses.TryGetValue(licenseId, out var licenseUI))
+            return;
+        licenseUI.OnPurchaseSuccess();
     }
 
     public void DisplayTotalCost(string value)

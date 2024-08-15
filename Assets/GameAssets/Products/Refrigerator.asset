@@ -9,9 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8584411a03c50c245a198edb1eab0523, type: 3}
+  m_Script: {fileID: 11500000, guid: 11f987eb49c25b24c89d3c375c9d54ee, type: 3}
   m_Name: Refrigerator
   m_EditorClassIdentifier: 
+  m_ProductId: 5
   m_Icon: {fileID: 21300000, guid: 53b92d457582cdd418cf8b919004dafd, type: 3}
   m_ProductType: 1
   m_UnitCost:
@@ -23,3 +24,6 @@ MonoBehaviour:
   m_ProductOnSale: {fileID: 0}
   m_Furniture: {fileID: 6270512193847150591, guid: 85eb35cf96f440f4396b95edc59e2ca8, type: 3}
   m_PlaceEffect: {fileID: 3786177156280212198, guid: 5ee97ec10deb7cc47874ecae991317ef, type: 3}
+  m_Shape: 0
+  m_Size: {x: 2, y: 0, z: 0.7}
+  m_Radius: 0

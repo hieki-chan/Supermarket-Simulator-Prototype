@@ -1,11 +1,11 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using Supermarket;
 using Supermarket.Player;
 using Supermarket.Products;
 using Hieki.Pubsub;
 using Cysharp.Threading.Tasks;
 using System.Threading;
+using FurShape = Supermarket.Products.FurnitureInfo.FurnitureShape;
 
 public class FurniturePlaceHelper : Interactable, IInteractButton01, IInteractButton02, IInteractButton03
 {
@@ -105,13 +105,20 @@ public class FurniturePlaceHelper : Interactable, IInteractButton01, IInteractBu
 
             t = 0;
 
-            int count = Physics.OverlapBoxNonAlloc(currentFakeFurniture.position, new Vector3(.5f, 0, .5f), cols, currentFakeFurniture.rotation, overlapMask);
+            FurnitureInfo furInfo =  currentFurniture.FurnitureInfo;
+
+            int count = furInfo.Shape switch
+            {
+                FurShape.Box => Physics.OverlapBoxNonAlloc(currentFakeFurniture.position, furInfo.Size / 2, cols, currentFakeFurniture.rotation, overlapMask),
+                FurShape.Circle => Physics.OverlapSphereNonAlloc(currentFakeFurniture.position, furInfo.Radius, cols, overlapMask),
+                _ => -1
+            };
 
             //for (int i = 0; i < count; i++)
             //{
             //    Debug.Log(cols[i], cols[i]);
             //}
-            isValid =  count == 0;
+            isValid = count == 0;
         }
     }
 

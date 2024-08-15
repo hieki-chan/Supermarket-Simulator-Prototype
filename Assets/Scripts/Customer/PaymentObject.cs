@@ -1,7 +1,6 @@
 ﻿using Supermarket.Pricing;
 using UnityEngine.Events;
 using UnityEngine;
-using Supermarket.Customers;
 
 namespace Supermarket
 {

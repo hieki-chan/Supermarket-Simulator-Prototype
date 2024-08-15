@@ -360,14 +360,14 @@ MonoBehaviour:
   m_text: Owned
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 11ba76eebc3316c44b786a60cf28fda1, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2287762235861947462, guid: 11ba76eebc3316c44b786a60cf28fda1, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4279304447
-  m_fontColor: {r: 1, g: 0, b: 0.06844187, a: 1}
+    rgba: 4278898944
+  m_fontColor: {r: 0, g: 0.8207547, b: 0.037415992, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -423,7 +423,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &4039227493103593923
@@ -600,8 +600,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 130.72485, y: -35.785034}
+  m_SizeDelta: {x: 468.6298, y: 507.65}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7373171275951447696
 CanvasRenderer:
@@ -660,6 +660,7 @@ MonoBehaviour:
   cost: {fileID: 2082432497092972407}
   purchaseBttn: {fileID: 8388625941463988376}
   owned: {fileID: 2609539829525888440}
+  licenseId: 0
 --- !u!1 &4579980791736861501
 GameObject:
   m_ObjectHideFlags: 0

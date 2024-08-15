@@ -1,5 +1,4 @@
 ﻿using Supermarket.Pricing;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
 namespace Supermarket.Products
@@ -39,8 +38,6 @@ namespace Supermarket.Products
         public Furniture Furniture => m_Furniture;
         [SerializeField] Furniture m_Furniture;
 
-        public GameObject PlaceEffect => m_PlaceEffect;
-        [SerializeField] GameObject m_PlaceEffect;
 
 #if UNITY_EDITOR
         private void OnValidate()

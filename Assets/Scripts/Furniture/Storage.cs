@@ -1,7 +1,6 @@
 ﻿using Supermarket.Products;
 using UnityEngine;
 using Hieki.Utils;
-using Supermarket.Player;
 
 namespace Supermarket.Customers
 {
@@ -110,8 +109,9 @@ namespace Supermarket.Customers
 
 
 #if UNITY_EDITOR
-        private void OnDrawGizmosSelected()
+        protected override void OnDrawGizmosSelected()
         {
+            base.OnDrawGizmosSelected();
             foreach (var grid in grids)
             {
                 grid.OnDrawGizmo();

@@ -54,6 +54,10 @@ public class SupermarketManager : MonoBehaviour
             levelProgress = 0,
             storeLevel = 0,
             money = 10000,
+            pruchasedLicenseIds = new int[1]
+            {
+                0,
+            }
         };
 
         OnMoneyChanged?.Invoke(Money);
@@ -103,6 +107,42 @@ public class SupermarketManager : MonoBehaviour
     public void SellFurniture()
     {
 
+    }
+
+    public bool PurchaseLicense(int licenseId)
+    {
+        License license = AssetManager.GetLicense(licenseId);
+
+        if(license == null)
+        {
+            return false;
+        }
+
+        if (TryConsume(license.Cost))
+        {
+            storeData.pruchasedLicenseIds = storeData.pruchasedLicenseIds.Append(licenseId).ToArray();
+            return true;
+        }
+
+        return false;
+    }
+
+    public bool HasPermission(int id)
+    {
+        foreach (var licenseId in storeData.pruchasedLicenseIds)
+        {
+            License license = AssetManager.GetLicense(licenseId);
+
+            if (license == null)
+                continue;
+
+            if (license.HasPermission(id))
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public bool TryConsume(unit amout)

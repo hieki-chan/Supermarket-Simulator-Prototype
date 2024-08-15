@@ -1,5 +1,4 @@
 ﻿using QuickOutline;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
 namespace Supermarket

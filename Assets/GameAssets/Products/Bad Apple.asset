@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8584411a03c50c245a198edb1eab0523, type: 3}
   m_Name: Bad Apple
   m_EditorClassIdentifier: 
+  m_ProductId: 1
   m_Icon: {fileID: 21300000, guid: 520c50ee1c0e07841aac9c8ac3c25521, type: 3}
   m_ProductType: 0
   m_UnitCost:

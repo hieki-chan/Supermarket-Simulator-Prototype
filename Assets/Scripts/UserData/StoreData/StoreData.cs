@@ -7,6 +7,6 @@
 
         public float money;
 
-        public int[] pruchasedLicenses;
+        public int[] pruchasedLicenseIds;
     }
 }

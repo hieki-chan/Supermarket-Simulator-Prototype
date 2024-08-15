@@ -2,7 +2,6 @@
 using Supermarket.MVP;
 using Supermarket.Player;
 using System;
-using UnityEngine;
 
 [Serializable]
 public class InteractionPresenter : Presenter<PlayerController, InteractButtonsView>
