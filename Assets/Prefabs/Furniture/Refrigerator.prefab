@@ -208,7 +208,7 @@ MonoBehaviour:
     count: 0
     displayColor: {r: 0.15178537, g: 1, b: 0, a: 1}
   priceTagPrefab: {fileID: 0}
-  priceTagPositionOffse: {x: 0, y: 0, z: 0}
+  priceTagPositionOffset: {x: 0, y: 0, z: 0.5}
 --- !u!1001 &5080766552456501336
 PrefabInstance:
   m_ObjectHideFlags: 0

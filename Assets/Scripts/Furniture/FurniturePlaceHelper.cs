@@ -77,6 +77,7 @@ public class FurniturePlaceHelper : Interactable, IInteractButton01, IInteractBu
     {
         currentFurniture = message.furniture;
         currentFurniture.gameObject.SetActive(false);
+        currentFurniture.OnMoveBegin();
         currentFakeFurniture = FakeFurniturePool.GetOrCreate(currentFurniture.name, currentFurniture.FurnitureInfo.PlaceEffect.transform,
             currentFurniture.transform.position, currentFurniture.transform.rotation);
 
@@ -131,6 +132,7 @@ public class FurniturePlaceHelper : Interactable, IInteractButton01, IInteractBu
     {
         currentFurniture.transform.SetPositionAndRotation(currentFakeFurniture.position, currentFakeFurniture.rotation);
         currentFurniture.gameObject.SetActive(true);
+        currentFurniture.OnMoveDone();
         FakeFurniturePool.Return(currentFurniture.name, currentFakeFurniture);
 
         currentFakeFurniture = null;

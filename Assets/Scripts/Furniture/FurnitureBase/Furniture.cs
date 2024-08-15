@@ -47,6 +47,10 @@ namespace Supermarket.Products
 
         }
 
+        public virtual void OnMoveBegin() { }
+
+        public virtual void OnMoveDone() { }
+
         //------------------------------------MOVE--------------------------------\\
         public void Move()
         {

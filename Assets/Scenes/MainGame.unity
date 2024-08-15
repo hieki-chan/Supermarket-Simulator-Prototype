@@ -5266,6 +5266,14 @@ PrefabInstance:
       propertyPath: furnitureInfo
       value: 
       objectReference: {fileID: 11400000, guid: 2528248ca0c18f941a38857deba91635, type: 2}
+    - target: {fileID: 6270512193847150591, guid: 85eb35cf96f440f4396b95edc59e2ca8, type: 3}
+      propertyPath: priceTagPrefab
+      value: 
+      objectReference: {fileID: 1190130154583990490, guid: c0d42d9ddaf58654c9a2278b3cb703bb, type: 3}
+    - target: {fileID: 6270512193847150591, guid: 85eb35cf96f440f4396b95edc59e2ca8, type: 3}
+      propertyPath: priceTagPositionOffset.z
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7035374375484832618, guid: 85eb35cf96f440f4396b95edc59e2ca8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 6.23
@@ -19982,10 +19990,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1922493800882088766, guid: 8d3acb0e802b6d844b85acb5df083602, type: 3}
-      propertyPath: furnitureInfo
-      value: 
-      objectReference: {fileID: 11400000, guid: 9ee9e806364ad484d98878f0d351346a, type: 2}
     - target: {fileID: 1984858396473448703, guid: 8d3acb0e802b6d844b85acb5df083602, type: 3}
       propertyPath: m_Name
       value: Vegetable rack
@@ -21234,10 +21238,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 657880464709435056, guid: ebf00590517edf04a8003f858703ab2e, type: 3}
-      propertyPath: furnitureInfo
-      value: 
-      objectReference: {fileID: 11400000, guid: 44106c2ab5f30144d85927a9cd72abad, type: 2}
     - target: {fileID: 4255605688770969058, guid: ebf00590517edf04a8003f858703ab2e, type: 3}
       propertyPath: m_Name
       value: Shelf

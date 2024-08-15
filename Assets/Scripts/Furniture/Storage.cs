@@ -11,7 +11,7 @@ namespace Supermarket.Customers
         public ArrangementGrid[] grids;
 
         [SerializeField] private PriceTag priceTagPrefab;
-        [SerializeField] private Vector3 priceTagPositionOffse;
+        [SerializeField] private Vector3 priceTagPositionOffset;
 
         PriceTag[] activePriceTagsSelf;
 
@@ -37,9 +37,9 @@ namespace Supermarket.Customers
 
                     if (activePriceTagsSelf[i] == null)
                     {
-                        PriceTag tag = PriceTagPool.GetOrCreate(priceTagPrefab, Position.Offset(gridTrans, priceTagPositionOffse), transform.rotation);
+                        PriceTag tag = PriceTagPool.GetOrCreate(priceTagPrefab);
                         //tag.transform.parent = gridTrans;
-                        tag.transform.position += transform.forward;
+                        tag.transform.SetPositionAndRotation(Position.Offset(gridTrans, priceTagPositionOffset), transform.rotation);
                         tag.productInfo = product.ProductInfo;
                         activePriceTagsSelf[i] = tag;
                         PriceTag.ActivePriceTags.Add(tag);
@@ -91,10 +91,10 @@ namespace Supermarket.Customers
                 {
                     ProductOnSale product = grid.Pop();
 
-                    if (grid.Count == 0 && activePriceTagsSelf[i] != null)
+                    if (grid.Count == 0 && activePriceTagsSelf[realIndex] != null)
                     {
-                        PriceTagPool.Return(activePriceTagsSelf[i]);
-                        activePriceTagsSelf[i] = null;
+                        PriceTagPool.Return(activePriceTagsSelf[realIndex]);
+                        activePriceTagsSelf[realIndex] = null;
                     }
 
                     return product;
@@ -105,6 +105,28 @@ namespace Supermarket.Customers
             }
 
             return null;
+        }
+
+        public override void OnMoveBegin()
+        {
+            foreach (var tag in activePriceTagsSelf)
+            {
+                if(tag == null)
+                    continue;
+                tag.gameObject.SetActive(false);
+            }
+        }
+
+        public override void OnMoveDone()
+        {
+            for (int i = 0; i < activePriceTagsSelf.Length; i++)
+            {
+                PriceTag tag = activePriceTagsSelf[i];
+                if (tag == null)
+                    continue;
+                tag.gameObject.SetActive(true);
+                tag.transform.SetPositionAndRotation(Position.Offset(grids[i].transform, priceTagPositionOffset), transform.rotation);
+            }
         }
 
 
@@ -121,7 +143,7 @@ namespace Supermarket.Customers
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
         static void Init()  //domain reloading
         {
-            PriceTagPool = new MonoPool<PriceTag>();
+            PriceTagPool = null;
         }
 #endif
     }

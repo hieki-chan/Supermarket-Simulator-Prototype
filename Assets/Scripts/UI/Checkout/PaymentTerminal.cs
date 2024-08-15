@@ -125,6 +125,7 @@ public class PaymentTerminal : MonoBehaviour
                 OnCorrect?.Invoke();
                 gameObject.SetActive(false);
                 textValue.Clear();
+                digitIndex = -1;
                 return;
             }
         }
